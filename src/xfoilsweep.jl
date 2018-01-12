@@ -1,7 +1,7 @@
 """
     xfoilsweep(x,y,aoa,re;<keyword arguments>)
 Performs angle of attack sweep using Xfoil.  A number of options are available
-to improve convergence and customize the run.
+to improve convergence and customize the run. Returns cl,cd,cdp,cm,converged
 # Arguments
 - `x`: Airfoil coordinates start from trailing edge looping counterclockwise
 - `y`:
@@ -106,7 +106,7 @@ end
 """
     dopercussivemaintainance(x,y,aoa,re,iter,npan)
 Attempts to converge previously unconverged XFOIL solutions through modifying the
-solution initial conditions
+solution initial conditions. Returns cl,cd,cdp,cm,conv
 """
 function dopercussivemaintainance(x,y,aoa,re,iter,npan)
   remod = re

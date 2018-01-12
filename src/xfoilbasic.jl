@@ -1,7 +1,7 @@
 """
     setCoordinates(x,y)
 Input x and y airfoil coordinates into XFOIL
-Coordinates must start at the trailing edge and loop counterclockwise
+Coordinates must start at the trailing edge and loop counterclockwise.
 """
 function setCoordinates(x,y)
   if length(x) != length(y)
@@ -16,6 +16,7 @@ function setCoordinates(x,y)
   xfoilglobals.xb[1:nb] = x
   xfoilglobals.yb[1:nb] = y
   ccall( (:xfoil, libxfoiljl), Void,())
+  return nothing
 end
 
 """
@@ -44,11 +45,13 @@ function pane(;npan::Integer=140,cvpar::AbstractFloat=1.0,cterat::AbstractFloat=
   xfoilglobals.xpref1[1] = xpref1
   xfoilglobals.xpref2[1] = xpref2
   ccall( (:pangen, libxfoiljl), Void, ())
+  return nothing
 end
 
 """
     solveAlpha(angle;re=1e5,mach=0.0,iter=50)
-Compute the flow solution at specified angle of attack (in degrees)
+Compute the flow solution at specified angle of attack (in degrees).
+Returns cl,cd,cdp,cm,converged
 """
 function solveAlpha(angle;re=1e5,mach=0.0,iter=50)
   cl = zeros(1)
@@ -73,7 +76,8 @@ end
 
 """
     bldump()
-Get boundary layer parameters (s,x,y,ue,dstar,theta,cf)
+Get boundary layer parameters
+Returns s,x,y,ue,dstar,theta,cf
 """
 function bldump()
   nelem = zeros(Int32,1)

@@ -404,6 +404,11 @@ struct globalstruct
   #cc03
   vmxbl::String
 end
+
+"""
+    getglobals()
+Returns a globalstruct, which contains fields directly referencing XFOIL's globals
+"""
 function getglobals()
   cr01 = getCR01()
   cr03 = getCR03()
