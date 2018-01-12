@@ -106,7 +106,7 @@ end
 """
     dopercussivemaintainance(x,y,aoa,re,iter,npan)
 Attempts to converge previously unconverged XFOIL solutions through modifying the
-solution initial conditions. Returns cl,cd,cdp,cm,conv
+solution initial conditions. Returns cl,cd,cdp,cm,converged
 """
 function dopercussivemaintainance(x,y,aoa,re,iter,npan)
   remod = re
