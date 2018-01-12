@@ -12,7 +12,7 @@ to improve convergence and customize the run. Returns cl,cd,cdp,cm,converged
 - `npan::Integer=140`: Number of panels
 - `percussive_maintenance::Bool=true`: Try harder to achieve convergence
 - `printdata::Bool=false`: Print output
-- `printdata::Bool=false`: Initialize solution from zero
+- `zeroinit::Bool=false`: Initialize solution from zero
 - `clmaxstop::Bool=false`: Stop if lift coefficient decreases twice consecutively going up
 - `clminstop::Bool=false`: Stop if lift coefficient increases twice consecutively going down
 """
