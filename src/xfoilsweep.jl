@@ -104,7 +104,7 @@ function xfoilsweep(x,y,aoa,re::Real,mach::Real,iter::Integer,
 end
 
 """
-   dopercussivemaintainance(x,y,aoa,re,iter,npan)
+    dopercussivemaintainance(x,y,aoa,re,iter,npan)
 Attempts to converge previously unconverged XFOIL solutions through modifying the
 solution initial conditions
 """
