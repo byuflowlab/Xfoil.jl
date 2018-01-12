@@ -7,29 +7,24 @@ Running XFOIL from Julia is significantly faster than running it from Python.
 Note that while the complex step method has been implemented in the pyXLIGHT
 project, it has not yet been implemented in this project.
 
-To compile type:
+To build run the XFOIL library run the deps/build.jl file:
 
-make intel  OR
-make gfortran
+`julia deps/build.jl`
 
-Then to install into usr/local/lib type:
+To rebuild, it may be necessary to delete the installed library located at
+deps/usr/lib
 
-sudo make install
-
-The default shared library name is libxfoiljl.so.  Note that the extension is
-currently set up for Unix (rather than OS).  If using OS simply change the
-XFOIL_LIB variable in Makefile and src/Makefile from libxfoiljl.so to
-libxfoiljl.dylib.
+`rm deps/usr/lib`
 
 The Xfoil module contains routines for loading airfoil coordinates, re-paneling,
 running viscous analyses, and getting boundary layer data.  See the
 Julia documentation for each function for usage.
 
-The XfoilSweep module contains a higher level method for running an angle of
+It also contains higher level methods for running an angle of
 attack sweep in XFOIL.  This method uses various methods to improve convergence.
 
-The XfoilGlobals module allows direct access to the Fortran global variables
-through a struct obtained by calling XfoilGlobals.getglobals(). Note that the
+This module allows direct access to the Fortran global variables
+through a struct obtained by calling getglobals(). Note that the
 parameters are wrapped as Julia arrays, but still refer to the Fortran allocated
 memory blocks.  This allows for in-depth modification to default XFOIL
 parameters and access to more output variables.  This feature was developed
