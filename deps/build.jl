@@ -8,6 +8,10 @@ libxfoiljl = library_dependency("libxfoiljl")
 installdir=joinpath(BinDeps.depsdir(libxfoiljl),"usr","lib")
 srcdir = joinpath(BinDeps.depsdir(libxfoiljl),"src","xfoil")
 
+if !isfile(installdir)
+    mkpath(installdir)
+end
+
 provides(SimpleBuild,
     (@build_steps begin
         ChangeDirectory(srcdir)
