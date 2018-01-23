@@ -1,8 +1,4 @@
-# Test script to test XfoilPlus
-filepath,_ = splitdir(@__FILE__)
-modulepath = joinpath("../julia")
-push!(LOAD_PATH,modulepath)
-import XfoilSweep
+import Xfoil
 
 airfoil_file = "naca2412.dat"
 
@@ -15,6 +11,6 @@ open(airfoil_file,"r") do f
   end
 end
 
-angle = linspace(-15,20,61)
+angle = linspace(-15,20,61)*pi/180
 
-cl,cd,cdp,cm,converged = XfoilSweep.xfoilsweep(x,y,angle,100000,iter=100,printdata=true,clminstop=true,clmaxstop=true)
+cl,cd,cdp,cm,converged = Xfoil.xfoilsweep(x,y,angle,100000,iter=100,printdata=true,clminstop=true,clmaxstop=true);

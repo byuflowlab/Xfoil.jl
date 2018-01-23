@@ -30,7 +30,7 @@ C		for greater clarity in python wrapping
 C	060806: Stripped everything to do with plotting and gui
 C***********************************************************************
 C
-      SUBROUTINE XFOIL() BIND(C)
+      SUBROUTINE XFOIL()
 
       INCLUDE 'XFOIL.INC'
       CHARACTER*4 COMAND
@@ -1240,7 +1240,7 @@ C
       END
 
 
-      SUBROUTINE PANGEN() BIND(C)
+      SUBROUTINE PANGEN()
 C---------------------------------------------------
 C     Set paneling distribution from buffer airfoil
 C     geometry, thus creating current airfoil.

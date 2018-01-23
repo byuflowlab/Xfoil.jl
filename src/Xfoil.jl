@@ -13,6 +13,9 @@ end
 # Load methods for getting XFOIL globals
 include("xfoilglobals.jl")
 
+# Get globals once for all future use
+xfoilglobals = getglobals()
+
 # Load basic methods for running XFOIL
 include("xfoilbasic.jl")
 

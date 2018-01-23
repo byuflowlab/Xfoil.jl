@@ -19,7 +19,7 @@ C    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 C***********************************************************************
 C
 C
-      SUBROUTINE OPER() BIND(C)
+      SUBROUTINE OPER()
       INCLUDE 'XFOIL.INC'
       CHARACTER*1 ANS
       CHARACTER*4 COMAND, COMOLD
@@ -262,7 +262,7 @@ C
 
 
       SUBROUTINE BLDUMP(DIMOUT,SOUT,XOUT,YOUT,
-     &                  UEOUT,DSOUT,THOUT,CFOUT) BIND(C)
+     &                  UEOUT,DSOUT,THOUT,CFOUT)
       INCLUDE 'XFOIL.INC'
       INTEGER, INTENT(OUT) :: DIMOUT
       REAL, DIMENSION(IZX), INTENT(OUT) :: SOUT

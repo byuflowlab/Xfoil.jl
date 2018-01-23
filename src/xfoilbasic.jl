@@ -10,12 +10,11 @@ function setCoordinates(x,y)
   if length(x) > 572
     error("Array lengths must be less than 573")
   end
-  xfoilglobals = getglobals()
   nb = length(x)
   xfoilglobals.nb[1] = nb
   xfoilglobals.xb[1:nb] = x
   xfoilglobals.yb[1:nb] = y
-  ccall( (:xfoil, libxfoiljl), Void,())
+  ccall( (:xfoil_, libxfoiljl), Void,())
   return nothing
 end
 
@@ -35,7 +34,6 @@ Run XFOIL's PANE Command (repanel airfoil)
 function pane(;npan::Integer=140,cvpar::AbstractFloat=1.0,cterat::AbstractFloat=0.15,
   ctrrat::AbstractFloat=0.2,xsref1::AbstractFloat=1.0,xsref2::AbstractFloat=1.0,xpref1::AbstractFloat=1.0,
   xpref2::AbstractFloat=1.0)
-  xfoilglobals = getglobals()
   xfoilglobals.npan[1] = npan
   xfoilglobals.cvpar[1] = cvpar
   xfoilglobals.cterat[1] = cterat
@@ -44,7 +42,7 @@ function pane(;npan::Integer=140,cvpar::AbstractFloat=1.0,cterat::AbstractFloat=
   xfoilglobals.xsref2[1] = xsref2
   xfoilglobals.xpref1[1] = xpref1
   xfoilglobals.xpref2[1] = xpref2
-  ccall( (:pangen, libxfoiljl), Void, ())
+  ccall( (:pangen_, libxfoiljl), Void, ())
   return nothing
 end
 
@@ -60,12 +58,11 @@ function solveAlpha(angle;re=1e5,mach=0.0,iter=50)
   cm = zeros(1)
   lvconvout = zeros(Int32,1)
   lexitflagout = zeros(Int32,1)
-  xfoilglobals = getglobals()
   xfoilglobals.adeg[1] = angle
   xfoilglobals.reinf1[1] = re
   xfoilglobals.minf1[1] = mach
   xfoilglobals.itmax[1] = iter
-  ccall((:oper,libxfoiljl),Void,())
+  ccall((:oper_,libxfoiljl),Void,())
   cl = xfoilglobals.cl[1]
   cd = xfoilglobals.cd[1]
   cdp = xfoilglobals.cdp[1]
@@ -88,7 +85,7 @@ function bldump()
   dstar = zeros(Float64,IZX)
   theta = zeros(Float64,IZX)
   cf = zeros(Float64,IZX)
-  ccall( (:bldump, libxfoiljl), Void,
+  ccall( (:bldump_, libxfoiljl), Void,
   (Ref{Int32},Ref{Float64},Ref{Float64},Ref{Float64},Ref{Float64},Ref{Float64},Ref{Float64},Ref{Float64}),
   nelem,s,x,y,ue,dstar,theta,cf)
   return s[1:nelem[1]],x[1:nelem[1]],y[1:nelem[1]],ue[1:nelem[1]],dstar[1:nelem[1]],theta[1:nelem[1]],cf[1:nelem[1]]
