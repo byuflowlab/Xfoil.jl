@@ -12,18 +12,13 @@ if !isfile(installdir)
     mkpath(installdir)
 end
 
-provides(SimpleBuild,
-    (@build_steps begin
-        ChangeDirectory(srcdir)
-        `make XFOIL_LIB=libxfoiljl.so`
-        `make -j1 install INSTALL_DIR=$installdir XFOIL_LIB=libxfoiljl.so`
-    end),libxfoiljl, os = :Linux)
+suffix = is_apple() ? "dylib" : "so"
 
 provides(SimpleBuild,
     (@build_steps begin
         ChangeDirectory(srcdir)
-        `make XFOIL_LIB=libxfoiljl.dylib`
-        `make -j1 install INSTALL_DIR=$installdir XFOIL_LIB=libxfoiljl.so`
-    end),libxfoiljl, os = :Darwin)
+        `make SUFFIX=$suffix`
+        `make -j1 install INSTALL_DIR=$installdir SUFFIX=$suffix`
+    end),libxfoiljl, os = :Unix)
 
 @compat @BinDeps.install Dict(:libxfoiljl => :libxfoiljl)

@@ -6,6 +6,8 @@
 RM       = /bin/rm -rf
 FC       = gfortran
 FFLAGS   = -O3 -fdefault-real-8 -fPIC -shared
+LIB = libxfoiljl
+SUFFIX = .so
 
 OBJ =	xfoil.o\
 	 xpanel.o\
@@ -25,10 +27,10 @@ OBJ =	xfoil.o\
 default: libxfoil
 
 clean:
-	$(RM) *.o libxfoil.a
+	$(RM) *.o $(LIB).$(SUFFIX)
 
 libxfoil: $(OBJ)
-	$(FC) -O3 -shared -fPIC -o $(XFOIL_LIB) $(OBJ)
+	$(FC) -O3 -shared -fPIC -o $(LIB).$(SUFFIX) $(OBJ)
 
 .SUFFIXES: .o .f .f90
 
@@ -45,4 +47,4 @@ libxfoil: $(OBJ)
 	@echo
 
 install:
-	install $(XFOIL_LIB) $(INSTALL_DIR)
+	install $(LIB).$(SUFFIX) $(INSTALL_DIR)
