@@ -4,8 +4,7 @@ Xfoil.jl is a stripped down version of XFOIL made for Julia.  It is a fork of
 the pyXLIGHT project which is a stripped down version of XFOIL made for Python.
 Running XFOIL from Julia is significantly faster than running it from Python.
 
-Note that while the complex step method has been implemented in the pyXLIGHT
-project, it has not yet been implemented in this project.
+Similar to pyXLIGHT, complex step has been implemented in this project.
 
 To build run the XFOIL library run the deps/build.jl file:
 

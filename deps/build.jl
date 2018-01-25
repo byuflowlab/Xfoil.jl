@@ -3,10 +3,12 @@ using Compat
 
 @BinDeps.setup
 
-libxfoiljl = library_dependency("libxfoiljl")
+libxfoil = library_dependency("libxfoil")
+libxfoil_cs = library_dependency("libxfoil_cs")
 
-installdir=joinpath(BinDeps.depsdir(libxfoiljl),"usr","lib")
-srcdir = joinpath(BinDeps.depsdir(libxfoiljl),"src","xfoil")
+installdir=joinpath(BinDeps.depsdir(libxfoil),"usr","lib")
+xfoilsrc = joinpath(BinDeps.depsdir(libxfoil),"src","xfoil")
+xfoilsrc_cs = joinpath(BinDeps.depsdir(libxfoil),"src","xfoil_cs")
 
 if !isfile(installdir)
     mkpath(installdir)
@@ -16,9 +18,16 @@ suffix = is_apple() ? "dylib" : "so"
 
 provides(SimpleBuild,
     (@build_steps begin
-        ChangeDirectory(srcdir)
+        ChangeDirectory(xfoilsrc)
         `make SUFFIX=$suffix`
         `make -j1 install INSTALL_DIR=$installdir SUFFIX=$suffix`
-    end),libxfoiljl, os = :Unix)
+    end),libxfoil, os = :Unix)
 
-@compat @BinDeps.install Dict(:libxfoiljl => :libxfoiljl)
+provides(SimpleBuild,
+    (@build_steps begin
+        ChangeDirectory(xfoilsrc_cs)
+        `make SUFFIX=$suffix`
+        `make -j1 install INSTALL_DIR=$installdir SUFFIX=$suffix`
+    end),libxfoil_cs, os = :Unix)
+
+@compat @BinDeps.install Dict(:libxfoil => :libxfoil,:libxfoil_cs => :libxfoil_cs)

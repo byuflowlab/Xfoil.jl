@@ -3,7 +3,7 @@
 Input x and y airfoil coordinates into XFOIL
 Coordinates must start at the trailing edge and loop counterclockwise.
 """
-function setCoordinates(x,y)
+function setCoordinates(x::Array{Float64,1},y::Array{Float64,1})
   if length(x) != length(y)
     error("x and y arrays must match in length")
   end
@@ -14,7 +14,7 @@ function setCoordinates(x,y)
   xfoilglobals.nb[1] = nb
   xfoilglobals.xb[1:nb] = x
   xfoilglobals.yb[1:nb] = y
-  ccall( (:xfoil_, libxfoiljl), Void,())
+  ccall( (:xfoil_, libxfoil), Void,())
   return nothing
 end
 
@@ -23,17 +23,17 @@ end
 Run XFOIL's PANE Command (repanel airfoil)
 # Arguments
 - `npan::Integer=140`: Number of panel nodes
-- `cvpar::AbstractFloat=1.0`: Panel bunching parameter
-- `cterat::AbstractFloat=0.15`: TE/LE panel density ratio
-- `ctrrat::AbstractFloat=0.2`: Refined-area/LE panel density ratio
-- `xsref1::AbstractFloat=1.0`: Top side refined area x/c limits
-- `xsref2::AbstractFloat=1.0`:
-- `xpref1::AbstractFloat=1.0`: Bottom side refined area x/c limits
-- `xpref2::AbstractFloat=1.0`:
+- `cvpar::Float64=1.0`: Panel bunching parameter
+- `cterat::Float64=0.15`: TE/LE panel density ratio
+- `ctrrat::Float64=0.2`: Refined-area/LE panel density ratio
+- `xsref1::Float64=1.0`: Top side refined area x/c limits
+- `xsref2::Float64=1.0`:
+- `xpref1::Float64=1.0`: Bottom side refined area x/c limits
+- `xpref2::Float64=1.0`:
 """
-function pane(;npan::Integer=140,cvpar::AbstractFloat=1.0,cterat::AbstractFloat=0.15,
-  ctrrat::AbstractFloat=0.2,xsref1::AbstractFloat=1.0,xsref2::AbstractFloat=1.0,xpref1::AbstractFloat=1.0,
-  xpref2::AbstractFloat=1.0)
+function pane(;npan::Integer=140,cvpar::Float64=1.0,cterat::Float64=0.15,
+  ctrrat::Float64=0.2,xsref1::Float64=1.0,xsref2::Float64=1.0,xpref1::Float64=1.0,
+  xpref2::Float64=1.0)
   xfoilglobals.npan[1] = npan
   xfoilglobals.cvpar[1] = cvpar
   xfoilglobals.cterat[1] = cterat
@@ -42,27 +42,27 @@ function pane(;npan::Integer=140,cvpar::AbstractFloat=1.0,cterat::AbstractFloat=
   xfoilglobals.xsref2[1] = xsref2
   xfoilglobals.xpref1[1] = xpref1
   xfoilglobals.xpref2[1] = xpref2
-  ccall( (:pangen_, libxfoiljl), Void, ())
+  ccall( (:pangen_, libxfoil), Void, ())
   return nothing
 end
 
 """
-    solveAlpha(angle;re=1e5,mach=0.0,iter=50)
+    solveAlpha(angle::Float64;re::Float64=1e5,mach::Float64=0.0,iter::Integer=50)
 Compute the flow solution at specified angle of attack (in degrees).
 Returns cl,cd,cdp,cm,converged
 """
-function solveAlpha(angle;re=1e5,mach=0.0,iter=50)
-  cl = zeros(1)
-  cd = zeros(1)
-  cdp = zeros(1)
-  cm = zeros(1)
+function solveAlpha(angle::Float64;re::Float64=1e5,mach::Float64=0.0,iter::Integer=50)
+  cl = zeros(Float64,1)
+  cd = zeros(Float64,1)
+  cdp = zeros(Float64,1)
+  cm = zeros(Float64,1)
   lvconvout = zeros(Int32,1)
   lexitflagout = zeros(Int32,1)
   xfoilglobals.adeg[1] = angle
   xfoilglobals.reinf1[1] = re
   xfoilglobals.minf1[1] = mach
   xfoilglobals.itmax[1] = iter
-  ccall((:oper_,libxfoiljl),Void,())
+  ccall((:oper_,libxfoil),Void,())
   cl = xfoilglobals.cl[1]
   cd = xfoilglobals.cd[1]
   cdp = xfoilglobals.cdp[1]
@@ -85,7 +85,7 @@ function bldump()
   dstar = zeros(Float64,IZX)
   theta = zeros(Float64,IZX)
   cf = zeros(Float64,IZX)
-  ccall( (:bldump_, libxfoiljl), Void,
+  ccall( (:bldump_, libxfoil), Void,
   (Ref{Int32},Ref{Float64},Ref{Float64},Ref{Float64},Ref{Float64},Ref{Float64},Ref{Float64},Ref{Float64}),
   nelem,s,x,y,ue,dstar,theta,cf)
   return s[1:nelem[1]],x[1:nelem[1]],y[1:nelem[1]],ue[1:nelem[1]],dstar[1:nelem[1]],theta[1:nelem[1]],cf[1:nelem[1]]

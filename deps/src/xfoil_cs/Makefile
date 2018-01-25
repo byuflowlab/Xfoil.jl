@@ -3,36 +3,34 @@
 # H.Youngren 4/24/01
 # M.Drela
 #*********************************************************
-RM      = /bin/rm -rf
-FC      = gfortran
-FFLAGS  = -O3 -fdefault-real-8 -fPIC -shared
-LIB 	= libxfoil
-SUFFIX 	= so
+RM	= /bin/rm -rf
+FC	= gfortran
+FFLAGS	= -O3 -fdefault-real-8 -fPIC -shared
+LIB	= libxfoil_cs
+SUFFIX	= so
 
-OBJ =	xfoil.o\
-	 xpanel.o\
-	 xoper.o\
-	 xsolve.o\
-	 xgdes.o\
-	 xbl.o\
-	 xblsys.o\
-	 xgeom.o\
-	 xutils.o\
-	 aread.o\
-	 userio.o\
-	 spline.o\
-	 naca.o\
-	 xdriver.o
+OBJ =	complexify.o\
+	c_xfoil.o\
+	c_xpanel.o\
+	c_xoper.o\
+	c_xsolve.o\
+	c_xgdes.o\
+	c_xbl.o\
+	c_xblsys.o\
+	c_xgeom.o\
+	c_xutils.o\
+	c_aread.o\
+	c_userio.o\
+	c_spline.o\
+	c_naca.o
 
-default: libxfoil
+default: libxfoil_cs
 
 clean:
 	$(RM) *.o $(LIB).$(SUFFIX)
 
-libxfoil: $(OBJ)
+libxfoil_cs: $(OBJ)
 	$(FC) -O3 -shared -fPIC -o $(LIB).$(SUFFIX) $(OBJ)
-
-.SUFFIXES: .o .f .f90
 
 %.o : %.f
 	$(FC) $(FFLAGS) -c $< -o $*.o

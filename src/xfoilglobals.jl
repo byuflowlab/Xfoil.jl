@@ -447,7 +447,7 @@ struct cr01struct
   version::Array{Float64,1}
 end
 function getCR01()
-  cr01 = cglobal((:cr01_,libxfoiljl),Float64)
+  cr01 = cglobal((:cr01_,libxfoil),Float64)
   version = unsafe_wrap(Array,cr01,1)
   return version
 end
@@ -457,7 +457,7 @@ struct cr03struct
   dij::Array{Float64,2}
 end
 function getCR03(IQX=286,IZX=322)
-  cr03 = cglobal((:cr03_,libxfoiljl),Float64)
+  cr03 = cglobal((:cr03_,libxfoil),Float64)
   aij = unsafe_wrap(Array,cr03,(IQX,IQX))
   dij = unsafe_wrap(Array,cr03+sizeof(Float64)*IQX^2,(IZX,IZX))
   return aij,dij
@@ -472,7 +472,7 @@ struct cr04struct
   qinv_a::Array{Float64,1}
 end
 function getCR04(IZX=322)
-  cr04 = cglobal((:cr04_,libxfoiljl),Float64)
+  cr04 = cglobal((:cr04_,libxfoil),Float64)
   qinv = unsafe_wrap(Array,cr04,IZX)
   qvis = unsafe_wrap(Array,cr04+sizeof(Float64)*IZX,IZX)
   cpi = unsafe_wrap(Array,cr04+sizeof(Float64)*(2*IZX),IZX)
@@ -499,7 +499,7 @@ struct cr05struct
   waklen::Array{Float64,1}
 end
 function getCR05(IZX=322,IWK=36)
-  cr05 = cglobal((:cr05_,libxfoiljl),Float64)
+  cr05 = cglobal((:cr05_,libxfoil),Float64)
   x = unsafe_wrap(Array,cr05,IZX)
   y = unsafe_wrap(Array,cr05+sizeof(Float64)*IZX,IZX)
   xp = unsafe_wrap(Array,cr05+sizeof(Float64)*(2*IZX),IZX)
@@ -537,7 +537,7 @@ struct cr06struct
   aste::Array{Float64,1}
 end
 function getCR06(IQX=286,IZX=322)
-  cr06 = cglobal((:cr06_,libxfoiljl),Float64)
+  cr06 = cglobal((:cr06_,libxfoil),Float64)
   gam = unsafe_wrap(Array,cr06,IQX)
   gamu = unsafe_wrap(Array,cr06+sizeof(Float64)*IQX,(IQX,2))
   gam_a = unsafe_wrap(Array,cr06+sizeof(Float64)*(IQX*3),IQX)
@@ -585,7 +585,7 @@ struct cr07struct
   ffilt::Array{Float64,1}
 end
 function getCR07(IBX=572,IPX=5,IQX=286)
-  cr07 = cglobal((:cr07_,libxfoiljl),Float64)
+  cr07 = cglobal((:cr07_,libxfoil),Float64)
   ssple = unsafe_wrap(Array,cr07,1)
   sspec = unsafe_wrap(Array,cr07+sizeof(Float64),IBX)
   xspoc = unsafe_wrap(Array,cr07+sizeof(Float64)*(1+IBX),IBX)
@@ -649,7 +649,7 @@ struct cr09struct
   xcpmnv::Array{Float64,1}
 end
 function getCR09()
-  cr09 = cglobal((:cr09_,libxfoiljl),Float64)
+  cr09 = cglobal((:cr09_,libxfoil),Float64)
   adeg = unsafe_wrap(Array,cr09+0*sizeof(Float64),1)
   alfa = unsafe_wrap(Array,cr09+1*sizeof(Float64),1)
   awake = unsafe_wrap(Array,cr09+2*sizeof(Float64),1)
@@ -699,7 +699,7 @@ struct cr10struct
   xstripp::Array{Float64,2}
 end
 function getCR10(IQX=286,NPX=8,ISX=2)
-  cr10 = cglobal((:cr10_,libxfoiljl),Float64)
+  cr10 = cglobal((:cr10_,libxfoil),Float64)
   xpref = unsafe_wrap(Array,cr10,IQX)
   cpref = unsafe_wrap(Array,cr10+sizeof(Float64)*IQX,IQX)
   verspol = unsafe_wrap(Array,cr10+sizeof(Float64)*(2*IQX),NPX)
@@ -718,7 +718,7 @@ struct cr11struct
   dtor::Array{Float64,1}
 end
 function getCR11()
-  cr11= cglobal((:cr11_,libxfoiljl),Float64)
+  cr11= cglobal((:cr11_,libxfoil),Float64)
   pi = unsafe_wrap(Array,cr11+sizeof(Float64)*0,1)
   hopi = unsafe_wrap(Array,cr11+sizeof(Float64)*1,1)
   qopi = unsafe_wrap(Array,cr11+sizeof(Float64)*2,1)
@@ -736,7 +736,7 @@ struct cr12struct
   xpref2::Array{Float64,1}
 end
 function getCR12()
-  cr12= cglobal((:cr12_,libxfoiljl),Float64)
+  cr12= cglobal((:cr12_,libxfoil),Float64)
   cvpar = unsafe_wrap(Array,cr12+sizeof(Float64)*0,1)
   cterat = unsafe_wrap(Array,cr12+sizeof(Float64)*1,1)
   ctrrat = unsafe_wrap(Array,cr12+sizeof(Float64)*2,1)
@@ -779,7 +779,7 @@ struct cr13struct
   xocwid::Array{Float64,1}
 end
 function getCR13()
-  cr13 = cglobal((:cr12_,libxfoiljl),Float64)
+  cr13 = cglobal((:cr12_,libxfoil),Float64)
   size = unsafe_wrap(Array,cr13+sizeof(Float64)*0,1)
   scrnfr = unsafe_wrap(Array,cr13+sizeof(Float64)*1,1)
   plotar = unsafe_wrap(Array,cr13+sizeof(Float64)*2,1)
@@ -859,7 +859,7 @@ struct cr14struct
   ytkp::Array{Float64,1}
 end
 function getCR14(IBX=572)
-  cr14 = cglobal((:cr14_,libxfoiljl),Float64)
+  cr14 = cglobal((:cr14_,libxfoil),Float64)
   xb = unsafe_wrap(Array,cr14,IBX)
   yb = unsafe_wrap(Array,cr14+sizeof(Float64)*IBX,IBX)
   xbp = unsafe_wrap(Array,cr14+sizeof(Float64)*(2*IBX),IBX)
@@ -934,7 +934,7 @@ struct cr15struct
   uinv_a::Array{Float64,2}
 end
 function getCR15(IVX=229,ISX=2)
-  cr15 = cglobal((:cr15_,libxfoiljl),Float64)
+  cr15 = cglobal((:cr15_,libxfoil),Float64)
   xssi = unsafe_wrap(Array,cr15,(IVX,ISX))
   uedg = unsafe_wrap(Array,cr15+sizeof(Float64)*(IVX*ISX),(IVX,ISX))
   uinv = unsafe_wrap(Array,cr15+sizeof(Float64)*(2*IVX*ISX),(IVX,ISX))
@@ -970,7 +970,7 @@ struct cr17struct
   vaccel::Array{Float64,1}
 end
 function getCR17()
-  cr17 = cglobal((:cr17_,libxfoiljl),Float64)
+  cr17 = cglobal((:cr17_,libxfoil),Float64)
   rmsbl = unsafe_wrap(Array,cr17,1)
   rmxbl = unsafe_wrap(Array,cr17+sizeof(Float64),1)
   rlx = unsafe_wrap(Array,cr17+2*sizeof(Float64),1)
@@ -1004,7 +1004,7 @@ struct cr18struct
   gtick::Array{Float64,1}
 end
 function getCR18()
-  cr18 = cglobal((:cr18_,libxfoiljl),Float64)
+  cr18 = cglobal((:cr18_,libxfoil),Float64)
   xsf = unsafe_wrap(Array,cr18,1)
   ysf = unsafe_wrap(Array,cr18+sizeof(Float64),1)
   xoff = unsafe_wrap(Array,cr18+sizeof(Float64)*2,1)
@@ -1050,7 +1050,7 @@ struct qmatstruct
   z_qdof3::Array{Float64,1}
 end
 function getQMAT(IQX=286,IZX=322)
-  qmat = cglobal((:qmat_,libxfoiljl),Float64)
+  qmat = cglobal((:qmat_,libxfoil),Float64)
   q = unsafe_wrap(Array,qmat,(IQX,IQX))
   dq = unsafe_wrap(Array,qmat+sizeof(Float64)*(IQX*IQX),IQX)
   dzdg = unsafe_wrap(Array,qmat+sizeof(Float64)*(IQX^2+IQX),IQX)
@@ -1078,7 +1078,7 @@ struct vmatstruct
   vz::Array{Float64,2}
 end
 function getVMAT(IZX = 322)
-  vmat = cglobal((:vmat_,libxfoiljl),Float64)
+  vmat = cglobal((:vmat_,libxfoil),Float64)
   va = unsafe_wrap(Array,vmat,(3,2,IZX))
   vb = unsafe_wrap(Array,vmat+sizeof(Float64)*(3*2*IZX),(3,2,IZX))
   vdel = unsafe_wrap(Array,vmat+sizeof(Float64)*(2*3*2*IZX),(3,2,IZX))
@@ -1099,7 +1099,7 @@ struct ci01struct
   nprefix::Array{Int32,1}
 end
 function getCI01()
-  ci01 = cglobal((:ci01_,libxfoiljl),Int32)
+  ci01 = cglobal((:ci01_,libxfoil),Int32)
   iq1 = unsafe_wrap(Array,ci01,1)
   iq2 = unsafe_wrap(Array,ci01+sizeof(Int32),1)
   nsp = unsafe_wrap(Array,ci01+sizeof(Int32)*2,1)
@@ -1127,7 +1127,7 @@ struct ci03struct
   ndref::Array{Int32,2}
 end
 function getCI03(NPX=8)
-  ci03 = cglobal((:ci03_,libxfoiljl),Int32)
+  ci03 = cglobal((:ci03_,libxfoil),Int32)
   ncpref = unsafe_wrap(Array,ci03,1)
   napol = unsafe_wrap(Array,ci03+sizeof(Int32),NPX)
   npol = unsafe_wrap(Array,ci03+sizeof(Int32)*(1+NPX),1)
@@ -1166,7 +1166,7 @@ struct ci04struct
   ntk::Array{Int32,1}
 end
 function getCI04(ISX=2)
-  ci04 = cglobal((:ci04_,libxfoiljl),Int32)
+  ci04 = cglobal((:ci04_,libxfoil),Int32)
   n = unsafe_wrap(Array,ci04,1)
   nb = unsafe_wrap(Array,ci04+sizeof(Int32)*1,1)
   nw = unsafe_wrap(Array,ci04+sizeof(Int32)*2,1)
@@ -1199,7 +1199,7 @@ struct ci05struct
   itran::Array{Int32,1}
 end
 function getCI05(ISX=2,IVX=229)
-  ci05 = cglobal((:ci05_,libxfoiljl),Int32)
+  ci05 = cglobal((:ci05_,libxfoil),Int32)
   iblte = unsafe_wrap(Array,ci05,ISX)
   nbl = unsafe_wrap(Array,ci05+sizeof(Int32)*ISX,ISX)
   ipan = unsafe_wrap(Array,ci05+sizeof(Int32)*(2*ISX),(IVX,ISX))
@@ -1214,7 +1214,7 @@ struct ci06struct
   ismxbl::Array{Int32,1}
 end
 function getCI06()
-  ci06 = cglobal((:ci06_,libxfoiljl),Int32)
+  ci06 = cglobal((:ci06_,libxfoil),Int32)
   imxbl = unsafe_wrap(Array,ci06,1)
   ismxbl = unsafe_wrap(Array,ci06+sizeof(Int32),1)
   return imxbl,ismxbl
@@ -1283,7 +1283,7 @@ struct cl01struct
   lexitflag::Array{Int32,1}
 end
 function getCL01()
-  cl01 = cglobal((:cl01_,libxfoiljl),Int32)
+  cl01 = cglobal((:cl01_,libxfoil),Int32)
   ok = unsafe_wrap(Array,cl01+sizeof(Int32)*0,1)
   limage = unsafe_wrap(Array,cl01+sizeof(Int32)*1,1)
   sharp = unsafe_wrap(Array,cl01+sizeof(Int32)*2,1)
@@ -1356,7 +1356,7 @@ struct cl02struct
   tforce::Array{Int32,1}
 end
 function getCL02(ISX=2)
-  cl02 = cglobal((:cl02_,libxfoiljl),Int32)
+  cl02 = cglobal((:cl02_,libxfoil),Int32)
   tforce = unsafe_wrap(Array,cl02,ISX)
   return tforce
 end
@@ -1373,7 +1373,7 @@ struct cc01struct
   nameref::String
 end
 function getCC01()
-  cc01 = cglobal((:cc01_,libxfoiljl),UInt8)
+  cc01 = cglobal((:cc01_,libxfoil),UInt8)
   fname = unsafe_string(cc01+sizeof(UInt8)*0,64)
   name = unsafe_string(cc01+sizeof(UInt8)*64,48)
   ispars = unsafe_string(cc01+sizeof(UInt8)*(64+48),80)
@@ -1390,7 +1390,7 @@ struct cc02struct
   labref::String
 end
 function getCC02()
-  cc02 = cglobal((:cc02_,libxfoiljl),UInt8)
+  cc02 = cglobal((:cc02_,libxfoil),UInt8)
   labref = unsafe_string(cc02,32)
   return labref
 end
@@ -1399,7 +1399,7 @@ struct cc03struct
   vmxbl::String
 end
 function getCC03()
-  cc03 = cglobal((:cc03_,libxfoiljl),UInt8)
+  cc03 = cglobal((:cc03_,libxfoil),UInt8)
   vmxbl = unsafe_string(cc03,1)
   return vmxbl
 end
