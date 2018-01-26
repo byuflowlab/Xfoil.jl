@@ -1,8 +1,8 @@
 C***********************************************************************
 C    Module:  xoper.f
-C 
-C    Copyright (C) 2000 Mark Drela 
-C 
+C
+C    Copyright (C) 2000 Mark Drela
+C
 C    This program is free software; you can redistribute it and/or modify
 C    it under the terms of the GNU General Public License as published by
 C    the Free Software Foundation; either version 2 of the License, or
@@ -19,8 +19,8 @@ C    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 C***********************************************************************
 C
       SUBROUTINE OPER
-	use complexify 
-	implicit complex(a-h, o-z) 
+	use complexify
+	implicit complex(a-h, o-z)
       include 'c_XFOIL.INC'
       CHARACTER*1 ANS
       CHARACTER*4 COMAND, COMOLD
@@ -50,7 +50,6 @@ C
       LRECALC = .FALSE.
       LCPX = .FALSE.
       LPLOT = .FALSE.
-      LEXITFLAG = .FALSE.
 C
       IF(N.ceq.0) THEN
        WRITE(*,*)
@@ -89,9 +88,9 @@ C******************************************************
 C	REINF1 = 100000
 C	WRITE(*,*) REINF1
 C	STOP
-	
+
 C*****CHANGE REYNOLDS NUMBER***************************
-C       ITMAX = 75	
+C       ITMAX = 75
 C       CALL MRSHOW(.TRUE.,.TRUE.)
 c       ENDIF
        LCONV = .FALSE.
@@ -119,10 +118,10 @@ C
 cs       write(*,*) 'invicid CL',CL
 
        IF(LVISC) then
-c          write(*,*) 'calling viscal' 
+c          write(*,*) 'calling viscal'
           call VISCAL(ITMAX)
        endif
-          
+
 C       CALL CPX
        CALL FCPMIN
 
@@ -142,7 +141,7 @@ C      call cpcalc(N+NW,QVIS,QINF,MINF,CPV)
 C      CALL CLCALC(N,X,Y,GAM,GAM_A,ALFA,MINF,QINF,XCMREF,YCMREF,
 C     &            CL,CM,CDP, CL_ALF,CL_MSQ)
 
-	RETURN	
+	RETURN
 C
 	END ! OPER
 
@@ -150,8 +149,8 @@ C
 C------------------------------------------------
 C     Finds minimum Cp on dist for cavitation work
 C------------------------------------------------
-	use complexify 
-	implicit complex(a-h, o-z) 
+	use complexify
+	implicit complex(a-h, o-z)
       include 'c_XFOIL.INC'
 C
       XCPMNI = X(1)
@@ -186,8 +185,8 @@ C
 
 
       SUBROUTINE MRSHOW(LM,LR)
-	use complexify 
-	implicit complex(a-h, o-z) 
+	use complexify
+	implicit complex(a-h, o-z)
       include 'c_XFOIL.INC'
       LOGICAL LM, LR
 C
@@ -214,19 +213,19 @@ C
 
 
       SUBROUTINE NAMMOD(NAME,KDEL,KMOD0)
-	use complexify 
-	implicit complex(a-h, o-z) 
+	use complexify
+	implicit complex(a-h, o-z)
       CHARACTER*(*) NAME
 C-------------------------------------------
-C     Requests new modified NAME with 
+C     Requests new modified NAME with
 C     version number in brackets, e.g.
 C            NACA 0012  [5]
 C
 C     If bracketed index exists in NAME,
 C        it is incremented by KDEL.
-C     If no bracketed index exists, it 
+C     If no bracketed index exists, it
 C        is added with initial value KMOD0,
-C        unless KMOD0 is negative in which 
+C        unless KMOD0 is negative in which
 C        case nothing is added.
 C-------------------------------------------
       CHARACTER*48 NAMDEF
@@ -276,42 +275,20 @@ C
 
 
 
-      SUBROUTINE BLDUMP(FNAME1)
-	use complexify 
-	implicit complex(a-h, o-z) 
+      SUBROUTINE BLDUMP(DIMOUT,SOUT,XOUT,YOUT,
+     &                  UEOUT,DSOUT,THOUT,CFOUT)
+	use complexify
+	implicit complex(a-h, o-z)
       include 'c_XFOIL.INC'
-      CHARACTER*(*) FNAME1
-C
-      CHARACTER*80 FILDEF
-C
- 1000 FORMAT(A)
-C
-      IF(FNAME1(1:1).cne.' ') THEN
-       FNAME = FNAME1
-      ELSE
-C----- no argument... get it somehow
-       IF(NPREFIX.GT.0) THEN
-C------ offer default using existing prefix
-        FILDEF = PREFIX(1:NPREFIX) // '.bl'
-        WRITE(*,1100) FILDEF
- 1100   FORMAT(/' Enter filename:  ', A)
-        READ(*,1000) FNAME
-        CALL STRIP(FNAME,NFN)
-        IF(NFN.ceq.0) FNAME = FILDEF
-       ELSE
-C------ nothing available... just ask for filename
-        CALL ASKS('Enter filename^',FNAME)
-       ENDIF
-      ENDIF
-C
-      LU = 19
-      OPEN(LU,FILE=FNAME,STATUS='UNKNOWN')
-      REWIND(LU)
-C
-      WRITE(LU,1000)
-     & '#    s        x        y     Ue/Vinf    Dstar     Theta      Cf'
-C         1.23456  0.23451  0.23451  0.23451  0.012345  0.001234  0.004123
-C
+      INTEGER, INTENT(OUT) :: DIMOUT
+      complex, DIMENSION(IZX), INTENT(OUT) :: SOUT
+      complex, DIMENSION(IZX), INTENT(OUT) :: XOUT
+      complex, DIMENSION(IZX), INTENT(OUT) :: YOUT
+      complex, DIMENSION(IZX), INTENT(OUT) :: UEOUT
+      complex, DIMENSION(IZX), INTENT(OUT) :: DSOUT
+      complex, DIMENSION(IZX), INTENT(OUT) :: THOUT
+      complex, DIMENSION(IZX), INTENT(OUT) :: CFOUT
+
       CALL COMSET
       DO 10 I=1, N
         IS = 1
@@ -333,8 +310,13 @@ C
         ENDIF
         UE = (GAM(I)/QINF)*(1.0-TKLAM) / (1.0 - TKLAM*(GAM(I)/QINF)**2)
 C
-        WRITE(LU,8500) S(I), X(I), Y(I), UE, DS, TH, CF
- 8500   FORMAT(1X,4F9.5,3F10.6)
+        SOUT(I) = S(I)
+        XOUT(I) = X(I)
+        YOUT(I) = Y(I)
+        UEOUT(I) = UE
+        DSOUT(I) = DS
+        THOUT(I) = TH
+        CFOUT(I) = CF
   10  CONTINUE
 C
       IF(LWAKE) THEN
@@ -347,19 +329,26 @@ C
           UI = UEDG(IBL,IS)
           UE = (UI/QINF)*(1.0-TKLAM) / (1.0 - TKLAM*(UI/QINF)**2)
 C
-          WRITE(LU,8500) S(I), X(I), Y(I), UE, DS, TH, CF
+          SOUT(I) = S(I)
+          XOUT(I) = X(I)
+          YOUT(I) = Y(I)
+          UEOUT(I) = UE
+          DSOUT(I) = DS
+          THOUT(I) = TH
+          CFOUT(I) = CF
  20     CONTINUE
       ENDIF
 C
-      CLOSE(LU)
+      DIMOUT = N+NW
+C
       RETURN
       END ! BLDUMP
 
 
 
       SUBROUTINE CPDUMP(FNAME1)
-	use complexify 
-	implicit complex(a-h, o-z) 
+	use complexify
+	implicit complex(a-h, o-z)
       include 'c_XFOIL.INC'
       CHARACTER*(*) FNAME1
 C
@@ -419,8 +408,8 @@ C----------------------------------------------------
 C     Calculates the hinge moment of the flap about
 C     (XOF,YOF) by integrating surface pressures.
 C----------------------------------------------------
-	use complexify 
-	implicit complex(a-h, o-z) 
+	use complexify
+	implicit complex(a-h, o-z)
       include 'c_XFOIL.INC'
 C
       IF(.NOT.LFLAP) THEN
@@ -433,8 +422,8 @@ C
 C------ find top and bottom y at hinge x location
         TOPS = XOF
         BOTS = S(N) - XOF
-        CALL SINVRT(TOPS,XOF,X,XP,S,N)      
-        CALL SINVRT(BOTS,XOF,X,XP,S,N)      
+        CALL SINVRT(TOPS,XOF,X,XP,S,N)
+        CALL SINVRT(BOTS,XOF,X,XP,S,N)
 C
       ENDIF
 C
@@ -560,8 +549,8 @@ C
 C---------------------------------------------
 C     Viscous parameter change menu routine.
 C---------------------------------------------
-	use complexify 
-	implicit complex(a-h, o-z) 
+	use complexify
+	implicit complex(a-h, o-z)
       include 'c_XFOIL.INC'
       CHARACTER*4 COMAND
       CHARACTER*128 COMARG
@@ -658,8 +647,8 @@ C
 C-----------------------------------
 C     Converges to specified alpha.
 C-----------------------------------
-	use complexify 
-	implicit complex(a-h, o-z) 
+	use complexify
+	implicit complex(a-h, o-z)
       include 'c_XFOIL.INC'
       complex MINF_CLM, MSQ_CLM
 C
@@ -742,14 +731,14 @@ C---- set final Mach, CL, Cp distributions, and hinge moment
 C
       RETURN
       END ! SPECAL
- 
- 
+
+
       SUBROUTINE SPECCL
 C-----------------------------------------
 C     Converges to specified inviscid CL.
 C-----------------------------------------
-	use complexify 
-	implicit complex(a-h, o-z) 
+	use complexify
+	implicit complex(a-h, o-z)
       include 'c_XFOIL.INC'
 C
 C---- calculate surface vorticity distributions for alpha = 0, 90 degrees
@@ -817,8 +806,8 @@ C
 C----------------------------------------
 C     Converges viscous operating point
 C----------------------------------------
-	use complexify 
-	implicit complex(a-h, o-z) 
+	use complexify
+	implicit complex(a-h, o-z)
       include 'c_XFOIL.INC'
 C
 C---- convergence tolerance
@@ -906,14 +895,6 @@ c        WRITE (*,*) 'Check some stuff: UEDG',UEDG
 	CALL SETBL
 c        WRITE (*,*) 'Check some stuff: iter,GAM',iter,GAM
 c------ DB 040306
-c	WRITE (*,*) 'Exit flag = ', LEXITFLAG
-	IF (LEXITFLAG) THEN
-		WRITE(*,*) 'LEXITFLAG TRUE, GOING TO 90...'
-		GOTO 90
-c		WRITE(*,*) 'Exiting on account of test...'
-c		STOP
-	ENDIF
-
 C
 C------ solve Newton system with custom solver
 c	WRITE(*,*) 'CALLING BLSOLV...'
@@ -947,10 +928,10 @@ C------ set updated CL,CD
         CALL CDCALC
 C
 C------ display changes and test for convergence
-c        IF(RLX.LT.1.0) 
+c        IF(RLX.LT.1.0)
 c     &   WRITE(*,2000) ITER, real(RMSBL), real(RMXBL),VMXBL,
 c     &   real(IMXBL),real(ISMXBL),real(RLX)
-c        IF(RLX.CEQ.1.0) 
+c        IF(RLX.CEQ.1.0)
 c     &   WRITE(*,2010)ITER, real(RMSBL), real(RMXBL), VMXBL,
 c     &   real(IMXBL),real(ISMXBL),real(RLX)
 c        CDP = CD - CDF
@@ -965,8 +946,8 @@ C
         ENDIF
 C
  1000 CONTINUE
-      WRITE(*,*) 'VISCAL:  Convergence failed'
-C	
+C      WRITE(*,*) 'VISCAL:  Convergence failed'
+C
    90 CONTINUE
       CALL CPCALC(N+NW,QINV,QINF,MINF,CPI)
       CALL CPCALC(N+NW,QVIS,QINF,MINF,CPV)
@@ -986,11 +967,11 @@ C....................................................................
 
 
       subroutine dcpout
-	use complexify 
-	implicit complex(a-h, o-z) 
+	use complexify
+	implicit complex(a-h, o-z)
       include 'c_XFOIL.INC'
 c
-c     Computes and writes upper and lower-surface 
+c     Computes and writes upper and lower-surface
 c     Cp values at two specified x locations
 c
 c
@@ -1026,7 +1007,7 @@ c
       cpl2 = seval(sl2,cpv,w1,s,n)
       cpu2 = seval(su2,cpv,w1,s,n)
 c
-      write(lu,1200) alfa/dtor, cl, 
+      write(lu,1200) alfa/dtor, cl,
      &               cpl1, cpu1, cpl1-cpu1,
      &               cpl2, cpu2, cpl2-cpu2
 
