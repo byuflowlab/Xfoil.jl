@@ -51,7 +51,7 @@ end
 Compute the flow solution at specified angle of attack (in degrees).
 Returns cl,cd,cdp,cm,converged
 """
-function solveAlpha_cs(angle::Complex128;re::Complex128=1e5+0.0im,mach::Complex128=0.0+0.0im,iter::Integer=50)
+function solveAlpha_cs(angle::Complex128,re::Complex128;mach::Complex128=0.0+0.0im,iter::Integer=50)
   cl = zeros(Complex128,1)
   cd = zeros(Complex128,1)
   cdp = zeros(Complex128,1)
@@ -76,7 +76,7 @@ end
 Get boundary layer parameters
 Returns s,x,y,ue,dstar,theta,cf
 """
-function bldump_cs()
+function bldump_cs(IZX::Integer=322)
   nelem = zeros(Int32,1)
   s = zeros(Complex128,IZX)
   x = zeros(Complex128,IZX)

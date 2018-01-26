@@ -77,10 +77,10 @@ function xfoilsweep_cs(x::Array{Complex128,1},y::Array{Complex128,1},aoa::Array{
       Xfoil.pane_cs(npan=npan)
     end
     # run XFOIL
-    cl[i],cd[i],cdp[i],cm[i],converged[i] = Xfoil.solveAlpha_cs(aoa[i]*180/pi,re=re,mach=0.0+0.0im,iter=iter)
+    cl[i],cd[i],cdp[i],cm[i],converged[i] = Xfoil.solveAlpha_cs(aoa[i]*180/pi,re,mach=mach,iter=iter)
     # check convergence, do percussive maintenance if desired/necessary
     if !converged[i] && percussive_maintenance
-      cl[i],cd[i],cdp[i],cm[i],converged[i] = dopercussivemaintainance_cs(x,y,aoa[i],re,iter,npan)
+      cl[i],cd[i],cdp[i],cm[i],converged[i] = dopercussivemaintainance_cs(x,y,aoa[i],re,mach,iter,npan)
     end
 
     if printdata == true
@@ -115,7 +115,7 @@ Attempts to converge previously unconverged XFOIL solutions through modifying th
 solution initial conditions. Returns cl,cd,cdp,cm,converged
 """
 function dopercussivemaintainance_cs(x::Array{Complex128,1},y::Array{Complex128,1},
-  aoa::Array{Complex128,1},re::Complex128,iter::Integer,npan::Integer)
+  aoa::Complex128,re::Complex128,mach::Complex128,iter::Integer,npan::Integer)
   remod = re
   aoamod = aoa
   for j = 1:25
@@ -123,7 +123,7 @@ function dopercussivemaintainance_cs(x::Array{Complex128,1},y::Array{Complex128,
     aoamod = 0.95*aoamod
     Xfoil.setCoordinates_cs(x,y)
     Xfoil.pane_cs(npan=npan)
-    cl,cd,cdp,cm,converged = Xfoil.solveAlpha_cs(aoamod*180/pi,re=remod,mach=0.0+0.0im,iter=iter)
+    cl,cd,cdp,cm,converged = Xfoil.solveAlpha_cs(aoamod*180/pi,remod,mach=mach,iter=iter)
     if converged
       break
     end
@@ -135,9 +135,9 @@ function dopercussivemaintainance_cs(x::Array{Complex128,1},y::Array{Complex128,
     for j = 1:9
       remod = remod - rediff/10.0
       aoamod = aoamod - aoadiff/10.0
-      cl,cd,cdp,cm,converged = Xfoil.solveAlpha_cs(aoamod*180/pi,re=remod,mach=0.0,iter=iter)
+      cl,cd,cdp,cm,converged = Xfoil.solveAlpha_cs(aoamod*180/pi,remod,mach=mach,iter=iter)
     end
-    cl,cd,cdp,cm,converged = Xfoil.solveAlpha_cs(aoa*180/pi,re=re,mach=0.0,iter=iter)
+    cl,cd,cdp,cm,converged = Xfoil.solveAlpha_cs(aoa*180/pi,re,mach=mach,iter=iter)
   end
   return cl,cd,cdp,cm,converged
 end
