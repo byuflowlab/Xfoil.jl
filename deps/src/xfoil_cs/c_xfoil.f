@@ -83,14 +83,14 @@ c        write(*,*) 'Y',Y
       END ! XFOIL
 C---------------------------------------------------
 
-      SUBROUTINE setNACA(ID)
+      SUBROUTINE setNACA(camber,position,thickness)
       ! This function is wrapped
 	use complexify
 	implicit complex(a-h, o-z)
       include 'c_XFOIL.INC'
-      integer ID
-      complex*16 Xreturn (NB),Yreturn(NB)
-      call NACA(ID,XB,YB)
+      complex camber,position,thickness
+      complex Xreturn (NB),Yreturn(NB)
+      call NACA(camber,position,thickness,XB,YB)
       END
 
       SUBROUTINE NACA(camber,position,thickness,Xreturn,Yreturn)
@@ -98,7 +98,7 @@ C---------------------------------------------------
 	implicit complex(a-h, o-z)
       include 'c_XFOIL.INC'
       complex camber,position,thickness
-      complex*16 Xreturn(NB),Yreturn(NB)
+      complex Xreturn(NB),Yreturn(NB)
 C---- number of points per side
       NSIDE = IQX/3
 C
