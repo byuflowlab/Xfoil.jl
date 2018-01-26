@@ -73,10 +73,10 @@ function xfoilsweep(x::Array{Float64,1},y::Array{Float64,1},aoa::Array{Float64,1
       Xfoil.pane(npan=npan)
     end
     # run XFOIL
-    cl[i],cd[i],cdp[i],cm[i],converged[i] = Xfoil.solveAlpha(aoa[i]*180/pi,re=re,mach=0.0,iter=iter)
+    cl[i],cd[i],cdp[i],cm[i],converged[i] = Xfoil.solveAlpha(aoa[i]*180/pi,re,mach=mach,iter=iter)
     # check convergence, do percussive maintenance if desired/necessary
     if !converged[i] && percussive_maintenance
-      cl[i],cd[i],cdp[i],cm[i],converged[i] = dopercussivemaintainance(x,y,aoa[i],re,iter,npan)
+      cl[i],cd[i],cdp[i],cm[i],converged[i] = dopercussivemaintainance(x,y,aoa[i],re,mach,iter,npan)
     end
 
     if printdata == true
@@ -111,7 +111,7 @@ Attempts to converge previously unconverged XFOIL solutions through modifying th
 solution initial conditions. Returns cl,cd,cdp,cm,converged
 """
 function dopercussivemaintainance(x::Array{Float64,1},y::Array{Float64,1},
-  aoa::Array{Float64,1},re::Float64,iter::Integer,npan::Integer)
+  aoa::Float64,re::Float64,mach::Float64,iter::Integer,npan::Integer)
   remod = re
   aoamod = aoa
   for j = 1:25
@@ -119,7 +119,7 @@ function dopercussivemaintainance(x::Array{Float64,1},y::Array{Float64,1},
     aoamod = 0.95*aoamod
     Xfoil.setCoordinates(x,y)
     Xfoil.pane(npan=npan)
-    cl,cd,cdp,cm,converged = Xfoil.solveAlpha(aoamod*180/pi,re=remod,mach=0.0,iter=iter)
+    cl,cd,cdp,cm,converged = Xfoil.solveAlpha(aoamod*180/pi,remod,mach=mach,iter=iter)
     if converged
       break
     end
@@ -131,9 +131,9 @@ function dopercussivemaintainance(x::Array{Float64,1},y::Array{Float64,1},
     for j = 1:9
       remod = remod - rediff/10.0
       aoamod = aoamod - aoadiff/10.0
-      cl,cd,cdp,cm,converged = Xfoil.solveAlpha(aoamod*180/pi,re=remod,mach=0.0,iter=iter)
+      cl,cd,cdp,cm,converged = Xfoil.solveAlpha(aoamod*180/pi,remod,mach=mach,iter=iter)
     end
-    cl,cd,cdp,cm,converged = Xfoil.solveAlpha(aoa*180/pi,re=re,mach=0.0,iter=iter)
+    cl,cd,cdp,cm,converged = Xfoil.solveAlpha(aoa*180/pi,re,mach=mach,iter=iter)
   end
   return cl,cd,cdp,cm,converged
 end

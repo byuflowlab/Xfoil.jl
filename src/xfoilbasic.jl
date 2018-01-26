@@ -51,7 +51,7 @@ end
 Compute the flow solution at specified angle of attack (in degrees).
 Returns cl,cd,cdp,cm,converged
 """
-function solveAlpha(angle::Float64;re::Float64=1e5,mach::Float64=0.0,iter::Integer=50)
+function solveAlpha(angle::Float64,re::Float64;mach::Float64=0.0,iter::Integer=50)
   cl = zeros(Float64,1)
   cd = zeros(Float64,1)
   cdp = zeros(Float64,1)
@@ -76,7 +76,7 @@ end
 Get boundary layer parameters
 Returns s,x,y,ue,dstar,theta,cf
 """
-function bldump()
+function bldump(IZX=322)
   nelem = zeros(Int32,1)
   s = zeros(Float64,IZX)
   x = zeros(Float64,IZX)
