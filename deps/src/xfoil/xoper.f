@@ -313,13 +313,13 @@ C
           UI = UEDG(IBL,IS)
           UE = (UI/QINF)*(1.0-TKLAM) / (1.0 - TKLAM*(UI/QINF)**2)
 C
-        SOUT(I) = S(I)
-        XOUT(I) = X(I)
-        YOUT(I) = Y(I)
-        UEOUT(I) = UE
-        DSOUT(I) = DS
-        THOUT(I) = TH
-        CFOUT(I) = CF
+          SOUT(I) = S(I)
+          XOUT(I) = X(I)
+          YOUT(I) = Y(I)
+          UEOUT(I) = UE
+          DSOUT(I) = DS
+          THOUT(I) = TH
+          CFOUT(I) = CF
  20     CONTINUE
       ENDIF
 C
