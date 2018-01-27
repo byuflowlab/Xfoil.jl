@@ -6,9 +6,24 @@ Running XFOIL from Julia is significantly faster than running it from Python.
 
 Similar to pyXLIGHT, complex step has been implemented in this project.
 
+To clone the repo:
+```julia
+Pkg.clone(...)
+```
+
 To build run the XFOIL library run the deps/build.jl file:
 
 `julia deps/build.jl`
+
+```julia
+Pkg.build("Xfoil")
+```
+
+To run tests
+
+```julia
+Pkg.test("Snopt")
+```
 
 To rebuild, it may be necessary to delete the installed library located at
 deps/usr/lib
