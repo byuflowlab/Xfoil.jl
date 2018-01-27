@@ -11,6 +11,6 @@ open(airfoil_file,"r") do f
   end
 end
 
-angle = collect(linspace(-15,20,61)*pi/180)
+angle = collect(linspace(-15,20,61))
 
 cl,cd,cdp,cm,converged = Xfoil.xfoilsweep(x,y,collect(angle),100000.0,iter=100,printdata=true,clminstop=true,clmaxstop=true);

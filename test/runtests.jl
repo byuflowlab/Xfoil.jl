@@ -44,9 +44,9 @@ sbl,xbl,ybl,uebl,dstarbl,thetabl,cfbl =Xfoil.bldump()
 @test isapprox(sum(cfbl),1.3955896003688344)
 
 # xfoilsweep test
-aoas = collect(-15.0:1.0:15.0)*pi/180
+aoas = collect(-15.0:1.0:15.0)
 cls,cds,cdps,cms,convs =Xfoil.xfoilsweep(x,y,aoas,1e5;iter=100,npan=140,
-  percussive_maintenance=true,printdata=true,zeroinit=true,clmaxstop=true,clminstop=true)
+  percussive_maintenance=true,printdata=false,zeroinit=true,clmaxstop=true,clminstop=true)
 # test clmaxstop and clminstop
 @test count(convs) == 25
 # aoa=-5
@@ -104,7 +104,7 @@ sbl_cs,xbl_cs,ybl_cs,uebl_cs,dstarbl_cs,thetabl_cs,cfbl_cs =Xfoil.bldump_cs()
 # xfoilsweep_cs test
 aoas_cs = convert(Array{Complex128,1},aoas)
 cls_cs,cds_cs,cdps_cs,cms_cs,convs_cs =Xfoil.xfoilsweep_cs(x_cs,y_cs,aoas_cs,complex(1e5);iter=100,
-  npan=140,percussive_maintenance=false,printdata=true,zeroinit=true,clmaxstop=true,clminstop=true)
+  npan=140,percussive_maintenance=false,printdata=false,zeroinit=true,clmaxstop=true,clminstop=true)
 # test clmaxstop and clminstop
 @test count(convs_cs) == 25
 # aoa=-5
