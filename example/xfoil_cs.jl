@@ -16,7 +16,7 @@ open(airfoil_file,"r") do f
   Xfoil.setCoordinates_cs(x,y)
 end
 
-Xfoil.pane()
+Xfoil.pane_cs()
 
 h = 1e-30im
 angle = collect(linspace(-10.0,10.0,21)+h)
@@ -29,7 +29,6 @@ converged = zeros(Bool,length(angle))
 println("----------------- Complex Results ----------------")
 println("Angle\t\tCl\t\tCd\t\tCm\t\tConverged")
 for i = 1:length(angle)
-  Xfoil.setCoordinates_cs(x,y)
   cl[i],cd[i],cdp[i],cm[i],converged[i] = Xfoil.solveAlpha_cs(angle[i],100000.0+0.0im,mach=0.0+0.0im,iter=50)
   @printf("%8f\t%8f\t%8f\t%8f\t%d\n",real(angle[i]),real(cl[i]),real(cd[i]),real(cm[i]),converged[i])
 end
