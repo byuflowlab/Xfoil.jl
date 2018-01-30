@@ -11,6 +11,13 @@ open(airfoil_file,"r") do f
   end
 end
 
-angle = collect(linspace(-15,20,61)+0.0im)
+h = 1e-30im
+angle = collect(linspace(-15,20,61)+h)
 
 cl,cd,cdp,cm,converged = Xfoil.xfoilsweep_cs(x,y,angle,100000.0+0.0im,iter=100,printdata=true,clminstop=true,clmaxstop=true);
+
+println("----------------- Complex Results ----------------")
+println("Angle\t\tdClda\t\tdCdda\t\tdCmda\t\tConverged")
+for i = 1:length(angle)
+  @printf("%8f\t%8f\t%8f\t%8f\t%d\n",real(angle[i]),imag(cl[i])/imag(h),imag(cd[i])/imag(h),imag(cm[i])/imag(h),converged[i])
+end
