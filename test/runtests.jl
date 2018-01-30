@@ -84,7 +84,7 @@ for i = 1:140
 end
 
 # solveAlpha_cs test
-cl_cs,cd_cs,cdp_cs,cm_cs,conv_cs = Xfoil.solveAlpha_cs(complex(5.0),complex(1e5),iter=100)
+cl_cs,cd_cs,cdp_cs,cm_cs,conv_cs = Xfoil.solveAlpha_cs(complex(5.0,1e20),complex(1e5),iter=100)
 @test isapprox(cl,real(cl_cs))
 @test isapprox(cd,real(cd_cs))
 @test isapprox(cdp,real(cdp_cs))
@@ -102,7 +102,7 @@ sbl_cs,xbl_cs,ybl_cs,uebl_cs,dstarbl_cs,thetabl_cs,cfbl_cs =Xfoil.bldump_cs()
 @test isapprox(sum(cfbl),sum(real(cfbl_cs)))
 
 # xfoilsweep_cs test
-aoas_cs = convert(Array{Complex128,1},aoas)
+aoas_cs = convert(Array{Complex128,1},aoas)+1e-30im
 cls_cs,cds_cs,cdps_cs,cms_cs,convs_cs =Xfoil.xfoilsweep_cs(x_cs,y_cs,aoas_cs,complex(1e5);iter=100,
   npan=140,percussive_maintenance=false,printdata=false,zeroinit=true,clmaxstop=true,clminstop=true)
 # test clmaxstop and clminstop
@@ -112,7 +112,15 @@ cls_cs,cds_cs,cdps_cs,cms_cs,convs_cs =Xfoil.xfoilsweep_cs(x_cs,y_cs,aoas_cs,com
 @test isapprox(cds[11],real(cds_cs[11]))
 @test isapprox(cdps[11],real(cdps_cs[11]))
 @test isapprox(cms[11],real(cms_cs[11]))
+@test isapprox(imag(cls_cs[11])/h,)
+@test isapprox(imag(cds_cs[11]))
+@test isapprox(imag(cdps_cs[11]))
+@test isapprox(imag(cms_cs[11]))
 # aoa=5
+@test isapprox(cls[21],real(cls_cs[21]))
+@test isapprox(cds[21],real(cds_cs[21]))
+@test isapprox(cdps[21],real(cdps_cs[21]))
+@test isapprox(cms[21],real(cms_cs[21]))
 @test isapprox(cls[21],real(cls_cs[21]))
 @test isapprox(cds[21],real(cds_cs[21]))
 @test isapprox(cdps[21],real(cdps_cs[21]))
