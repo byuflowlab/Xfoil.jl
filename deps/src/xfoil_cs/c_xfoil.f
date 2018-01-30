@@ -1773,7 +1773,7 @@ C---- calculate panel angles for panel routines
       CALL APCALC
 C
       IF(SHARP) THEN
-       WRITE(*,1090) 'Sharp trailing edge'
+C       WRITE(*,1090) 'Sharp trailing edge'
       ELSE
        GAP = SQRT((X(1)-X(N))**2 + (Y(1)-Y(N))**2)
 C       WRITE(*,1090) 'Blunt trailing edge.  Gap =', GAP
