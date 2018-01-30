@@ -811,8 +811,8 @@ C----------------------------------------
       include 'c_XFOIL.INC'
 C
 C---- convergence tolerance
-c      DATA EPS1 / 1.0E-10 /
       DATA EPS1 / 1.0E-6 /
+      DATA EPS2 / 1.0E-14 /
 C
       NITER = NITER1
 C
@@ -942,6 +942,8 @@ C
          LVCONV = .TRUE.
          AVISC = ALFA
          MVISC = MINF
+        ENDIF
+        IF(RMSBL .LT. EPS2) THEN
          GO TO 90
         ENDIF
 C
