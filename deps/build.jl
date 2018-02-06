@@ -1,5 +1,4 @@
 using BinDeps
-using Compat
 
 @BinDeps.setup
 
@@ -30,4 +29,4 @@ provides(SimpleBuild,
         `make -j1 install INSTALL_DIR=$installdir SUFFIX=$suffix`
     end),libxfoil_cs, os = :Unix)
 
-@compat @BinDeps.install Dict(:libxfoil => :libxfoil,:libxfoil_cs => :libxfoil_cs)
+@BinDeps.install Dict(:libxfoil => :libxfoil,:libxfoil_cs => :libxfoil_cs)
