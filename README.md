@@ -22,7 +22,7 @@ Pkg.build("Xfoil")
 To run tests
 
 ```julia
-Pkg.test("Snopt")
+Pkg.test("Xfoil")
 ```
 
 To rebuild, it may be necessary to delete the installed library located at
