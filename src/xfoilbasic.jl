@@ -3,7 +3,7 @@
 Input x and y airfoil coordinates into XFOIL
 Coordinates must start at the trailing edge and loop counterclockwise.
 """
-function setCoordinates(x::Array{Float64,1},y::Array{Float64,1})
+function setCoordinates(x::AbstractArray{<:Real,1},y::AbstractArray{<:Real,1})
   if length(x) != length(y)
     error("x and y arrays must match in length")
   end
@@ -31,9 +31,9 @@ Run XFOIL's PANE Command (repanel airfoil)
 - `xpref1::Float64=1.0`: Bottom side refined area x/c limits
 - `xpref2::Float64=1.0`:
 """
-function pane(;npan::Integer=140,cvpar::Float64=1.0,cterat::Float64=0.15,
-  ctrrat::Float64=0.2,xsref1::Float64=1.0,xsref2::Float64=1.0,xpref1::Float64=1.0,
-  xpref2::Float64=1.0)
+function pane(;npan::Integer=140,cvpar::Real=1.0,cterat::Real=0.15,
+  ctrrat::Real=0.2,xsref1::Real=1.0,xsref2::Real=1.0,xpref1::Real=1.0,
+  xpref2::Real=1.0)
   xfoilglobals.npan[1] = npan
   xfoilglobals.cvpar[1] = cvpar
   xfoilglobals.cterat[1] = cterat
@@ -51,7 +51,7 @@ end
 Compute the flow solution at specified angle of attack (in degrees).
 Returns cl,cd,cdp,cm,converged
 """
-function solveAlpha(angle::Float64,re::Float64;mach::Float64=0.0,iter::Integer=50)
+function solveAlpha(angle::Real,re::Real;mach::Real=0.0,iter::Integer=50)
   cl = zeros(Float64,1)
   cd = zeros(Float64,1)
   cdp = zeros(Float64,1)

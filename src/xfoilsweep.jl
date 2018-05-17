@@ -3,11 +3,11 @@
 Performs angle of attack sweep using Xfoil.  A number of options are available
 to improve convergence and customize the run. Returns cl,cd,cdp,cm,converged
 # Arguments
-- `x::Array{Float64,1}`: Airfoil coordinates start from trailing edge looping counterclockwise
-- `y::Array{Float64,1}`:
-- `aoa::Array{Float64,1}`: Array of angle of attacks in degrees
-- `re::Float64`: Reynolds number
-- `ma::Float64`: Mach number
+- `x::AbstractArray{<:Real,1}`: Airfoil coordinates start from trailing edge looping counterclockwise
+- `y::AbstractArray{<:Real,1}`:
+- `aoa::AbstractArray{<:Real,1}`: Array of angle of attacks in degrees
+- `re::Real`: Reynolds number
+- `ma::Real`: Mach number
 - `iter::Integer=50`: Maximum number of iterations
 - `npan::Integer=140`: Number of panels
 - `percussive_maintenance::Bool=true`: Try harder to achieve convergence
@@ -16,8 +16,9 @@ to improve convergence and customize the run. Returns cl,cd,cdp,cm,converged
 - `clmaxstop::Bool=false`: Stop if lift coefficient decreases twice consecutively going up
 - `clminstop::Bool=false`: Stop if lift coefficient increases twice consecutively going down
 """
-function xfoilsweep(x::Array{Float64,1},y::Array{Float64,1},aoa::Array{Float64,1},
-  re::Float64;mach::Float64=0.0,iter::Integer=50,
+function xfoilsweep(x::AbstractArray{<:Real,1},y::AbstractArray{<:Real,1},
+  aoa::AbstractArray{<:Real,1},
+  re::Real;mach::Real=0.0,iter::Integer=50,
   npan::Integer=140,percussive_maintenance::Bool=true,printdata::Bool=false,
   zeroinit::Bool=true,clmaxstop::Bool=false,clminstop::Bool=false)
 
@@ -47,8 +48,8 @@ function xfoilsweep(x::Array{Float64,1},y::Array{Float64,1},aoa::Array{Float64,1
   return cl,cd,cdp,cm,conv
 end
 
-function xfoilsweep(x::Array{Float64,1},y::Array{Float64,1},aoa::Array{Float64,1},
-  re::Float64,mach::Float64,iter::Integer,
+function xfoilsweep(x::AbstractArray{<:Real,1},y::AbstractArray{<:Real,1},aoa::AbstractArray{<:Real,1},
+  re::Real,mach::Real,iter::Integer,
   npan::Integer,percussive_maintenance::Bool,printdata::Bool,
   clmaxstop::Bool,clminstop::Bool)
 
@@ -110,8 +111,8 @@ end
 Attempts to converge previously unconverged XFOIL solutions through modifying the
 solution initial conditions. Returns cl,cd,cdp,cm,converged
 """
-function dopercussivemaintainance(x::Array{Float64,1},y::Array{Float64,1},
-  aoa::Float64,re::Float64,mach::Float64,iter::Integer,npan::Integer)
+function dopercussivemaintainance(x::AbstractArray{<:Real,1},y::AbstractArray{<:Real,1},
+  aoa::Real,re::Real,mach::Real,iter::Integer,npan::Integer)
   remod = re
   aoamod = aoa
   for j = 1:25
