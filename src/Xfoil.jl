@@ -10,13 +10,17 @@ else
     error("Xfoil.jl not properly installed. Please run Pkg.build(\"Xfoil\") then restart Julia.")
 end
 
+__precompile__()
+
+# Get globals once for all future use
+function __init__()
+    global const xfoilglobals = getglobals()
+    global const xfoilglobals_cs = getglobals_cs()
+end
+
 # Load methods for getting XFOIL globals
 include("xfoilglobals.jl")
 include("xfoilglobals_cs.jl")
-
-# Get globals once for all future use
-xfoilglobals = getglobals()
-xfoilglobals_cs = getglobals_cs()
 
 # Load basic methods for running XFOIL
 include("xfoilbasic.jl")
