@@ -6,11 +6,12 @@ open(airfoil_file,"r") do f
   global x = Float64[]
   global y = Float64[]
   for line in eachline(f)
-    x = append!(x,parse(split(chomp(line))[1]))
-    y = append!(y,parse(split(chomp(line))[2]))
+    x = append!(x,Meta.parse(split(chomp(line))[1]))
+    y = append!(y,Meta.parse(split(chomp(line))[2]))
   end
 end
 
-angle = collect(linspace(-15,20,61))
+ang = collect(range(-15, stop=20,length=71))
 
-cl,cd,cdp,cm,converged = Xfoil.xfoilsweep(x,y,collect(angle),100000.0,iter=100,printdata=true,clminstop=true,clmaxstop=true);
+cl, cdd, cdp, cm, converged = Xfoil.xfoilsweep(x, y, ang, 100000.0, iter=100,
+    printdata=true, clminstop=false, clmaxstop=false);

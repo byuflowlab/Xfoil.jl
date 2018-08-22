@@ -13,7 +13,7 @@ if !isfile(installdir)
     mkpath(installdir)
 end
 
-suffix = is_apple() ? "dylib" : "so"
+suffix = Sys.is_apple() ? "dylib" : "so"
 
 provides(SimpleBuild,
     (@build_steps begin

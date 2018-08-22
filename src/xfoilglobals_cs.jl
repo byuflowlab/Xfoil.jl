@@ -1,278 +1,278 @@
 struct globalstruct_cs
   #cr01
-  version::Array{Complex128,1}
+  version::Array{ComplexF64,1}
   #cr03
-  aij::Array{Complex128,2}
-  dij::Array{Complex128,2}
+  aij::Array{ComplexF64,2}
+  dij::Array{ComplexF64,2}
   #cr04
-  qinv::Array{Complex128,1}
-  qvis::Array{Complex128,1}
-  cpi::Array{Complex128,1}
-  cpv::Array{Complex128,1}
-  qinvu::Array{Complex128,2}
-  qinv_a::Array{Complex128,1}
+  qinv::Array{ComplexF64,1}
+  qvis::Array{ComplexF64,1}
+  cpi::Array{ComplexF64,1}
+  cpv::Array{ComplexF64,1}
+  qinvu::Array{ComplexF64,2}
+  qinv_a::Array{ComplexF64,1}
   #cr05
-  x::Array{Complex128,1}
-  y::Array{Complex128,1}
-  xp::Array{Complex128,1}
-  yp::Array{Complex128,1}
-  s::Array{Complex128,1}
-  sle::Array{Complex128,1}
-  xle::Array{Complex128,1}
-  yle::Array{Complex128,1}
-  xte::Array{Complex128,1}
-  yte::Array{Complex128,1}
-  chord::Array{Complex128,1}
-  yimage::Array{Complex128,1}
-  wgap::Array{Complex128,1}
-  waklen::Array{Complex128,1}
+  x::Array{ComplexF64,1}
+  y::Array{ComplexF64,1}
+  xp::Array{ComplexF64,1}
+  yp::Array{ComplexF64,1}
+  s::Array{ComplexF64,1}
+  sle::Array{ComplexF64,1}
+  xle::Array{ComplexF64,1}
+  yle::Array{ComplexF64,1}
+  xte::Array{ComplexF64,1}
+  yte::Array{ComplexF64,1}
+  chord::Array{ComplexF64,1}
+  yimage::Array{ComplexF64,1}
+  wgap::Array{ComplexF64,1}
+  waklen::Array{ComplexF64,1}
   #cr06
-  gam::Array{Complex128,1}
-  gamu::Array{Complex128,2}
-  gam_a::Array{Complex128,1}
-  sig::Array{Complex128,1}
-  nx::Array{Complex128,1}
-  ny::Array{Complex128,1}
-  apanel::Array{Complex128,1}
-  sst::Array{Complex128,1}
-  sst_go::Array{Complex128,1}
-  sst_gp::Array{Complex128,1}
-  gamte::Array{Complex128,1}
-  gamte_a::Array{Complex128,1}
-  sigte::Array{Complex128,1}
-  sigte_a::Array{Complex128,1}
-  dste::Array{Complex128,1}
-  ante::Array{Complex128,1}
-  aste::Array{Complex128,1}
+  gam::Array{ComplexF64,1}
+  gamu::Array{ComplexF64,2}
+  gam_a::Array{ComplexF64,1}
+  sig::Array{ComplexF64,1}
+  nx::Array{ComplexF64,1}
+  ny::Array{ComplexF64,1}
+  apanel::Array{ComplexF64,1}
+  sst::Array{ComplexF64,1}
+  sst_go::Array{ComplexF64,1}
+  sst_gp::Array{ComplexF64,1}
+  gamte::Array{ComplexF64,1}
+  gamte_a::Array{ComplexF64,1}
+  sigte::Array{ComplexF64,1}
+  sigte_a::Array{ComplexF64,1}
+  dste::Array{ComplexF64,1}
+  ante::Array{ComplexF64,1}
+  aste::Array{ComplexF64,1}
   #cr07
-  ssple::Array{Complex128,1}
-  sspec::Array{Complex128,1}
-  xspoc::Array{Complex128,1}
-  yspoc::Array{Complex128,1}
-  qgamm::Array{Complex128,1}
-  qspec::Array{Complex128,2}
-  qspecp::Array{Complex128,2}
-  algam::Array{Complex128,1}
-  clgam::Array{Complex128,1}
-  cmgam::Array{Complex128,1}
-  alqsp::Array{Complex128,1}
-  clqsp::Array{Complex128,1}
-  cmqsp::Array{Complex128,1}
-  qf0::Array{Complex128,1}
-  qf1::Array{Complex128,1}
-  qf2::Array{Complex128,1}
-  qf3::Array{Complex128,1}
-  qdof0::Array{Complex128,1}
-  qdof1::Array{Complex128,1}
-  qdof2::Array{Complex128,1}
-  qdof3::Array{Complex128,1}
-  clspec::Array{Complex128,1}
-  ffilt::Array{Complex128,1}
+  ssple::Array{ComplexF64,1}
+  sspec::Array{ComplexF64,1}
+  xspoc::Array{ComplexF64,1}
+  yspoc::Array{ComplexF64,1}
+  qgamm::Array{ComplexF64,1}
+  qspec::Array{ComplexF64,2}
+  qspecp::Array{ComplexF64,2}
+  algam::Array{ComplexF64,1}
+  clgam::Array{ComplexF64,1}
+  cmgam::Array{ComplexF64,1}
+  alqsp::Array{ComplexF64,1}
+  clqsp::Array{ComplexF64,1}
+  cmqsp::Array{ComplexF64,1}
+  qf0::Array{ComplexF64,1}
+  qf1::Array{ComplexF64,1}
+  qf2::Array{ComplexF64,1}
+  qf3::Array{ComplexF64,1}
+  qdof0::Array{ComplexF64,1}
+  qdof1::Array{ComplexF64,1}
+  qdof2::Array{ComplexF64,1}
+  qdof3::Array{ComplexF64,1}
+  clspec::Array{ComplexF64,1}
+  ffilt::Array{ComplexF64,1}
   #cr09
-  adeg::Array{Complex128,1}
-  alfa::Array{Complex128,1}
-  awake::Array{Complex128,1}
-  mvisc::Array{Complex128,1}
-  avisc::Array{Complex128,1}
-  xcmref::Array{Complex128,1}
-  ycmref::Array{Complex128,1}
-  cl::Array{Complex128,1}
-  cm::Array{Complex128,1}
-  cd::Array{Complex128,1}
-  cdp::Array{Complex128,1}
-  cdf::Array{Complex128,1}
-  cl_alf::Array{Complex128,1}
-  cl_msq::Array{Complex128,1}
-  psio::Array{Complex128,1}
-  circ::Array{Complex128,1}
-  cosa::Array{Complex128,1}
-  sina::Array{Complex128,1}
-  qinf::Array{Complex128,1}
-  gamma::Array{Complex128,1}
-  gamm1::Array{Complex128,1}
-  minf1::Array{Complex128,1}
-  minf::Array{Complex128,1}
-  minf_cl::Array{Complex128,1}
-  tklam::Array{Complex128,1}
-  tkl_msq::Array{Complex128,1}
-  cpstar::Array{Complex128,1}
-  qstar::Array{Complex128,1}
-  cpmn::Array{Complex128,1}
-  cpmni::Array{Complex128,1}
-  cpmnv::Array{Complex128,1}
-  xcpmni::Array{Complex128,1}
-  xcpmnv::Array{Complex128,1}
+  adeg::Array{ComplexF64,1}
+  alfa::Array{ComplexF64,1}
+  awake::Array{ComplexF64,1}
+  mvisc::Array{ComplexF64,1}
+  avisc::Array{ComplexF64,1}
+  xcmref::Array{ComplexF64,1}
+  ycmref::Array{ComplexF64,1}
+  cl::Array{ComplexF64,1}
+  cm::Array{ComplexF64,1}
+  cd::Array{ComplexF64,1}
+  cdp::Array{ComplexF64,1}
+  cdf::Array{ComplexF64,1}
+  cl_alf::Array{ComplexF64,1}
+  cl_msq::Array{ComplexF64,1}
+  psio::Array{ComplexF64,1}
+  circ::Array{ComplexF64,1}
+  cosa::Array{ComplexF64,1}
+  sina::Array{ComplexF64,1}
+  qinf::Array{ComplexF64,1}
+  gamma::Array{ComplexF64,1}
+  gamm1::Array{ComplexF64,1}
+  minf1::Array{ComplexF64,1}
+  minf::Array{ComplexF64,1}
+  minf_cl::Array{ComplexF64,1}
+  tklam::Array{ComplexF64,1}
+  tkl_msq::Array{ComplexF64,1}
+  cpstar::Array{ComplexF64,1}
+  qstar::Array{ComplexF64,1}
+  cpmn::Array{ComplexF64,1}
+  cpmni::Array{ComplexF64,1}
+  cpmnv::Array{ComplexF64,1}
+  xcpmni::Array{ComplexF64,1}
+  xcpmnv::Array{ComplexF64,1}
   #cr10
-  xpref::Array{Complex128,1}
-  cpref::Array{Complex128,1}
-  verspol::Array{Complex128,1}
-  cpolxy::Array{Complex128,3}
-  machp1::Array{Complex128,1}
-  reynp1::Array{Complex128,1}
-  acritp::Array{Complex128,1}
-  xstripp::Array{Complex128,2}
+  xpref::Array{ComplexF64,1}
+  cpref::Array{ComplexF64,1}
+  verspol::Array{ComplexF64,1}
+  cpolxy::Array{ComplexF64,3}
+  machp1::Array{ComplexF64,1}
+  reynp1::Array{ComplexF64,1}
+  acritp::Array{ComplexF64,1}
+  xstripp::Array{ComplexF64,2}
   #cr11
-  pi::Array{Complex128,1}
-  hopi::Array{Complex128,1}
-  qopi::Array{Complex128,1}
-  dtor::Array{Complex128,1}
+  pi::Array{ComplexF64,1}
+  hopi::Array{ComplexF64,1}
+  qopi::Array{ComplexF64,1}
+  dtor::Array{ComplexF64,1}
   #cr12
-  cvpar::Array{Complex128,1}
-  cterat::Array{Complex128,1}
-  ctrrat::Array{Complex128,1}
-  xsref1::Array{Complex128,1}
-  xsref2::Array{Complex128,1}
-  xpref1::Array{Complex128,1}
-  xpref2::Array{Complex128,1}
+  cvpar::Array{ComplexF64,1}
+  cterat::Array{ComplexF64,1}
+  ctrrat::Array{ComplexF64,1}
+  xsref1::Array{ComplexF64,1}
+  xsref2::Array{ComplexF64,1}
+  xpref1::Array{ComplexF64,1}
+  xpref2::Array{ComplexF64,1}
   #cr13
-  size::Array{Complex128,1}
-  scrnfr::Array{Complex128,1}
-  plotar::Array{Complex128,1}
-  pfac::Array{Complex128,1}
-  qfac::Array{Complex128,1}
-  vfac::Array{Complex128,1}
-  xwind::Array{Complex128,1}
-  ywind::Array{Complex128,1}
-  xpage::Array{Complex128,1}
-  ypage::Array{Complex128,1}
-  xmarg::Array{Complex128,1}
-  ymarg::Array{Complex128,1}
-  ch::Array{Complex128,1}
-  chg::Array{Complex128,1}
-  chq::Array{Complex128,1}
-  xofair::Array{Complex128,1}
-  yofair::Array{Complex128,1}
-  facair::Array{Complex128,1}
-  xofa::Array{Complex128,1}
-  yofa::Array{Complex128,1}
-  faca::Array{Complex128,1}
-  uprwt::Array{Complex128,1}
-  cpmin::Array{Complex128,1}
-  cpmax::Array{Complex128,1}
-  cpdel::Array{Complex128,1}
-  cpolplf::Array{Complex128,2}
-  xcdwid::Array{Complex128,1}
-  xalwid::Array{Complex128,1}
-  xocwid::Array{Complex128,1}
+  size::Array{ComplexF64,1}
+  scrnfr::Array{ComplexF64,1}
+  plotar::Array{ComplexF64,1}
+  pfac::Array{ComplexF64,1}
+  qfac::Array{ComplexF64,1}
+  vfac::Array{ComplexF64,1}
+  xwind::Array{ComplexF64,1}
+  ywind::Array{ComplexF64,1}
+  xpage::Array{ComplexF64,1}
+  ypage::Array{ComplexF64,1}
+  xmarg::Array{ComplexF64,1}
+  ymarg::Array{ComplexF64,1}
+  ch::Array{ComplexF64,1}
+  chg::Array{ComplexF64,1}
+  chq::Array{ComplexF64,1}
+  xofair::Array{ComplexF64,1}
+  yofair::Array{ComplexF64,1}
+  facair::Array{ComplexF64,1}
+  xofa::Array{ComplexF64,1}
+  yofa::Array{ComplexF64,1}
+  faca::Array{ComplexF64,1}
+  uprwt::Array{ComplexF64,1}
+  cpmin::Array{ComplexF64,1}
+  cpmax::Array{ComplexF64,1}
+  cpdel::Array{ComplexF64,1}
+  cpolplf::Array{ComplexF64,2}
+  xcdwid::Array{ComplexF64,1}
+  xalwid::Array{ComplexF64,1}
+  xocwid::Array{ComplexF64,1}
   #cr14
-  xb::Array{Complex128,1}
-  yb::Array{Complex128,1}
-  xbp::Array{Complex128,1}
-  ybp::Array{Complex128,1}
-  sb::Array{Complex128,1}
-  snew::Array{Complex128,1}
-  xbf::Array{Complex128,1}
-  ybf::Array{Complex128,1}
-  xof::Array{Complex128,1}
-  yof::Array{Complex128,1}
-  hmom::Array{Complex128,1}
-  hfx::Array{Complex128,1}
-  hfy::Array{Complex128,1}
-  xbmin::Array{Complex128,1}
-  xbmax::Array{Complex128,1}
-  ybmin::Array{Complex128,1}
-  ybmax::Array{Complex128,1}
-  sble::Array{Complex128,1}
-  chordb::Array{Complex128,1}
-  areab::Array{Complex128,1}
-  radble::Array{Complex128,1}
-  angbte::Array{Complex128,1}
-  ei11ba::Array{Complex128,1}
-  ei22ba::Array{Complex128,1}
-  apx1ba::Array{Complex128,1}
-  apx2ba::Array{Complex128,1}
-  ei11bt::Array{Complex128,1}
-  ei22bt::Array{Complex128,1}
-  apx1bt::Array{Complex128,1}
-  apx2bt::Array{Complex128,1}
-  thickb::Array{Complex128,1}
-  cambrb::Array{Complex128,1}
-  xcm::Array{Complex128,1}
-  ycm::Array{Complex128,1}
-  scm::Array{Complex128,1}
-  xcmp::Array{Complex128,1}
-  ycmp::Array{Complex128,1}
-  xtk::Array{Complex128,1}
-  ytk::Array{Complex128,1}
-  stk::Array{Complex128,1}
-  xtkp::Array{Complex128,1}
-  ytkp::Array{Complex128,1}
+  xb::Array{ComplexF64,1}
+  yb::Array{ComplexF64,1}
+  xbp::Array{ComplexF64,1}
+  ybp::Array{ComplexF64,1}
+  sb::Array{ComplexF64,1}
+  snew::Array{ComplexF64,1}
+  xbf::Array{ComplexF64,1}
+  ybf::Array{ComplexF64,1}
+  xof::Array{ComplexF64,1}
+  yof::Array{ComplexF64,1}
+  hmom::Array{ComplexF64,1}
+  hfx::Array{ComplexF64,1}
+  hfy::Array{ComplexF64,1}
+  xbmin::Array{ComplexF64,1}
+  xbmax::Array{ComplexF64,1}
+  ybmin::Array{ComplexF64,1}
+  ybmax::Array{ComplexF64,1}
+  sble::Array{ComplexF64,1}
+  chordb::Array{ComplexF64,1}
+  areab::Array{ComplexF64,1}
+  radble::Array{ComplexF64,1}
+  angbte::Array{ComplexF64,1}
+  ei11ba::Array{ComplexF64,1}
+  ei22ba::Array{ComplexF64,1}
+  apx1ba::Array{ComplexF64,1}
+  apx2ba::Array{ComplexF64,1}
+  ei11bt::Array{ComplexF64,1}
+  ei22bt::Array{ComplexF64,1}
+  apx1bt::Array{ComplexF64,1}
+  apx2bt::Array{ComplexF64,1}
+  thickb::Array{ComplexF64,1}
+  cambrb::Array{ComplexF64,1}
+  xcm::Array{ComplexF64,1}
+  ycm::Array{ComplexF64,1}
+  scm::Array{ComplexF64,1}
+  xcmp::Array{ComplexF64,1}
+  ycmp::Array{ComplexF64,1}
+  xtk::Array{ComplexF64,1}
+  ytk::Array{ComplexF64,1}
+  stk::Array{ComplexF64,1}
+  xtkp::Array{ComplexF64,1}
+  ytkp::Array{ComplexF64,1}
   #cr15
-  xssi::Array{Complex128,2}
-  uedg::Array{Complex128,2}
-  uinv::Array{Complex128,2}
-  mass::Array{Complex128,2}
-  thet::Array{Complex128,2}
-  dstr::Array{Complex128,2}
-  ctau::Array{Complex128,2}
-  delt::Array{Complex128,2}
-  uslp::Array{Complex128,2}
-  guxq::Array{Complex128,2}
-  guxd::Array{Complex128,2}
-  tau::Array{Complex128,2}
-  dis::Array{Complex128,2}
-  ctq::Array{Complex128,2}
-  vti::Array{Complex128,2}
-  reinf1::Array{Complex128,1}
-  reinf::Array{Complex128,1}
-  reinf_cl::Array{Complex128,1}
-  acrit::Array{Complex128,1}
-  xstrip::Array{Complex128,1}
-  xoctr::Array{Complex128,1}
-  yoctr::Array{Complex128,1}
-  xssitr::Array{Complex128,1}
-  uinv_a::Array{Complex128,2}
+  xssi::Array{ComplexF64,2}
+  uedg::Array{ComplexF64,2}
+  uinv::Array{ComplexF64,2}
+  mass::Array{ComplexF64,2}
+  thet::Array{ComplexF64,2}
+  dstr::Array{ComplexF64,2}
+  ctau::Array{ComplexF64,2}
+  delt::Array{ComplexF64,2}
+  uslp::Array{ComplexF64,2}
+  guxq::Array{ComplexF64,2}
+  guxd::Array{ComplexF64,2}
+  tau::Array{ComplexF64,2}
+  dis::Array{ComplexF64,2}
+  ctq::Array{ComplexF64,2}
+  vti::Array{ComplexF64,2}
+  reinf1::Array{ComplexF64,1}
+  reinf::Array{ComplexF64,1}
+  reinf_cl::Array{ComplexF64,1}
+  acrit::Array{ComplexF64,1}
+  xstrip::Array{ComplexF64,1}
+  xoctr::Array{ComplexF64,1}
+  yoctr::Array{ComplexF64,1}
+  xssitr::Array{ComplexF64,1}
+  uinv_a::Array{ComplexF64,2}
   #cr17
-  rmsbl::Array{Complex128,1}
-  rmxbl::Array{Complex128,1}
-  rlx::Array{Complex128,1}
-  vaccel::Array{Complex128,1}
+  rmsbl::Array{ComplexF64,1}
+  rmxbl::Array{ComplexF64,1}
+  rlx::Array{ComplexF64,1}
+  vaccel::Array{ComplexF64,1}
   #cr18
-  xsf::Array{Complex128,1}
-  ysf::Array{Complex128,1}
-  xoff::Array{Complex128,1}
-  yoff::Array{Complex128,1}
-  xgmin::Array{Complex128,1}
-  xgmax::Array{Complex128,1}
-  ygmin::Array{Complex128,1}
-  ygmax::Array{Complex128,1}
-  dxyg::Array{Complex128,1}
-  xcmin::Array{Complex128,1}
-  xcmax::Array{Complex128,1}
-  ycmin::Array{Complex128,1}
-  ycmax::Array{Complex128,1}
-  dxyc::Array{Complex128,1}
-  dyoffc::Array{Complex128,1}
-  xpmin::Array{Complex128,1}
-  xpmax::Array{Complex128,1}
-  ypmin::Array{Complex128,1}
-  ypmax::Array{Complex128,1}
-  dxyp::Array{Complex128,1}
-  dyoffp::Array{Complex128,1}
-  ysfp::Array{Complex128,1}
-  gtick::Array{Complex128,1}
+  xsf::Array{ComplexF64,1}
+  ysf::Array{ComplexF64,1}
+  xoff::Array{ComplexF64,1}
+  yoff::Array{ComplexF64,1}
+  xgmin::Array{ComplexF64,1}
+  xgmax::Array{ComplexF64,1}
+  ygmin::Array{ComplexF64,1}
+  ygmax::Array{ComplexF64,1}
+  dxyg::Array{ComplexF64,1}
+  xcmin::Array{ComplexF64,1}
+  xcmax::Array{ComplexF64,1}
+  ycmin::Array{ComplexF64,1}
+  ycmax::Array{ComplexF64,1}
+  dxyc::Array{ComplexF64,1}
+  dyoffc::Array{ComplexF64,1}
+  xpmin::Array{ComplexF64,1}
+  xpmax::Array{ComplexF64,1}
+  ypmin::Array{ComplexF64,1}
+  ypmax::Array{ComplexF64,1}
+  dxyp::Array{ComplexF64,1}
+  dyoffp::Array{ComplexF64,1}
+  ysfp::Array{ComplexF64,1}
+  gtick::Array{ComplexF64,1}
   #qmat
-  q::Array{Complex128,2}
-  dq::Array{Complex128,1}
-  dzdg::Array{Complex128,1}
-  dzdn::Array{Complex128,1}
-  dzdm::Array{Complex128,1}
-  dqdg::Array{Complex128,1}
-  dqdm::Array{Complex128,1}
-  qtan1::Array{Complex128,1}
-  qtan2::Array{Complex128,1}
-  z_qinf::Array{Complex128,1}
-  z_alfa::Array{Complex128,1}
-  z_qdof0::Array{Complex128,1}
-  z_qdof1::Array{Complex128,1}
-  z_qdof2::Array{Complex128,1}
-  z_qdof3::Array{Complex128,1}
+  q::Array{ComplexF64,2}
+  dq::Array{ComplexF64,1}
+  dzdg::Array{ComplexF64,1}
+  dzdn::Array{ComplexF64,1}
+  dzdm::Array{ComplexF64,1}
+  dqdg::Array{ComplexF64,1}
+  dqdm::Array{ComplexF64,1}
+  qtan1::Array{ComplexF64,1}
+  qtan2::Array{ComplexF64,1}
+  z_qinf::Array{ComplexF64,1}
+  z_alfa::Array{ComplexF64,1}
+  z_qdof0::Array{ComplexF64,1}
+  z_qdof1::Array{ComplexF64,1}
+  z_qdof2::Array{ComplexF64,1}
+  z_qdof3::Array{ComplexF64,1}
   #vmat
-  va::Array{Complex128,3}
-  vb::Array{Complex128,3}
-  vdel::Array{Complex128,3}
-  vm::Array{Complex128,3}
-  vz::Array{Complex128,2}
+  va::Array{ComplexF64,3}
+  vb::Array{ComplexF64,3}
+  vdel::Array{ComplexF64,3}
+  vm::Array{ComplexF64,3}
+  vz::Array{ComplexF64,2}
   #ci01
   iq1::Array{Int32,1}
   iq2::Array{Int32,1}
@@ -410,695 +410,298 @@ end
 Returns a globalstruct, which contains fields directly referencing XFOIL's globals
 """
 function getglobals_cs()
-  cr01 = getCR01_cs()
-  cr03 = getCR03_cs()
-  cr04 = getCR04_cs()
-  cr05 = getCR05_cs()
-  cr06 = getCR06_cs()
-  cr07 = getCR07_cs()
-  cr09 = getCR09_cs()
-  cr10 = getCR10_cs()
-  cr11 = getCR11_cs()
-  cr12 = getCR12_cs()
-  cr13 = getCR13_cs()
-  cr14 = getCR14_cs()
-  cr15 = getCR15_cs()
-  cr17 = getCR17_cs()
-  cr18 = getCR18_cs()
-  qmat = getQMAT_cs()
-  vmat = getVMAT_cs()
-  ci01 = getCI01_cs()
-  ci03 = getCI03_cs()
-  ci04 = getCI04_cs()
-  ci05 = getCI05_cs()
-  ci06 = getCI06_cs()
-  cl01 = getCL01_cs()
-  cl02 = getCL02_cs()
-  cc01 = getCC01_cs()
-  cc02 = getCC02_cs()
-  cc03 = getCC03_cs()
-  xfoilglobals = globalstruct_cs(cr01,cr03...,cr04...,cr05...,cr06...,cr07...,
-    cr09...,cr10...,cr11...,cr12...,cr13...,cr14...,cr15...,cr17...,cr18...,
-    qmat...,vmat...,ci01...,ci03...,ci04...,ci05...,ci06...,cl01...,cl02,
-    cc01...,cc02,cc03)
-end
 
-struct cr01struct_cs
-  version::Array{Complex128,1}
-end
-function getCR01_cs()
-  cr01 = cglobal((:cr01_,libxfoil_cs),Complex128)
+  cr01 = cglobal((:cr01_,libxfoil_cs),ComplexF64)
   version = unsafe_wrap(Array,cr01,1)
-  return version
-end
 
-struct cr03struct_cs
-  aij::Array{Complex128,2}
-  dij::Array{Complex128,2}
-end
-function getCR03_cs(IQX=286,IZX=322)
-  cr03 = cglobal((:cr03_,libxfoil_cs),Complex128)
+  cr03 = cglobal((:cr03_,libxfoil_cs),ComplexF64)
   aij = unsafe_wrap(Array,cr03,(IQX,IQX))
-  dij = unsafe_wrap(Array,cr03+sizeof(Complex128)*IQX^2,(IZX,IZX))
-  return aij,dij
-end
+  dij = unsafe_wrap(Array,cr03+sizeof(ComplexF64)*IQX^2,(IZX,IZX))
 
-struct cr04struct_cs
-  qinv::Array{Complex128,1}
-  qvis::Array{Complex128,1}
-  cpi::Array{Complex128,1}
-  cpv::Array{Complex128,1}
-  qinvu::Array{Complex128,2}
-  qinv_a::Array{Complex128,1}
-end
-function getCR04_cs(IZX=322)
-  cr04 = cglobal((:cr04_,libxfoil_cs),Complex128)
+  cr04 = cglobal((:cr04_,libxfoil_cs),ComplexF64)
   qinv = unsafe_wrap(Array,cr04,IZX)
-  qvis = unsafe_wrap(Array,cr04+sizeof(Complex128)*IZX,IZX)
-  cpi = unsafe_wrap(Array,cr04+sizeof(Complex128)*(2*IZX),IZX)
-  cpv = unsafe_wrap(Array,cr04+sizeof(Complex128)*(3*IZX),IZX)
-  qinvu = unsafe_wrap(Array,cr04+sizeof(Complex128)*(4*IZX),(IZX,2))
-  qinv_a = unsafe_wrap(Array,cr04+sizeof(Complex128)*(6*IZX),IZX)
-  return qinv,qvis,cpi,cpv,qinvu,qinv_a
-end
+  qvis = unsafe_wrap(Array,cr04+sizeof(ComplexF64)*IZX,IZX)
+  cpi = unsafe_wrap(Array,cr04+sizeof(ComplexF64)*(2*IZX),IZX)
+  cpv = unsafe_wrap(Array,cr04+sizeof(ComplexF64)*(3*IZX),IZX)
+  qinvu = unsafe_wrap(Array,cr04+sizeof(ComplexF64)*(4*IZX),(IZX,2))
+  qinv_a = unsafe_wrap(Array,cr04+sizeof(ComplexF64)*(6*IZX),IZX)
 
-struct cr05struct_cs
-  x::Array{Complex128,1}
-  y::Array{Complex128,1}
-  xp::Array{Complex128,1}
-  yp::Array{Complex128,1}
-  s::Array{Complex128,1}
-  sle::Array{Complex128,1}
-  xle::Array{Complex128,1}
-  yle::Array{Complex128,1}
-  xte::Array{Complex128,1}
-  yte::Array{Complex128,1}
-  chord::Array{Complex128,1}
-  yimage::Array{Complex128,1}
-  wgap::Array{Complex128,1}
-  waklen::Array{Complex128,1}
-end
-function getCR05_cs(IZX=322,IWK=36)
-  cr05 = cglobal((:cr05_,libxfoil_cs),Complex128)
+  cr05 = cglobal((:cr05_,libxfoil_cs),ComplexF64)
   x = unsafe_wrap(Array,cr05,IZX)
-  y = unsafe_wrap(Array,cr05+sizeof(Complex128)*IZX,IZX)
-  xp = unsafe_wrap(Array,cr05+sizeof(Complex128)*(2*IZX),IZX)
-  yp = unsafe_wrap(Array,cr05+sizeof(Complex128)*(3*IZX),IZX)
-  s = unsafe_wrap(Array,cr05+sizeof(Complex128)*(4*IZX),IZX)
-  sle = unsafe_wrap(Array,cr05+sizeof(Complex128)*(5*IZX),1)
-  xle = unsafe_wrap(Array,cr05+sizeof(Complex128)*(5*IZX+1),1)
-  yle = unsafe_wrap(Array,cr05+sizeof(Complex128)*(5*IZX+2),1)
-  xte = unsafe_wrap(Array,cr05+sizeof(Complex128)*(5*IZX+3),1)
-  yte = unsafe_wrap(Array,cr05+sizeof(Complex128)*(5*IZX+4),1)
-  chord = unsafe_wrap(Array,cr05+sizeof(Complex128)*(5*IZX+5),1)
-  yimage = unsafe_wrap(Array,cr05+sizeof(Complex128)*(5*IZX+6),1)
-  wgap = unsafe_wrap(Array,cr05+sizeof(Complex128)*(5*IZX+7),IWK)
-  waklen = unsafe_wrap(Array,cr05+sizeof(Complex128)*(5*IZX+7+IWK),1)
-  return x,y,xp,yp,s,sle,xle,yle,xte,yte,chord,yimage,wgap,waklen
-end
+  y = unsafe_wrap(Array,cr05+sizeof(ComplexF64)*IZX,IZX)
+  xp = unsafe_wrap(Array,cr05+sizeof(ComplexF64)*(2*IZX),IZX)
+  yp = unsafe_wrap(Array,cr05+sizeof(ComplexF64)*(3*IZX),IZX)
+  s = unsafe_wrap(Array,cr05+sizeof(ComplexF64)*(4*IZX),IZX)
+  sle = unsafe_wrap(Array,cr05+sizeof(ComplexF64)*(5*IZX),1)
+  xle = unsafe_wrap(Array,cr05+sizeof(ComplexF64)*(5*IZX+1),1)
+  yle = unsafe_wrap(Array,cr05+sizeof(ComplexF64)*(5*IZX+2),1)
+  xte = unsafe_wrap(Array,cr05+sizeof(ComplexF64)*(5*IZX+3),1)
+  yte = unsafe_wrap(Array,cr05+sizeof(ComplexF64)*(5*IZX+4),1)
+  chord = unsafe_wrap(Array,cr05+sizeof(ComplexF64)*(5*IZX+5),1)
+  yimage = unsafe_wrap(Array,cr05+sizeof(ComplexF64)*(5*IZX+6),1)
+  wgap = unsafe_wrap(Array,cr05+sizeof(ComplexF64)*(5*IZX+7),IWK)
+  waklen = unsafe_wrap(Array,cr05+sizeof(ComplexF64)*(5*IZX+7+IWK),1)
 
-struct cr06struct_cs
-  gam::Array{Complex128,1}
-  gamu::Array{Complex128,2}
-  gam_a::Array{Complex128,1}
-  sig::Array{Complex128,1}
-  nx::Array{Complex128,1}
-  ny::Array{Complex128,1}
-  apanel::Array{Complex128,1}
-  sst::Array{Complex128,1}
-  sst_go::Array{Complex128,1}
-  sst_gp::Array{Complex128,1}
-  gamte::Array{Complex128,1}
-  gamte_a::Array{Complex128,1}
-  sigte::Array{Complex128,1}
-  sigte_a::Array{Complex128,1}
-  dste::Array{Complex128,1}
-  ante::Array{Complex128,1}
-  aste::Array{Complex128,1}
-end
-function getCR06_cs(IQX=286,IZX=322)
-  cr06 = cglobal((:cr06_,libxfoil_cs),Complex128)
+  cr06 = cglobal((:cr06_,libxfoil_cs),ComplexF64)
   gam = unsafe_wrap(Array,cr06,IQX)
-  gamu = unsafe_wrap(Array,cr06+sizeof(Complex128)*IQX,(IQX,2))
-  gam_a = unsafe_wrap(Array,cr06+sizeof(Complex128)*(IQX*3),IQX)
-  sig = unsafe_wrap(Array,cr06+sizeof(Complex128)*(IQX*4),IZX)
-  nx = unsafe_wrap(Array,cr06+sizeof(Complex128)*(IQX*4+IZX),IZX)
-  ny = unsafe_wrap(Array,cr06+sizeof(Complex128)*(IQX*4+IZX*2),IZX)
-  apanel = unsafe_wrap(Array,cr06+sizeof(Complex128)*(IQX*4+IZX*3),IZX)
-  sst = unsafe_wrap(Array,cr06+sizeof(Complex128)*(IQX*4+IZX*4),1)
-  sst_go = unsafe_wrap(Array,cr06+sizeof(Complex128)*(IQX*4+IZX*4+1),1)
-  sst_gp = unsafe_wrap(Array,cr06+sizeof(Complex128)*(IQX*4+IZX*4+2),1)
-  gamte = unsafe_wrap(Array,cr06+sizeof(Complex128)*(IQX*4+IZX*4+3),1)
-  gamte_a = unsafe_wrap(Array,cr06+sizeof(Complex128)*(IQX*4+IZX*4+4),1)
-  sigte = unsafe_wrap(Array,cr06+sizeof(Complex128)*(IQX*4+IZX*4+5),1)
-  sigte_a = unsafe_wrap(Array,cr06+sizeof(Complex128)*(IQX*4+IZX*4+6),1)
-  dste = unsafe_wrap(Array,cr06+sizeof(Complex128)*(IQX*4+IZX*4+7),1)
-  ante = unsafe_wrap(Array,cr06+sizeof(Complex128)*(IQX*4+IZX*4+8),1)
-  aste = unsafe_wrap(Array,cr06+sizeof(Complex128)*(IQX*4+IZX*4+9),1)
-  return gam,gamu,gam_a,sig,nx,ny,apanel,sst,sst_go,sst_gp,gamte,gamte_a,sigte,
-    sigte_a,dste,ante,aste
-end
+  gamu = unsafe_wrap(Array,cr06+sizeof(ComplexF64)*IQX,(IQX,2))
+  gam_a = unsafe_wrap(Array,cr06+sizeof(ComplexF64)*(IQX*3),IQX)
+  sig = unsafe_wrap(Array,cr06+sizeof(ComplexF64)*(IQX*4),IZX)
+  nx = unsafe_wrap(Array,cr06+sizeof(ComplexF64)*(IQX*4+IZX),IZX)
+  ny = unsafe_wrap(Array,cr06+sizeof(ComplexF64)*(IQX*4+IZX*2),IZX)
+  apanel = unsafe_wrap(Array,cr06+sizeof(ComplexF64)*(IQX*4+IZX*3),IZX)
+  sst = unsafe_wrap(Array,cr06+sizeof(ComplexF64)*(IQX*4+IZX*4),1)
+  sst_go = unsafe_wrap(Array,cr06+sizeof(ComplexF64)*(IQX*4+IZX*4+1),1)
+  sst_gp = unsafe_wrap(Array,cr06+sizeof(ComplexF64)*(IQX*4+IZX*4+2),1)
+  gamte = unsafe_wrap(Array,cr06+sizeof(ComplexF64)*(IQX*4+IZX*4+3),1)
+  gamte_a = unsafe_wrap(Array,cr06+sizeof(ComplexF64)*(IQX*4+IZX*4+4),1)
+  sigte = unsafe_wrap(Array,cr06+sizeof(ComplexF64)*(IQX*4+IZX*4+5),1)
+  sigte_a = unsafe_wrap(Array,cr06+sizeof(ComplexF64)*(IQX*4+IZX*4+6),1)
+  dste = unsafe_wrap(Array,cr06+sizeof(ComplexF64)*(IQX*4+IZX*4+7),1)
+  ante = unsafe_wrap(Array,cr06+sizeof(ComplexF64)*(IQX*4+IZX*4+8),1)
+  aste = unsafe_wrap(Array,cr06+sizeof(ComplexF64)*(IQX*4+IZX*4+9),1)
 
-struct cr07struct_cs
-  ssple::Array{Complex128,1}
-  sspec::Array{Complex128,1}
-  xspoc::Array{Complex128,1}
-  yspoc::Array{Complex128,1}
-  qgamm::Array{Complex128,1}
-  qspec::Array{Complex128,2}
-  qspecp::Array{Complex128,2}
-  algam::Array{Complex128,1}
-  clgam::Array{Complex128,1}
-  cmgam::Array{Complex128,1}
-  alqsp::Array{Complex128,1}
-  clqsp::Array{Complex128,1}
-  cmqsp::Array{Complex128,1}
-  qf0::Array{Complex128,1}
-  qf1::Array{Complex128,1}
-  qf2::Array{Complex128,1}
-  qf3::Array{Complex128,1}
-  qdof0::Array{Complex128,1}
-  qdof1::Array{Complex128,1}
-  qdof2::Array{Complex128,1}
-  qdof3::Array{Complex128,1}
-  clspec::Array{Complex128,1}
-  ffilt::Array{Complex128,1}
-end
-function getCR07_cs(IBX=572,IPX=5,IQX=286)
-  cr07 = cglobal((:cr07_,libxfoil_cs),Complex128)
+  cr07 = cglobal((:cr07_,libxfoil_cs),ComplexF64)
   ssple = unsafe_wrap(Array,cr07,1)
-  sspec = unsafe_wrap(Array,cr07+sizeof(Complex128),IBX)
-  xspoc = unsafe_wrap(Array,cr07+sizeof(Complex128)*(1+IBX),IBX)
-  yspoc = unsafe_wrap(Array,cr07+sizeof(Complex128)*(1+2*IBX),IBX)
-  qgamm = unsafe_wrap(Array,cr07+sizeof(Complex128)*(1+3*IBX),IBX)
-  qspec = unsafe_wrap(Array,cr07+sizeof(Complex128)*(1+4*IBX),(IBX,IPX))
-  qspecp = unsafe_wrap(Array,cr07+sizeof(Complex128)*(1+4*IBX+IBX*IPX),(IBX,IPX))
-  algam = unsafe_wrap(Array,cr07+sizeof(Complex128)*(1+4*IBX+2*IBX*IPX),1)
-  clgam = unsafe_wrap(Array,cr07+sizeof(Complex128)*(2+4*IBX+2*IBX*IPX),1)
-  cmgam = unsafe_wrap(Array,cr07+sizeof(Complex128)*(3+4*IBX+2*IBX*IPX),1)
-  alqsp = unsafe_wrap(Array,cr07+sizeof(Complex128)*(4+4*IBX+2*IBX*IPX),IPX)
-  clqsp = unsafe_wrap(Array,cr07+sizeof(Complex128)*(4+4*IBX+2*IBX*IPX+IPX),IPX)
-  cmqsp = unsafe_wrap(Array,cr07+sizeof(Complex128)*(4+4*IBX+2*IBX*IPX+2*IPX),IPX)
-  qf0 = unsafe_wrap(Array,cr07+sizeof(Complex128)*(4+4*IBX+2*IBX*IPX+3*IPX),IQX)
-  qf1 = unsafe_wrap(Array,cr07+sizeof(Complex128)*(4+4*IBX+2*IBX*IPX+3*IPX+IQX),IQX)
-  qf2 = unsafe_wrap(Array,cr07+sizeof(Complex128)*(4+4*IBX+2*IBX*IPX+3*IPX+2*IQX),IQX)
-  qf3 = unsafe_wrap(Array,cr07+sizeof(Complex128)*(4+4*IBX+2*IBX*IPX+3*IPX+3*IQX),IQX)
-  qdof0 = unsafe_wrap(Array,cr07+sizeof(Complex128)*(4+4*IBX+2*IBX*IPX+3*IPX+4*IQX),1)
-  qdof1 = unsafe_wrap(Array,cr07+sizeof(Complex128)*(5+4*IBX+2*IBX*IPX+3*IPX+4*IQX),1)
-  qdof2 = unsafe_wrap(Array,cr07+sizeof(Complex128)*(6+4*IBX+2*IBX*IPX+3*IPX+4*IQX),1)
-  qdof3 = unsafe_wrap(Array,cr07+sizeof(Complex128)*(7+4*IBX+2*IBX*IPX+3*IPX+4*IQX),1)
-  clspec = unsafe_wrap(Array,cr07+sizeof(Complex128)*(8+4*IBX+2*IBX*IPX+3*IPX+4*IQX),1)
-  ffilt = unsafe_wrap(Array,cr07+sizeof(Complex128)*(9+4*IBX+2*IBX*IPX+3*IPX+4*IQX),1)
-  return ssple,sspec,xspoc,yspoc,qgamm,qspec,qspecp,algam,clgam,cmgam,alqsp,
-    clqsp,cmqsp,qf0,qf1,qf2,qf3,qdof0,qdof1,qdof2,qdof3,clspec,ffilt
-end
+  sspec = unsafe_wrap(Array,cr07+sizeof(ComplexF64),IBX)
+  xspoc = unsafe_wrap(Array,cr07+sizeof(ComplexF64)*(1+IBX),IBX)
+  yspoc = unsafe_wrap(Array,cr07+sizeof(ComplexF64)*(1+2*IBX),IBX)
+  qgamm = unsafe_wrap(Array,cr07+sizeof(ComplexF64)*(1+3*IBX),IBX)
+  qspec = unsafe_wrap(Array,cr07+sizeof(ComplexF64)*(1+4*IBX),(IBX,IPX))
+  qspecp = unsafe_wrap(Array,cr07+sizeof(ComplexF64)*(1+4*IBX+IBX*IPX),(IBX,IPX))
+  algam = unsafe_wrap(Array,cr07+sizeof(ComplexF64)*(1+4*IBX+2*IBX*IPX),1)
+  clgam = unsafe_wrap(Array,cr07+sizeof(ComplexF64)*(2+4*IBX+2*IBX*IPX),1)
+  cmgam = unsafe_wrap(Array,cr07+sizeof(ComplexF64)*(3+4*IBX+2*IBX*IPX),1)
+  alqsp = unsafe_wrap(Array,cr07+sizeof(ComplexF64)*(4+4*IBX+2*IBX*IPX),IPX)
+  clqsp = unsafe_wrap(Array,cr07+sizeof(ComplexF64)*(4+4*IBX+2*IBX*IPX+IPX),IPX)
+  cmqsp = unsafe_wrap(Array,cr07+sizeof(ComplexF64)*(4+4*IBX+2*IBX*IPX+2*IPX),IPX)
+  qf0 = unsafe_wrap(Array,cr07+sizeof(ComplexF64)*(4+4*IBX+2*IBX*IPX+3*IPX),IQX)
+  qf1 = unsafe_wrap(Array,cr07+sizeof(ComplexF64)*(4+4*IBX+2*IBX*IPX+3*IPX+IQX),IQX)
+  qf2 = unsafe_wrap(Array,cr07+sizeof(ComplexF64)*(4+4*IBX+2*IBX*IPX+3*IPX+2*IQX),IQX)
+  qf3 = unsafe_wrap(Array,cr07+sizeof(ComplexF64)*(4+4*IBX+2*IBX*IPX+3*IPX+3*IQX),IQX)
+  qdof0 = unsafe_wrap(Array,cr07+sizeof(ComplexF64)*(4+4*IBX+2*IBX*IPX+3*IPX+4*IQX),1)
+  qdof1 = unsafe_wrap(Array,cr07+sizeof(ComplexF64)*(5+4*IBX+2*IBX*IPX+3*IPX+4*IQX),1)
+  qdof2 = unsafe_wrap(Array,cr07+sizeof(ComplexF64)*(6+4*IBX+2*IBX*IPX+3*IPX+4*IQX),1)
+  qdof3 = unsafe_wrap(Array,cr07+sizeof(ComplexF64)*(7+4*IBX+2*IBX*IPX+3*IPX+4*IQX),1)
+  clspec = unsafe_wrap(Array,cr07+sizeof(ComplexF64)*(8+4*IBX+2*IBX*IPX+3*IPX+4*IQX),1)
+  ffilt = unsafe_wrap(Array,cr07+sizeof(ComplexF64)*(9+4*IBX+2*IBX*IPX+3*IPX+4*IQX),1)
 
-struct cr09struct_cs
-  adeg::Array{Complex128,1}
-  alfa::Array{Complex128,1}
-  awake::Array{Complex128,1}
-  mvisc::Array{Complex128,1}
-  avisc::Array{Complex128,1}
-  xcmref::Array{Complex128,1}
-  ycmref::Array{Complex128,1}
-  cl::Array{Complex128,1}
-  cm::Array{Complex128,1}
-  cd::Array{Complex128,1}
-  cdp::Array{Complex128,1}
-  cdf::Array{Complex128,1}
-  cl_alf::Array{Complex128,1}
-  cl_msq::Array{Complex128,1}
-  psio::Array{Complex128,1}
-  circ::Array{Complex128,1}
-  cosa::Array{Complex128,1}
-  sina::Array{Complex128,1}
-  qinf::Array{Complex128,1}
-  gamma::Array{Complex128,1}
-  gamm1::Array{Complex128,1}
-  minf1::Array{Complex128,1}
-  minf::Array{Complex128,1}
-  minf_cl::Array{Complex128,1}
-  tklam::Array{Complex128,1}
-  tkl_msq::Array{Complex128,1}
-  cpstar::Array{Complex128,1}
-  qstar::Array{Complex128,1}
-  cpmn::Array{Complex128,1}
-  cpmni::Array{Complex128,1}
-  cpmnv::Array{Complex128,1}
-  xcpmni::Array{Complex128,1}
-  xcpmnv::Array{Complex128,1}
-end
-function getCR09_cs()
-  cr09 = cglobal((:cr09_,libxfoil_cs),Complex128)
-  adeg = unsafe_wrap(Array,cr09+0*sizeof(Complex128),1)
-  alfa = unsafe_wrap(Array,cr09+1*sizeof(Complex128),1)
-  awake = unsafe_wrap(Array,cr09+2*sizeof(Complex128),1)
-  mvisc = unsafe_wrap(Array,cr09+3*sizeof(Complex128),1)
-  avisc = unsafe_wrap(Array,cr09+4*sizeof(Complex128),1)
-  xcmref = unsafe_wrap(Array,cr09+5*sizeof(Complex128),1)
-  ycmref = unsafe_wrap(Array,cr09+6*sizeof(Complex128),1)
-  cl = unsafe_wrap(Array,cr09+7*sizeof(Complex128),1)
-  cm = unsafe_wrap(Array,cr09+8*sizeof(Complex128),1)
-  cd = unsafe_wrap(Array,cr09+9*sizeof(Complex128),1)
-  cdp = unsafe_wrap(Array,cr09+10*sizeof(Complex128),1)
-  cdf = unsafe_wrap(Array,cr09+11*sizeof(Complex128),1)
-  cl_alf = unsafe_wrap(Array,cr09+12*sizeof(Complex128),1)
-  cl_msq = unsafe_wrap(Array,cr09+13*sizeof(Complex128),1)
-  psio = unsafe_wrap(Array,cr09+14*sizeof(Complex128),1)
-  circ = unsafe_wrap(Array,cr09+15*sizeof(Complex128),1)
-  cosa = unsafe_wrap(Array,cr09+16*sizeof(Complex128),1)
-  sina = unsafe_wrap(Array,cr09+17*sizeof(Complex128),1)
-  qinf = unsafe_wrap(Array,cr09+18*sizeof(Complex128),1)
-  gamma = unsafe_wrap(Array,cr09+19*sizeof(Complex128),1)
-  gamm1 = unsafe_wrap(Array,cr09+20*sizeof(Complex128),1)
-  minf1 = unsafe_wrap(Array,cr09+21*sizeof(Complex128),1)
-  minf = unsafe_wrap(Array,cr09+22*sizeof(Complex128),1)
-  minf_cl = unsafe_wrap(Array,cr09+23*sizeof(Complex128),1)
-  tklam = unsafe_wrap(Array,cr09+24*sizeof(Complex128),1)
-  tkl_msq = unsafe_wrap(Array,cr09+25*sizeof(Complex128),1)
-  cpstar = unsafe_wrap(Array,cr09+26*sizeof(Complex128),1)
-  qstar = unsafe_wrap(Array,cr09+27*sizeof(Complex128),1)
-  cpmn = unsafe_wrap(Array,cr09+28*sizeof(Complex128),1)
-  cpmni = unsafe_wrap(Array,cr09+29*sizeof(Complex128),1)
-  cpmnv = unsafe_wrap(Array,cr09+30*sizeof(Complex128),1)
-  xcpmni = unsafe_wrap(Array,cr09+31*sizeof(Complex128),1)
-  xcpmnv = unsafe_wrap(Array,cr09+32*sizeof(Complex128),1)
-  return adeg,alfa,awake,mvisc,avisc,xcmref,ycmref,cl,cm,cd,cdp,cdf,cl_alf,
-    cl_msq,psio,circ,cosa,sina,qinf,gamma,gamm1,minf1,minf,minf_cl,tklam,
-    tkl_msq,cpstar,qstar,cpmn,cpmni,cpmnv,xcpmni,xcpmnv
-end
+  cr09 = cglobal((:cr09_,libxfoil_cs),ComplexF64)
+  adeg = unsafe_wrap(Array,cr09+0*sizeof(ComplexF64),1)
+  alfa = unsafe_wrap(Array,cr09+1*sizeof(ComplexF64),1)
+  awake = unsafe_wrap(Array,cr09+2*sizeof(ComplexF64),1)
+  mvisc = unsafe_wrap(Array,cr09+3*sizeof(ComplexF64),1)
+  avisc = unsafe_wrap(Array,cr09+4*sizeof(ComplexF64),1)
+  xcmref = unsafe_wrap(Array,cr09+5*sizeof(ComplexF64),1)
+  ycmref = unsafe_wrap(Array,cr09+6*sizeof(ComplexF64),1)
+  cl = unsafe_wrap(Array,cr09+7*sizeof(ComplexF64),1)
+  cm = unsafe_wrap(Array,cr09+8*sizeof(ComplexF64),1)
+  cd = unsafe_wrap(Array,cr09+9*sizeof(ComplexF64),1)
+  cdp = unsafe_wrap(Array,cr09+10*sizeof(ComplexF64),1)
+  cdf = unsafe_wrap(Array,cr09+11*sizeof(ComplexF64),1)
+  cl_alf = unsafe_wrap(Array,cr09+12*sizeof(ComplexF64),1)
+  cl_msq = unsafe_wrap(Array,cr09+13*sizeof(ComplexF64),1)
+  psio = unsafe_wrap(Array,cr09+14*sizeof(ComplexF64),1)
+  circ = unsafe_wrap(Array,cr09+15*sizeof(ComplexF64),1)
+  cosa = unsafe_wrap(Array,cr09+16*sizeof(ComplexF64),1)
+  sina = unsafe_wrap(Array,cr09+17*sizeof(ComplexF64),1)
+  qinf = unsafe_wrap(Array,cr09+18*sizeof(ComplexF64),1)
+  gamma = unsafe_wrap(Array,cr09+19*sizeof(ComplexF64),1)
+  gamm1 = unsafe_wrap(Array,cr09+20*sizeof(ComplexF64),1)
+  minf1 = unsafe_wrap(Array,cr09+21*sizeof(ComplexF64),1)
+  minf = unsafe_wrap(Array,cr09+22*sizeof(ComplexF64),1)
+  minf_cl = unsafe_wrap(Array,cr09+23*sizeof(ComplexF64),1)
+  tklam = unsafe_wrap(Array,cr09+24*sizeof(ComplexF64),1)
+  tkl_msq = unsafe_wrap(Array,cr09+25*sizeof(ComplexF64),1)
+  cpstar = unsafe_wrap(Array,cr09+26*sizeof(ComplexF64),1)
+  qstar = unsafe_wrap(Array,cr09+27*sizeof(ComplexF64),1)
+  cpmn = unsafe_wrap(Array,cr09+28*sizeof(ComplexF64),1)
+  cpmni = unsafe_wrap(Array,cr09+29*sizeof(ComplexF64),1)
+  cpmnv = unsafe_wrap(Array,cr09+30*sizeof(ComplexF64),1)
+  xcpmni = unsafe_wrap(Array,cr09+31*sizeof(ComplexF64),1)
+  xcpmnv = unsafe_wrap(Array,cr09+32*sizeof(ComplexF64),1)
 
-struct cr10struct_cs
-  xpref::Array{Complex128,1}
-  cpref::Array{Complex128,1}
-  verspol::Array{Complex128,1}
-  cpolxy::Array{Complex128,3}
-  machp1::Array{Complex128,1}
-  reynp1::Array{Complex128,1}
-  acritp::Array{Complex128,1}
-  xstripp::Array{Complex128,2}
-end
-function getCR10_cs(IQX=286,NPX=8,ISX=2)
-  cr10 = cglobal((:cr10_,libxfoil_cs),Complex128)
+  cr10 = cglobal((:cr10_,libxfoil_cs),ComplexF64)
   xpref = unsafe_wrap(Array,cr10,IQX)
-  cpref = unsafe_wrap(Array,cr10+sizeof(Complex128)*IQX,IQX)
-  verspol = unsafe_wrap(Array,cr10+sizeof(Complex128)*(2*IQX),NPX)
-  cpolxy = unsafe_wrap(Array,cr10+sizeof(Complex128)*(2*IQX+NPX),(IQX,2,NPX))
-  machp1 = unsafe_wrap(Array,cr10+sizeof(Complex128)*(2*IQX+NPX+IQX*2*NPX),NPX)
-  reynp1 = unsafe_wrap(Array,cr10+sizeof(Complex128)*(2*IQX+2*NPX+IQX*2*NPX),NPX)
-  acritp = unsafe_wrap(Array,cr10+sizeof(Complex128)*(2*IQX+3*NPX+IQX*2*NPX),NPX)
-  xstripp = unsafe_wrap(Array,cr10+sizeof(Complex128)*(2*IQX+4*NPX+IQX*2*NPX),(ISX,NPX))
-  return xpref,cpref,verspol,cpolxy,machp1,reynp1,acritp,xstripp
-end
+  cpref = unsafe_wrap(Array,cr10+sizeof(ComplexF64)*IQX,IQX)
+  verspol = unsafe_wrap(Array,cr10+sizeof(ComplexF64)*(2*IQX),NPX)
+  cpolxy = unsafe_wrap(Array,cr10+sizeof(ComplexF64)*(2*IQX+NPX),(IQX,2,NPX))
+  machp1 = unsafe_wrap(Array,cr10+sizeof(ComplexF64)*(2*IQX+NPX+IQX*2*NPX),NPX)
+  reynp1 = unsafe_wrap(Array,cr10+sizeof(ComplexF64)*(2*IQX+2*NPX+IQX*2*NPX),NPX)
+  acritp = unsafe_wrap(Array,cr10+sizeof(ComplexF64)*(2*IQX+3*NPX+IQX*2*NPX),NPX)
+  xstripp = unsafe_wrap(Array,cr10+sizeof(ComplexF64)*(2*IQX+4*NPX+IQX*2*NPX),(ISX,NPX))
 
-struct cr11struct_cs
-  pi::Array{Complex128,1}
-  hopi::Array{Complex128,1}
-  qopi::Array{Complex128,1}
-  dtor::Array{Complex128,1}
-end
-function getCR11_cs()
-  cr11= cglobal((:cr11_,libxfoil_cs),Complex128)
-  pi = unsafe_wrap(Array,cr11+sizeof(Complex128)*0,1)
-  hopi = unsafe_wrap(Array,cr11+sizeof(Complex128)*1,1)
-  qopi = unsafe_wrap(Array,cr11+sizeof(Complex128)*2,1)
-  dtor = unsafe_wrap(Array,cr11+sizeof(Complex128)*3,1)
-  return pi,hopi,qopi,dtor
-end
+  cr11= cglobal((:cr11_,libxfoil_cs),ComplexF64)
+  pi = unsafe_wrap(Array,cr11+sizeof(ComplexF64)*0,1)
+  hopi = unsafe_wrap(Array,cr11+sizeof(ComplexF64)*1,1)
+  qopi = unsafe_wrap(Array,cr11+sizeof(ComplexF64)*2,1)
+  dtor = unsafe_wrap(Array,cr11+sizeof(ComplexF64)*3,1)
 
-struct cr12struct_cs
-  cvpar::Array{Complex128,1}
-  cterat::Array{Complex128,1}
-  ctrrat::Array{Complex128,1}
-  xsref1::Array{Complex128,1}
-  xsref2::Array{Complex128,1}
-  xpref1::Array{Complex128,1}
-  xpref2::Array{Complex128,1}
-end
-function getCR12_cs()
-  cr12= cglobal((:cr12_,libxfoil_cs),Complex128)
-  cvpar = unsafe_wrap(Array,cr12+sizeof(Complex128)*0,1)
-  cterat = unsafe_wrap(Array,cr12+sizeof(Complex128)*1,1)
-  ctrrat = unsafe_wrap(Array,cr12+sizeof(Complex128)*2,1)
-  xsref1 = unsafe_wrap(Array,cr12+sizeof(Complex128)*3,1)
-  xsref2 = unsafe_wrap(Array,cr12+sizeof(Complex128)*4,1)
-  xpref1 = unsafe_wrap(Array,cr12+sizeof(Complex128)*5,1)
-  xpref2 = unsafe_wrap(Array,cr12+sizeof(Complex128)*6,1)
-  return cvpar,cterat,ctrrat,xsref1,xsref2,xpref1,xpref2
-end
+  cr12= cglobal((:cr12_,libxfoil_cs),ComplexF64)
+  cvpar = unsafe_wrap(Array,cr12+sizeof(ComplexF64)*0,1)
+  cterat = unsafe_wrap(Array,cr12+sizeof(ComplexF64)*1,1)
+  ctrrat = unsafe_wrap(Array,cr12+sizeof(ComplexF64)*2,1)
+  xsref1 = unsafe_wrap(Array,cr12+sizeof(ComplexF64)*3,1)
+  xsref2 = unsafe_wrap(Array,cr12+sizeof(ComplexF64)*4,1)
+  xpref1 = unsafe_wrap(Array,cr12+sizeof(ComplexF64)*5,1)
+  xpref2 = unsafe_wrap(Array,cr12+sizeof(ComplexF64)*6,1)
 
-struct cr13struct_cs
-  size::Array{Complex128,1}
-  scrnfr::Array{Complex128,1}
-  plotar::Array{Complex128,1}
-  pfac::Array{Complex128,1}
-  qfac::Array{Complex128,1}
-  vfac::Array{Complex128,1}
-  xwind::Array{Complex128,1}
-  ywind::Array{Complex128,1}
-  xpage::Array{Complex128,1}
-  ypage::Array{Complex128,1}
-  xmarg::Array{Complex128,1}
-  ymarg::Array{Complex128,1}
-  ch::Array{Complex128,1}
-  chg::Array{Complex128,1}
-  chq::Array{Complex128,1}
-  xofair::Array{Complex128,1}
-  yofair::Array{Complex128,1}
-  facair::Array{Complex128,1}
-  xofa::Array{Complex128,1}
-  yofa::Array{Complex128,1}
-  faca::Array{Complex128,1}
-  uprwt::Array{Complex128,1}
-  cpmin::Array{Complex128,1}
-  cpmax::Array{Complex128,1}
-  cpdel::Array{Complex128,1}
-  cpolplf::Array{Complex128,2}
-  xcdwid::Array{Complex128,1}
-  xalwid::Array{Complex128,1}
-  xocwid::Array{Complex128,1}
-end
-function getCR13_cs()
-  cr13 = cglobal((:cr12_,libxfoil_cs),Complex128)
-  size = unsafe_wrap(Array,cr13+sizeof(Complex128)*0,1)
-  scrnfr = unsafe_wrap(Array,cr13+sizeof(Complex128)*1,1)
-  plotar = unsafe_wrap(Array,cr13+sizeof(Complex128)*2,1)
-  pfac = unsafe_wrap(Array,cr13+sizeof(Complex128)*3,1)
-  qfac = unsafe_wrap(Array,cr13+sizeof(Complex128)*4,1)
-  vfac = unsafe_wrap(Array,cr13+sizeof(Complex128)*5,1)
-  xwind = unsafe_wrap(Array,cr13+sizeof(Complex128)*6,1)
-  ywind = unsafe_wrap(Array,cr13+sizeof(Complex128)*7,1)
-  xpage = unsafe_wrap(Array,cr13+sizeof(Complex128)*8,1)
-  ypage = unsafe_wrap(Array,cr13+sizeof(Complex128)*9,1)
-  xmarg = unsafe_wrap(Array,cr13+sizeof(Complex128)*10,1)
-  ymarg = unsafe_wrap(Array,cr13+sizeof(Complex128)*11,1)
-  ch = unsafe_wrap(Array,cr13+sizeof(Complex128)*12,1)
-  chg = unsafe_wrap(Array,cr13+sizeof(Complex128)*13,1)
-  chq = unsafe_wrap(Array,cr13+sizeof(Complex128)*14,1)
-  xofair = unsafe_wrap(Array,cr13+sizeof(Complex128)*15,1)
-  yofair = unsafe_wrap(Array,cr13+sizeof(Complex128)*16,1)
-  facair = unsafe_wrap(Array,cr13+sizeof(Complex128)*17,1)
-  xofa = unsafe_wrap(Array,cr13+sizeof(Complex128)*18,1)
-  yofa = unsafe_wrap(Array,cr13+sizeof(Complex128)*19,1)
-  faca = unsafe_wrap(Array,cr13+sizeof(Complex128)*20,1)
-  uprwt = unsafe_wrap(Array,cr13+sizeof(Complex128)*21,1)
-  cpmin = unsafe_wrap(Array,cr13+sizeof(Complex128)*22,1)
-  cpmax = unsafe_wrap(Array,cr13+sizeof(Complex128)*23,1)
-  cpdel = unsafe_wrap(Array,cr13+sizeof(Complex128)*24,1)
-  cpolplf = unsafe_wrap(Array,cr13+sizeof(Complex128)*25,(3,4))
-  xcdwid = unsafe_wrap(Array,cr13+sizeof(Complex128)*(25+3*4),1)
-  xalwid = unsafe_wrap(Array,cr13+sizeof(Complex128)*(26+3*4),1)
-  xocwid = unsafe_wrap(Array,cr13+sizeof(Complex128)*(27+3*4),1)
-  return size,scrnfr,plotar,pfac,qfac,vfac,xwind,ywind,xpage,ypage,xmarg,ymarg,
-    ch,chg,chq,xofair,yofair,facair,xofa,yofa,faca,uprwt,cpmin,cpmax,cpdel,
-    cpolplf,xcdwid,xalwid,xocwid
-end
+  cr13 = cglobal((:cr12_,libxfoil_cs),ComplexF64)
+  size = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*0,1)
+  scrnfr = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*1,1)
+  plotar = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*2,1)
+  pfac = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*3,1)
+  qfac = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*4,1)
+  vfac = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*5,1)
+  xwind = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*6,1)
+  ywind = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*7,1)
+  xpage = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*8,1)
+  ypage = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*9,1)
+  xmarg = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*10,1)
+  ymarg = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*11,1)
+  ch = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*12,1)
+  chg = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*13,1)
+  chq = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*14,1)
+  xofair = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*15,1)
+  yofair = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*16,1)
+  facair = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*17,1)
+  xofa = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*18,1)
+  yofa = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*19,1)
+  faca = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*20,1)
+  uprwt = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*21,1)
+  cpmin = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*22,1)
+  cpmax = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*23,1)
+  cpdel = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*24,1)
+  cpolplf = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*25,(3,4))
+  xcdwid = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*(25+3*4),1)
+  xalwid = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*(26+3*4),1)
+  xocwid = unsafe_wrap(Array,cr13+sizeof(ComplexF64)*(27+3*4),1)
 
-struct cr14struct_cs
-  xb::Array{Complex128,1}
-  yb::Array{Complex128,1}
-  xbp::Array{Complex128,1}
-  ybp::Array{Complex128,1}
-  sb::Array{Complex128,1}
-  snew::Array{Complex128,1}
-  xbf::Array{Complex128,1}
-  ybf::Array{Complex128,1}
-  xof::Array{Complex128,1}
-  yof::Array{Complex128,1}
-  hmom::Array{Complex128,1}
-  hfx::Array{Complex128,1}
-  hfy::Array{Complex128,1}
-  xbmin::Array{Complex128,1}
-  xbmax::Array{Complex128,1}
-  ybmin::Array{Complex128,1}
-  ybmax::Array{Complex128,1}
-  sble::Array{Complex128,1}
-  chordb::Array{Complex128,1}
-  areab::Array{Complex128,1}
-  radble::Array{Complex128,1}
-  angbte::Array{Complex128,1}
-  ei11ba::Array{Complex128,1}
-  ei22ba::Array{Complex128,1}
-  apx1ba::Array{Complex128,1}
-  apx2ba::Array{Complex128,1}
-  ei11bt::Array{Complex128,1}
-  ei22bt::Array{Complex128,1}
-  apx1bt::Array{Complex128,1}
-  apx2bt::Array{Complex128,1}
-  thickb::Array{Complex128,1}
-  cambrb::Array{Complex128,1}
-  xcm::Array{Complex128,1}
-  ycm::Array{Complex128,1}
-  scm::Array{Complex128,1}
-  xcmp::Array{Complex128,1}
-  ycmp::Array{Complex128,1}
-  xtk::Array{Complex128,1}
-  ytk::Array{Complex128,1}
-  stk::Array{Complex128,1}
-  xtkp::Array{Complex128,1}
-  ytkp::Array{Complex128,1}
-end
-function getCR14_cs(IBX=572)
-  cr14 = cglobal((:cr14_,libxfoil_cs),Complex128)
+  cr14 = cglobal((:cr14_,libxfoil_cs),ComplexF64)
   xb = unsafe_wrap(Array,cr14,IBX)
-  yb = unsafe_wrap(Array,cr14+sizeof(Complex128)*IBX,IBX)
-  xbp = unsafe_wrap(Array,cr14+sizeof(Complex128)*(2*IBX),IBX)
-  ybp = unsafe_wrap(Array,cr14+sizeof(Complex128)*(3*IBX),IBX)
-  sb = unsafe_wrap(Array,cr14+sizeof(Complex128)*(4*IBX),IBX)
-  snew = unsafe_wrap(Array,cr14+sizeof(Complex128)*(5*IBX),4*IBX)
-  xbf = unsafe_wrap(Array,cr14+sizeof(Complex128)*(9*IBX),1)
-  ybf = unsafe_wrap(Array,cr14+sizeof(Complex128)*(9*IBX+1),1)
-  xof = unsafe_wrap(Array,cr14+sizeof(Complex128)*(9*IBX+2),1)
-  yof = unsafe_wrap(Array,cr14+sizeof(Complex128)*(9*IBX+3),1)
-  hmom = unsafe_wrap(Array,cr14+sizeof(Complex128)*(9*IBX+4),1)
-  hfx = unsafe_wrap(Array,cr14+sizeof(Complex128)*(9*IBX+5),1)
-  hfy = unsafe_wrap(Array,cr14+sizeof(Complex128)*(9*IBX+6),1)
-  xbmin = unsafe_wrap(Array,cr14+sizeof(Complex128)*(9*IBX+7),1)
-  xbmax = unsafe_wrap(Array,cr14+sizeof(Complex128)*(9*IBX+8),1)
-  ybmin = unsafe_wrap(Array,cr14+sizeof(Complex128)*(9*IBX+9),1)
-  ybmax = unsafe_wrap(Array,cr14+sizeof(Complex128)*(9*IBX+10),1)
-  sble = unsafe_wrap(Array,cr14+sizeof(Complex128)*(9*IBX+11),1)
-  chordb = unsafe_wrap(Array,cr14+sizeof(Complex128)*(9*IBX+12),1)
-  areab = unsafe_wrap(Array,cr14+sizeof(Complex128)*(9*IBX+13),1)
-  radble = unsafe_wrap(Array,cr14+sizeof(Complex128)*(9*IBX+14),1)
-  angbte = unsafe_wrap(Array,cr14+sizeof(Complex128)*(9*IBX+15),1)
-  ei11ba = unsafe_wrap(Array,cr14+sizeof(Complex128)*(9*IBX+16),1)
-  ei22ba = unsafe_wrap(Array,cr14+sizeof(Complex128)*(9*IBX+17),1)
-  apx1ba = unsafe_wrap(Array,cr14+sizeof(Complex128)*(9*IBX+18),1)
-  apx2ba = unsafe_wrap(Array,cr14+sizeof(Complex128)*(9*IBX+19),1)
-  ei11bt = unsafe_wrap(Array,cr14+sizeof(Complex128)*(9*IBX+20),1)
-  ei22bt = unsafe_wrap(Array,cr14+sizeof(Complex128)*(9*IBX+21),1)
-  apx1bt = unsafe_wrap(Array,cr14+sizeof(Complex128)*(9*IBX+22),1)
-  apx2bt = unsafe_wrap(Array,cr14+sizeof(Complex128)*(9*IBX+23),1)
-  thickb = unsafe_wrap(Array,cr14+sizeof(Complex128)*(9*IBX+24),1)
-  cambrb = unsafe_wrap(Array,cr14+sizeof(Complex128)*(9*IBX+25),1)
-  xcm = unsafe_wrap(Array,cr14+sizeof(Complex128)*(9*IBX+26),2*IBX)
-  ycm = unsafe_wrap(Array,cr14+sizeof(Complex128)*(11*IBX+26),2*IBX)
-  scm = unsafe_wrap(Array,cr14+sizeof(Complex128)*(13*IBX+26),2*IBX)
-  xcmp = unsafe_wrap(Array,cr14+sizeof(Complex128)*(15*IBX+26),2*IBX)
-  ycmp = unsafe_wrap(Array,cr14+sizeof(Complex128)*(17*IBX+36),2*IBX)
-  xtk = unsafe_wrap(Array,cr14+sizeof(Complex128)*(19*IBX+36),2*IBX)
-  ytk = unsafe_wrap(Array,cr14+sizeof(Complex128)*(21*IBX+36),2*IBX)
-  stk = unsafe_wrap(Array,cr14+sizeof(Complex128)*(23*IBX+36),2*IBX)
-  xtkp = unsafe_wrap(Array,cr14+sizeof(Complex128)*(25*IBX+36),2*IBX)
-  ytkp = unsafe_wrap(Array,cr14+sizeof(Complex128)*(27*IBX+36),2*IBX)
-  return xb,yb,xbp,ybp,sb,snew,xbf,ybf,xof,yof,hmom,hfx,hfy,xbmin,xbmax,ybmin,
-    ybmax,sble,chordb,areab,radble,angbte,ei11ba,ei22ba,apx1ba,apx2ba,ei11bt,
-    ei22bt,apx1bt,apx2bt,thickb,cambrb,xcm,ycm,scm,xcmp,ycmp,xtk,ytk,stk,xtkp,ytkp
-end
+  yb = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*IBX,IBX)
+  xbp = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(2*IBX),IBX)
+  ybp = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(3*IBX),IBX)
+  sb = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(4*IBX),IBX)
+  snew = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(5*IBX),4*IBX)
+  xbf = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(9*IBX),1)
+  ybf = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(9*IBX+1),1)
+  xof = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(9*IBX+2),1)
+  yof = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(9*IBX+3),1)
+  hmom = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(9*IBX+4),1)
+  hfx = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(9*IBX+5),1)
+  hfy = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(9*IBX+6),1)
+  xbmin = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(9*IBX+7),1)
+  xbmax = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(9*IBX+8),1)
+  ybmin = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(9*IBX+9),1)
+  ybmax = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(9*IBX+10),1)
+  sble = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(9*IBX+11),1)
+  chordb = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(9*IBX+12),1)
+  areab = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(9*IBX+13),1)
+  radble = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(9*IBX+14),1)
+  angbte = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(9*IBX+15),1)
+  ei11ba = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(9*IBX+16),1)
+  ei22ba = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(9*IBX+17),1)
+  apx1ba = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(9*IBX+18),1)
+  apx2ba = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(9*IBX+19),1)
+  ei11bt = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(9*IBX+20),1)
+  ei22bt = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(9*IBX+21),1)
+  apx1bt = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(9*IBX+22),1)
+  apx2bt = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(9*IBX+23),1)
+  thickb = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(9*IBX+24),1)
+  cambrb = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(9*IBX+25),1)
+  xcm = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(9*IBX+26),2*IBX)
+  ycm = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(11*IBX+26),2*IBX)
+  scm = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(13*IBX+26),2*IBX)
+  xcmp = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(15*IBX+26),2*IBX)
+  ycmp = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(17*IBX+36),2*IBX)
+  xtk = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(19*IBX+36),2*IBX)
+  ytk = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(21*IBX+36),2*IBX)
+  stk = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(23*IBX+36),2*IBX)
+  xtkp = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(25*IBX+36),2*IBX)
+  ytkp = unsafe_wrap(Array,cr14+sizeof(ComplexF64)*(27*IBX+36),2*IBX)
 
-struct cr15struct_cs
-  xssi::Array{Complex128,2}
-  uedg::Array{Complex128,2}
-  uinv::Array{Complex128,2}
-  mass::Array{Complex128,2}
-  thet::Array{Complex128,2}
-  dstr::Array{Complex128,2}
-  ctau::Array{Complex128,2}
-  delt::Array{Complex128,2}
-  uslp::Array{Complex128,2}
-  guxq::Array{Complex128,2}
-  guxd::Array{Complex128,2}
-  tau::Array{Complex128,2}
-  dis::Array{Complex128,2}
-  ctq::Array{Complex128,2}
-  vti::Array{Complex128,2}
-  reinf1::Array{Complex128,1}
-  reinf::Array{Complex128,1}
-  reinf_cl::Array{Complex128,1}
-  acrit::Array{Complex128,1}
-  xstrip::Array{Complex128,1}
-  xoctr::Array{Complex128,1}
-  yoctr::Array{Complex128,1}
-  xssitr::Array{Complex128,1}
-  uinv_a::Array{Complex128,2}
-end
-function getCR15_cs(IVX=229,ISX=2)
-  cr15 = cglobal((:cr15_,libxfoil_cs),Complex128)
+  cr15 = cglobal((:cr15_,libxfoil_cs),ComplexF64)
   xssi = unsafe_wrap(Array,cr15,(IVX,ISX))
-  uedg = unsafe_wrap(Array,cr15+sizeof(Complex128)*(IVX*ISX),(IVX,ISX))
-  uinv = unsafe_wrap(Array,cr15+sizeof(Complex128)*(2*IVX*ISX),(IVX,ISX))
-  mass = unsafe_wrap(Array,cr15+sizeof(Complex128)*(3*IVX*ISX),(IVX,ISX))
-  thet = unsafe_wrap(Array,cr15+sizeof(Complex128)*(4*IVX*ISX),(IVX,ISX))
-  dstr = unsafe_wrap(Array,cr15+sizeof(Complex128)*(5*IVX*ISX),(IVX,ISX))
-  ctau = unsafe_wrap(Array,cr15+sizeof(Complex128)*(6*IVX*ISX),(IVX,ISX))
-  delt = unsafe_wrap(Array,cr15+sizeof(Complex128)*(7*IVX*ISX),(IVX,ISX))
-  uslp = unsafe_wrap(Array,cr15+sizeof(Complex128)*(8*IVX*ISX),(IVX,ISX))
-  guxq = unsafe_wrap(Array,cr15+sizeof(Complex128)*(9*IVX*ISX),(IVX,ISX))
-  guxd = unsafe_wrap(Array,cr15+sizeof(Complex128)*(10*IVX*ISX),(IVX,ISX))
-  tau = unsafe_wrap(Array,cr15+sizeof(Complex128)*(11*IVX*ISX),(IVX,ISX))
-  dis = unsafe_wrap(Array,cr15+sizeof(Complex128)*(12*IVX*ISX),(IVX,ISX))
-  ctq = unsafe_wrap(Array,cr15+sizeof(Complex128)*(13*IVX*ISX),(IVX,ISX))
-  vti = unsafe_wrap(Array,cr15+sizeof(Complex128)*(14*IVX*ISX),(IVX,ISX))
-  reinf1 = unsafe_wrap(Array,cr15+sizeof(Complex128)*(15*IVX*ISX),1)
-  reinf = unsafe_wrap(Array,cr15+sizeof(Complex128)*(15*IVX*ISX+1),1)
-  reinf_cl = unsafe_wrap(Array,cr15+sizeof(Complex128)*(15*IVX*ISX+2),1)
-  acrit = unsafe_wrap(Array,cr15+sizeof(Complex128)*(15*IVX*ISX+3),1)
-  xstrip = unsafe_wrap(Array,cr15+sizeof(Complex128)*(15*IVX*ISX+4),ISX)
-  xoctr = unsafe_wrap(Array,cr15+sizeof(Complex128)*(15*IVX*ISX+4+ISX),ISX)
-  yoctr = unsafe_wrap(Array,cr15+sizeof(Complex128)*(15*IVX*ISX+4+2*ISX),ISX)
-  xssitr = unsafe_wrap(Array,cr15+sizeof(Complex128)*(15*IVX*ISX+4+3*ISX),ISX)
-  uinv_a = unsafe_wrap(Array,cr15+sizeof(Complex128)*(15*IVX*ISX+4+4*ISX),(IVX,ISX))
-  return xssi,uedg,uinv,mass,thet,dstr,ctau,delt,uslp,guxq,guxd,tau,dis,ctq,vti,
-    reinf1,reinf,reinf_cl,acrit,xstrip,xoctr,yoctr,xssitr,uinv_a
-end
+  uedg = unsafe_wrap(Array,cr15+sizeof(ComplexF64)*(IVX*ISX),(IVX,ISX))
+  uinv = unsafe_wrap(Array,cr15+sizeof(ComplexF64)*(2*IVX*ISX),(IVX,ISX))
+  mass = unsafe_wrap(Array,cr15+sizeof(ComplexF64)*(3*IVX*ISX),(IVX,ISX))
+  thet = unsafe_wrap(Array,cr15+sizeof(ComplexF64)*(4*IVX*ISX),(IVX,ISX))
+  dstr = unsafe_wrap(Array,cr15+sizeof(ComplexF64)*(5*IVX*ISX),(IVX,ISX))
+  ctau = unsafe_wrap(Array,cr15+sizeof(ComplexF64)*(6*IVX*ISX),(IVX,ISX))
+  delt = unsafe_wrap(Array,cr15+sizeof(ComplexF64)*(7*IVX*ISX),(IVX,ISX))
+  uslp = unsafe_wrap(Array,cr15+sizeof(ComplexF64)*(8*IVX*ISX),(IVX,ISX))
+  guxq = unsafe_wrap(Array,cr15+sizeof(ComplexF64)*(9*IVX*ISX),(IVX,ISX))
+  guxd = unsafe_wrap(Array,cr15+sizeof(ComplexF64)*(10*IVX*ISX),(IVX,ISX))
+  tau = unsafe_wrap(Array,cr15+sizeof(ComplexF64)*(11*IVX*ISX),(IVX,ISX))
+  dis = unsafe_wrap(Array,cr15+sizeof(ComplexF64)*(12*IVX*ISX),(IVX,ISX))
+  ctq = unsafe_wrap(Array,cr15+sizeof(ComplexF64)*(13*IVX*ISX),(IVX,ISX))
+  vti = unsafe_wrap(Array,cr15+sizeof(ComplexF64)*(14*IVX*ISX),(IVX,ISX))
+  reinf1 = unsafe_wrap(Array,cr15+sizeof(ComplexF64)*(15*IVX*ISX),1)
+  reinf = unsafe_wrap(Array,cr15+sizeof(ComplexF64)*(15*IVX*ISX+1),1)
+  reinf_cl = unsafe_wrap(Array,cr15+sizeof(ComplexF64)*(15*IVX*ISX+2),1)
+  acrit = unsafe_wrap(Array,cr15+sizeof(ComplexF64)*(15*IVX*ISX+3),1)
+  xstrip = unsafe_wrap(Array,cr15+sizeof(ComplexF64)*(15*IVX*ISX+4),ISX)
+  xoctr = unsafe_wrap(Array,cr15+sizeof(ComplexF64)*(15*IVX*ISX+4+ISX),ISX)
+  yoctr = unsafe_wrap(Array,cr15+sizeof(ComplexF64)*(15*IVX*ISX+4+2*ISX),ISX)
+  xssitr = unsafe_wrap(Array,cr15+sizeof(ComplexF64)*(15*IVX*ISX+4+3*ISX),ISX)
+  uinv_a = unsafe_wrap(Array,cr15+sizeof(ComplexF64)*(15*IVX*ISX+4+4*ISX),(IVX,ISX))
 
-struct cr17struct_cs
-  rmsbl::Array{Complex128,1}
-  rmxbl::Array{Complex128,1}
-  rlx::Array{Complex128,1}
-  vaccel::Array{Complex128,1}
-end
-function getCR17_cs()
-  cr17 = cglobal((:cr17_,libxfoil_cs),Complex128)
+  cr17 = cglobal((:cr17_,libxfoil_cs),ComplexF64)
   rmsbl = unsafe_wrap(Array,cr17,1)
-  rmxbl = unsafe_wrap(Array,cr17+sizeof(Complex128),1)
-  rlx = unsafe_wrap(Array,cr17+2*sizeof(Complex128),1)
-  vaccel = unsafe_wrap(Array,cr17+3*sizeof(Complex128),1)
-  return rmsbl,rmxbl,rlx,vaccel
-end
+  rmxbl = unsafe_wrap(Array,cr17+sizeof(ComplexF64),1)
+  rlx = unsafe_wrap(Array,cr17+2*sizeof(ComplexF64),1)
+  vaccel = unsafe_wrap(Array,cr17+3*sizeof(ComplexF64),1)
 
-struct cr18struct_cs
-  xsf::Array{Complex128,1}
-  ysf::Array{Complex128,1}
-  xoff::Array{Complex128,1}
-  yoff::Array{Complex128,1}
-  xgmin::Array{Complex128,1}
-  xgmax::Array{Complex128,1}
-  ygmin::Array{Complex128,1}
-  ygmax::Array{Complex128,1}
-  dxyg::Array{Complex128,1}
-  xcmin::Array{Complex128,1}
-  xcmax::Array{Complex128,1}
-  ycmin::Array{Complex128,1}
-  ycmax::Array{Complex128,1}
-  dxyc::Array{Complex128,1}
-  dyoffc::Array{Complex128,1}
-  xpmin::Array{Complex128,1}
-  xpmax::Array{Complex128,1}
-  ypmin::Array{Complex128,1}
-  ypmax::Array{Complex128,1}
-  dxyp::Array{Complex128,1}
-  dyoffp::Array{Complex128,1}
-  ysfp::Array{Complex128,1}
-  gtick::Array{Complex128,1}
-end
-function getCR18_cs()
-  cr18 = cglobal((:cr18_,libxfoil_cs),Complex128)
+  cr18 = cglobal((:cr18_,libxfoil_cs),ComplexF64)
   xsf = unsafe_wrap(Array,cr18,1)
-  ysf = unsafe_wrap(Array,cr18+sizeof(Complex128),1)
-  xoff = unsafe_wrap(Array,cr18+sizeof(Complex128)*2,1)
-  yoff = unsafe_wrap(Array,cr18+sizeof(Complex128)*3,1)
-  xgmin = unsafe_wrap(Array,cr18+sizeof(Complex128)*4,1)
-  xgmax = unsafe_wrap(Array,cr18+sizeof(Complex128)*5,1)
-  ygmin = unsafe_wrap(Array,cr18+sizeof(Complex128)*6,1)
-  ygmax = unsafe_wrap(Array,cr18+sizeof(Complex128)*7,1)
-  dxyg = unsafe_wrap(Array,cr18+sizeof(Complex128)*8,1)
-  xcmin = unsafe_wrap(Array,cr18+sizeof(Complex128)*9,1)
-  xcmax = unsafe_wrap(Array,cr18+sizeof(Complex128)*10,1)
-  ycmin = unsafe_wrap(Array,cr18+sizeof(Complex128)*11,1)
-  ycmax = unsafe_wrap(Array,cr18+sizeof(Complex128)*12,1)
-  dxyc = unsafe_wrap(Array,cr18+sizeof(Complex128)*13,1)
-  dyoffc = unsafe_wrap(Array,cr18+sizeof(Complex128)*14,1)
-  xpmin = unsafe_wrap(Array,cr18+sizeof(Complex128)*15,1)
-  xpmax = unsafe_wrap(Array,cr18+sizeof(Complex128)*16,1)
-  ypmin = unsafe_wrap(Array,cr18+sizeof(Complex128)*17,1)
-  ypmax = unsafe_wrap(Array,cr18+sizeof(Complex128)*18,1)
-  dxyp = unsafe_wrap(Array,cr18+sizeof(Complex128)*19,1)
-  dyoffp = unsafe_wrap(Array,cr18+sizeof(Complex128)*20,1)
-  ysfp = unsafe_wrap(Array,cr18+sizeof(Complex128)*21,1)
-  gtick = unsafe_wrap(Array,cr18+sizeof(Complex128)*22,1)
-  return xsf,ysf,xoff,yoff,xgmin,xgmax,ygmin,ygmax,dxyg,xcmin,xcmax,ycmin,ycmax,
-    dxyc,dyoffc,xpmin,xpmax,ypmin,ypmax,dxyp,dyoffp,ysfp,gtick
-end
+  ysf = unsafe_wrap(Array,cr18+sizeof(ComplexF64),1)
+  xoff = unsafe_wrap(Array,cr18+sizeof(ComplexF64)*2,1)
+  yoff = unsafe_wrap(Array,cr18+sizeof(ComplexF64)*3,1)
+  xgmin = unsafe_wrap(Array,cr18+sizeof(ComplexF64)*4,1)
+  xgmax = unsafe_wrap(Array,cr18+sizeof(ComplexF64)*5,1)
+  ygmin = unsafe_wrap(Array,cr18+sizeof(ComplexF64)*6,1)
+  ygmax = unsafe_wrap(Array,cr18+sizeof(ComplexF64)*7,1)
+  dxyg = unsafe_wrap(Array,cr18+sizeof(ComplexF64)*8,1)
+  xcmin = unsafe_wrap(Array,cr18+sizeof(ComplexF64)*9,1)
+  xcmax = unsafe_wrap(Array,cr18+sizeof(ComplexF64)*10,1)
+  ycmin = unsafe_wrap(Array,cr18+sizeof(ComplexF64)*11,1)
+  ycmax = unsafe_wrap(Array,cr18+sizeof(ComplexF64)*12,1)
+  dxyc = unsafe_wrap(Array,cr18+sizeof(ComplexF64)*13,1)
+  dyoffc = unsafe_wrap(Array,cr18+sizeof(ComplexF64)*14,1)
+  xpmin = unsafe_wrap(Array,cr18+sizeof(ComplexF64)*15,1)
+  xpmax = unsafe_wrap(Array,cr18+sizeof(ComplexF64)*16,1)
+  ypmin = unsafe_wrap(Array,cr18+sizeof(ComplexF64)*17,1)
+  ypmax = unsafe_wrap(Array,cr18+sizeof(ComplexF64)*18,1)
+  dxyp = unsafe_wrap(Array,cr18+sizeof(ComplexF64)*19,1)
+  dyoffp = unsafe_wrap(Array,cr18+sizeof(ComplexF64)*20,1)
+  ysfp = unsafe_wrap(Array,cr18+sizeof(ComplexF64)*21,1)
+  gtick = unsafe_wrap(Array,cr18+sizeof(ComplexF64)*22,1)
 
-struct qmatstruct_cs
-  q::Array{Complex128,2}
-  dq::Array{Complex128,1}
-  dzdg::Array{Complex128,1}
-  dzdn::Array{Complex128,1}
-  dzdm::Array{Complex128,1}
-  dqdg::Array{Complex128,1}
-  dqdm::Array{Complex128,1}
-  qtan1::Array{Complex128,1}
-  qtan2::Array{Complex128,1}
-  z_qinf::Array{Complex128,1}
-  z_alfa::Array{Complex128,1}
-  z_qdof0::Array{Complex128,1}
-  z_qdof1::Array{Complex128,1}
-  z_qdof2::Array{Complex128,1}
-  z_qdof3::Array{Complex128,1}
-end
-function getQMAT_cs(IQX=286,IZX=322)
-  qmat = cglobal((:qmat_,libxfoil_cs),Complex128)
+  qmat = cglobal((:qmat_,libxfoil_cs),ComplexF64)
   q = unsafe_wrap(Array,qmat,(IQX,IQX))
-  dq = unsafe_wrap(Array,qmat+sizeof(Complex128)*(IQX*IQX),IQX)
-  dzdg = unsafe_wrap(Array,qmat+sizeof(Complex128)*(IQX^2+IQX),IQX)
-  dzdn = unsafe_wrap(Array,qmat+sizeof(Complex128)*(IQX^2+2*IQX),IQX)
-  dzdm = unsafe_wrap(Array,qmat+sizeof(Complex128)*(IQX^2+3*IQX),IZX)
-  dqdg = unsafe_wrap(Array,qmat+sizeof(Complex128)*(IQX^2+3*IQX+IZX),IQX)
-  dqdm = unsafe_wrap(Array,qmat+sizeof(Complex128)*(IQX^2+4*IQX+IZX),IZX)
-  qtan1 = unsafe_wrap(Array,qmat+sizeof(Complex128)*(IQX^2+4*IQX+2*IZX),1)
-  qtan2 = unsafe_wrap(Array,qmat+sizeof(Complex128)*(IQX^2+4*IQX+2*IZX+1),1)
-  z_qinf = unsafe_wrap(Array,qmat+sizeof(Complex128)*(IQX^2+4*IQX+2*IZX+2),1)
-  z_alfa = unsafe_wrap(Array,qmat+sizeof(Complex128)*(IQX^2+4*IQX+2*IZX+3),1)
-  z_qdof0 = unsafe_wrap(Array,qmat+sizeof(Complex128)*(IQX^2+4*IQX+2*IZX+4),1)
-  z_qdof1 = unsafe_wrap(Array,qmat+sizeof(Complex128)*(IQX^2+4*IQX+2*IZX+5),1)
-  z_qdof2 = unsafe_wrap(Array,qmat+sizeof(Complex128)*(IQX^2+4*IQX+2*IZX+6),1)
-  z_qdof3 = unsafe_wrap(Array,qmat+sizeof(Complex128)*(IQX^2+4*IQX+2*IZX+7),1)
-  return q,dq,dzdg,dzdn,dzdm,dqdg,dqdm,qtan1,qtan2,z_qinf,z_alfa,z_qdof0,
-    z_qdof1,z_qdof2,z_qdof3
-end
+  dq = unsafe_wrap(Array,qmat+sizeof(ComplexF64)*(IQX*IQX),IQX)
+  dzdg = unsafe_wrap(Array,qmat+sizeof(ComplexF64)*(IQX^2+IQX),IQX)
+  dzdn = unsafe_wrap(Array,qmat+sizeof(ComplexF64)*(IQX^2+2*IQX),IQX)
+  dzdm = unsafe_wrap(Array,qmat+sizeof(ComplexF64)*(IQX^2+3*IQX),IZX)
+  dqdg = unsafe_wrap(Array,qmat+sizeof(ComplexF64)*(IQX^2+3*IQX+IZX),IQX)
+  dqdm = unsafe_wrap(Array,qmat+sizeof(ComplexF64)*(IQX^2+4*IQX+IZX),IZX)
+  qtan1 = unsafe_wrap(Array,qmat+sizeof(ComplexF64)*(IQX^2+4*IQX+2*IZX),1)
+  qtan2 = unsafe_wrap(Array,qmat+sizeof(ComplexF64)*(IQX^2+4*IQX+2*IZX+1),1)
+  z_qinf = unsafe_wrap(Array,qmat+sizeof(ComplexF64)*(IQX^2+4*IQX+2*IZX+2),1)
+  z_alfa = unsafe_wrap(Array,qmat+sizeof(ComplexF64)*(IQX^2+4*IQX+2*IZX+3),1)
+  z_qdof0 = unsafe_wrap(Array,qmat+sizeof(ComplexF64)*(IQX^2+4*IQX+2*IZX+4),1)
+  z_qdof1 = unsafe_wrap(Array,qmat+sizeof(ComplexF64)*(IQX^2+4*IQX+2*IZX+5),1)
+  z_qdof2 = unsafe_wrap(Array,qmat+sizeof(ComplexF64)*(IQX^2+4*IQX+2*IZX+6),1)
+  z_qdof3 = unsafe_wrap(Array,qmat+sizeof(ComplexF64)*(IQX^2+4*IQX+2*IZX+7),1)
 
-struct vmatstruct_cs
-  va::Array{Complex128,3}
-  vb::Array{Complex128,3}
-  vdel::Array{Complex128,3}
-  vm::Array{Complex128,3}
-  vz::Array{Complex128,2}
-end
-function getVMAT_cs(IZX = 322)
-  vmat = cglobal((:vmat_,libxfoil_cs),Complex128)
+  vmat = cglobal((:vmat_,libxfoil_cs),ComplexF64)
   va = unsafe_wrap(Array,vmat,(3,2,IZX))
-  vb = unsafe_wrap(Array,vmat+sizeof(Complex128)*(3*2*IZX),(3,2,IZX))
-  vdel = unsafe_wrap(Array,vmat+sizeof(Complex128)*(2*3*2*IZX),(3,2,IZX))
-  vm = unsafe_wrap(Array,vmat+sizeof(Complex128)*(3*3*2*IZX),(3,IZX,IZX))
-  vz = unsafe_wrap(Array,vmat+sizeof(Complex128)*(3*3*2*IZX+IZX*IZX),(3,2))
-  return va,vb,vdel,vm,vz
-end
+  vb = unsafe_wrap(Array,vmat+sizeof(ComplexF64)*(3*2*IZX),(3,2,IZX))
+  vdel = unsafe_wrap(Array,vmat+sizeof(ComplexF64)*(2*3*2*IZX),(3,2,IZX))
+  vm = unsafe_wrap(Array,vmat+sizeof(ComplexF64)*(3*3*2*IZX),(3,IZX,IZX))
+  vz = unsafe_wrap(Array,vmat+sizeof(ComplexF64)*(3*3*2*IZX+IZX*IZX),(3,2))
 
-struct ci01struct_cs
-  iq1::Array{Int32,1}
-  iq2::Array{Int32,1}
-  nsp::Array{Int32,1}
-  nqsp::Array{Int32,1}
-  kqtarg::Array{Int32,1}
-  iacqsp::Array{Int32,1}
-  nc1::Array{Int32,1}
-  nname::Array{Int32,1}
-  nprefix::Array{Int32,1}
-end
-function getCI01_cs()
   ci01 = cglobal((:ci01_,libxfoil_cs),Int32)
   iq1 = unsafe_wrap(Array,ci01,1)
   iq2 = unsafe_wrap(Array,ci01+sizeof(Int32),1)
@@ -1109,24 +712,7 @@ function getCI01_cs()
   nc1 = unsafe_wrap(Array,ci01+sizeof(Int32)*6,1)
   nname = unsafe_wrap(Array,ci01+sizeof(Int32)*7,1)
   nprefix = unsafe_wrap(Array,ci01+sizeof(Int32)*8,1)
-  return iq1,iq2,nsp,nqsp,kqtarg,iacqsp,nc1,nname,nprefix
-end
 
-struct ci03struct_cs
-  ncpref::Array{Int32,1}
-  napol::Array{Int32,1}
-  npol::Array{Int32,1}
-  ipact::Array{Int32,1}
-  nlref::Array{Int32,1}
-  icolp::Array{Int32,1}
-  icolr::Array{Int32,1}
-  imatyp::Array{Int32,1}
-  iretyp::Array{Int32,1}
-  nxypol::Array{Int32,1}
-  npolref::Array{Int32,1}
-  ndref::Array{Int32,2}
-end
-function getCI03_cs(NPX=8)
   ci03 = cglobal((:ci03_,libxfoil_cs),Int32)
   ncpref = unsafe_wrap(Array,ci03,1)
   napol = unsafe_wrap(Array,ci03+sizeof(Int32),NPX)
@@ -1140,32 +726,7 @@ function getCI03_cs(NPX=8)
   nxypol = unsafe_wrap(Array,ci03+sizeof(Int32)*(4+5*NPX),NPX)
   npolref = unsafe_wrap(Array,ci03+sizeof(Int32)*(4+6*NPX),1)
   ndref = unsafe_wrap(Array,ci03+sizeof(Int32)*(5+6*NPX),(4,NPX))
-  return ncpref,napol,npol,ipact,nlref,icolp,icolr,imatyp,iretyp,nxypol,
-    npolref,ndref
-end
 
-struct ci04struct_cs
-  n::Array{Int32,1}
-  nb::Array{Int32,1}
-  nw::Array{Int32,1}
-  npan::Array{Int32,1}
-  ist::Array{Int32,1}
-  kimage::Array{Int32,1}
-  itmax::Array{Int32,1}
-  nseqex::Array{Int32,1}
-  retyp::Array{Int32,1}
-  matyp::Array{Int32,1}
-  aijpix::Array{Int32,1}
-  idev::Array{Int32,1}
-  idevrp::Array{Int32,1}
-  ipslu::Array{Int32,1}
-  ncolor::Array{Int32,1}
-  icols::Array{Int32,1}
-  nover::Array{Int32,1}
-  ncm::Array{Int32,1}
-  ntk::Array{Int32,1}
-end
-function getCI04_cs(ISX=2)
   ci04 = cglobal((:ci04_,libxfoil_cs),Int32)
   n = unsafe_wrap(Array,ci04,1)
   nb = unsafe_wrap(Array,ci04+sizeof(Int32)*1,1)
@@ -1186,19 +747,7 @@ function getCI04_cs(ISX=2)
   nover = unsafe_wrap(Array,ci04+sizeof(Int32)*(14+2*ISX),1)
   ncm = unsafe_wrap(Array,ci04+sizeof(Int32)*(15+2*ISX),1)
   ntk = unsafe_wrap(Array,ci04+sizeof(Int32)*(16+2*ISX),1)
-  return n,nb,nw,npan,ist,kimage,itmax,nseqex,retyp,matyp,aijpix,idev,idevrp,
-    ipslu,ncolor,icols,nover,ncm,ntk
-end
 
-struct ci05struct_cs
-  iblte::Array{Int32,1}
-  nbl::Array{Int32,1}
-  ipan::Array{Int32,2}
-  isys::Array{Int32,2}
-  nsys::Array{Int32,1}
-  itran::Array{Int32,1}
-end
-function getCI05_cs(ISX=2,IVX=229)
   ci05 = cglobal((:ci05_,libxfoil_cs),Int32)
   iblte = unsafe_wrap(Array,ci05,ISX)
   nbl = unsafe_wrap(Array,ci05+sizeof(Int32)*ISX,ISX)
@@ -1206,83 +755,11 @@ function getCI05_cs(ISX=2,IVX=229)
   isys = unsafe_wrap(Array,ci05+sizeof(Int32)*(2*ISX+IVX*ISX),(IVX,ISX))
   nsys = unsafe_wrap(Array,ci05+sizeof(Int32)*(2*ISX+2*IVX*ISX),1)
   itran = unsafe_wrap(Array,ci05+sizeof(Int32)*(2*ISX+2*IVX*ISX+1),ISX)
-  return iblte,nbl,ipan,isys,nsys,itran
-end
 
-struct ci06struct_cs
-  imxbl::Array{Int32,1}
-  ismxbl::Array{Int32,1}
-end
-function getCI06_cs()
   ci06 = cglobal((:ci06_,libxfoil_cs),Int32)
   imxbl = unsafe_wrap(Array,ci06,1)
   ismxbl = unsafe_wrap(Array,ci06+sizeof(Int32),1)
-  return imxbl,ismxbl
-end
 
-struct cl01struct_cs
-  ok::Array{Int32,1}
-  limage::Array{Int32,1}
-  sharp::Array{Int32,1}
-  lgamu::Array{Int32,1}
-  lqinu::Array{Int32,1}
-  lvisc::Array{Int32,1}
-  lalfa::Array{Int32,1}
-  lwake::Array{Int32,1}
-  lpacc::Array{Int32,1}
-  lblini::Array{Int32,1}
-  lipan::Array{Int32,1}
-  lqaij::Array{Int32,1}
-  ladij::Array{Int32,1}
-  lwdij::Array{Int32,1}
-  lcpxx::Array{Int32,1}
-  lqvdes::Array{Int32,1}
-  lqrefl::Array{Int32,1}
-  lqspec::Array{Int32,1}
-  lvconv::Array{Int32,1}
-  lcpref::Array{Int32,1}
-  lclock::Array{Int32,1}
-  lpfile::Array{Int32,1}
-  lpfilx::Array{Int32,1}
-  lppsho::Array{Int32,1}
-  lbflap::Array{Int32,1}
-  lflap::Array{Int32,1}
-  leiw::Array{Int32,1}
-  lscini::Array{Int32,1}
-  lforef::Array{Int32,1}
-  lnorm::Array{Int32,1}
-  lgsame::Array{Int32,1}
-  lplcam::Array{Int32,1}
-  lqsym::Array{Int32,1}
-  lgsym::Array{Int32,1}
-  lqgrid::Array{Int32,1}
-  lggrid::Array{Int32,1}
-  lgtick::Array{Int32,1}
-  lqslop::Array{Int32,1}
-  lgslop::Array{Int32,1}
-  lcslop::Array{Int32,1}
-  lqsppl::Array{Int32,1}
-  lgeopl::Array{Int32,1}
-  lgparm::Array{Int32,1}
-  lcpgrd::Array{Int32,1}
-  lblgrd::Array{Int32,1}
-  lblsym::Array{Int32,1}
-  lplot::Array{Int32,1}
-  lsym::Array{Int32,1}
-  liqset::Array{Int32,1}
-  lclip::Array{Int32,1}
-  lvlab::Array{Int32,1}
-  lcurs::Array{Int32,1}
-  lland::Array{Int32,1}
-  lpgrid::Array{Int32,1}
-  lpcdw::Array{Int32,1}
-  lplist::Array{Int32,1}
-  lplegn::Array{Int32,1}
-  lcminp::Array{Int32,1}
-  lhmomp::Array{Int32,1}
-  lexitflag::Array{Int32,1}
-end
-function getCL01_cs()
   cl01 = cglobal((:cl01_,libxfoil_cs),Int32)
   ok = unsafe_wrap(Array,cl01+sizeof(Int32)*0,1)
   limage = unsafe_wrap(Array,cl01+sizeof(Int32)*1,1)
@@ -1344,35 +821,10 @@ function getCL01_cs()
   lcminp = unsafe_wrap(Array,cl01+sizeof(Int32)*57,1)
   lhmomp = unsafe_wrap(Array,cl01+sizeof(Int32)*58,1)
   lexitflag = unsafe_wrap(Array,cl01+sizeof(Int32)*59,1)
-  return ok,limage,sharp,lgamu,lqinu,lvisc,lalfa,lwake,lpacc,lblini,lipan,lqaij,
-    ladij,lwdij,lcpxx,lqvdes,lqrefl,lqspec,lvconv,lcpref,lclock,lpfile,lpfilx,
-    lppsho,lbflap,lflap,leiw,lscini,lforef,lnorm,lgsame,lplcam,lqsym,lgsym,
-    lqgrid,lggrid,lgtick,lqslop,lgslop,lcslop,lqsppl,lgeopl,lgparm,lcpgrd,
-    lblgrd,lblsym,lplot,lsym,liqset,lclip,lvlab,lcurs,lland,lpgrid,lpcdw,
-    lplist,lplegn,lcminp,lhmomp,lexitflag
-end
 
-struct cl02struct_cs
-  tforce::Array{Int32,1}
-end
-function getCL02_cs(ISX=2)
   cl02 = cglobal((:cl02_,libxfoil_cs),Int32)
   tforce = unsafe_wrap(Array,cl02,ISX)
-  return tforce
-end
 
-struct cc01struct_cs
-  fname::String
-  name::String
-  ispars::String
-  oname::String
-  prefix::String
-  pfname::String
-  pfnamx::String
-  namepol::String
-  nameref::String
-end
-function getCC01_cs()
   cc01 = cglobal((:cc01_,libxfoil_cs),UInt8)
   fname = unsafe_string(cc01+sizeof(UInt8)*0,64)
   name = unsafe_string(cc01+sizeof(UInt8)*64,48)
@@ -1383,23 +835,53 @@ function getCC01_cs()
   pfnamx = unsafe_string(cc01+sizeof(UInt8)*(4*64+48+80),64)
   namepol = unsafe_string(cc01+sizeof(UInt8)*(5*64+48+80),48)
   nameref = unsafe_string(cc01+sizeof(UInt8)*(5*64+2*48+80),48)
-  return fname,name,ispars,oname,prefix,pfname,pfnamx,namepol,nameref
-end
 
-struct cc02struct_cs
-  labref::String
-end
-function getCC02_cs()
   cc02 = cglobal((:cc02_,libxfoil_cs),UInt8)
   labref = unsafe_string(cc02,32)
-  return labref
-end
 
-struct cc03struct_cs
-  vmxbl::String
-end
-function getCC03_cs()
   cc03 = cglobal((:cc03_,libxfoil_cs),UInt8)
   vmxbl = unsafe_string(cc03,1)
-  return vmxbl
+
+  return globalstruct_cs(version,
+    aij, dij, qinv, qvis, cpi, cpv, qinvu, qinv_a,
+    x, y, xp, yp, s, sle, xle, yle, xte, yte, chord, yimage, wgap, waklen,
+    gam, gamu, gam_a, sig, nx, ny, apanel, sst, sst_go, sst_gp, gamte, gamte_a,
+    sigte, sigte_a, dste, ante, aste,
+    ssple, sspec, xspoc, yspoc, qgamm, qspec, qspecp, algam, clgam, cmgam, alqsp,
+    clqsp, cmqsp, qf0, qf1, qf2, qf3, qdof0, qdof1, qdof2, qdof3, clspec, ffilt,
+    adeg, alfa, awake, mvisc, avisc, xcmref, ycmref, cl, cm, cd, cdp, cdf,
+    cl_alf, cl_msq, psio, circ, cosa, sina, qinf, gamma, gamm1, minf1, minf,
+    minf_cl, tklam, tkl_msq, cpstar, qstar, cpmn, cpmni, cpmnv, xcpmni, xcpmnv,
+    xpref, cpref, verspol, cpolxy, machp1, reynp1, acritp, xstripp,
+    pi, hopi, qopi, dtor,
+    cvpar, cterat, ctrrat, xsref1, xsref2, xpref1, xpref2,
+    size, scrnfr, plotar, pfac, qfac, vfac, xwind, ywind, xpage, ypage, xmarg,
+    ymarg, ch, chg, chq, xofair, yofair, facair, xofa, yofa, faca, uprwt, cpmin,
+    cpmax, cpdel, cpolplf, xcdwid, xalwid, xocwid,
+    xb, yb, xbp, ybp, sb, snew, xbf, ybf, xof, yof, hmom, hfx, hfy, xbmin,
+    xbmax, ybmin, ybmax, sble, chordb, areab, radble, angbte, ei11ba, ei22ba,
+    apx1ba, apx2ba, ei11bt, ei22bt, apx1bt, apx2bt, thickb, cambrb, xcm, ycm,
+    scm, xcmp, ycmp, xtk, ytk, stk, xtkp, ytkp,
+    xssi, uedg, uinv, mass, thet, dstr, ctau, delt, uslp, guxq, guxd, tau, dis,
+    ctq, vti, reinf1, reinf, reinf_cl, acrit, xstrip, xoctr, yoctr, xssitr,
+    uinv_a, rmsbl, rmxbl, rlx, vaccel,
+    xsf, ysf, xoff, yoff, xgmin, xgmax, ygmin, ygmax, dxyg, xcmin, xcmax, ycmin,
+    ycmax, dxyc, dyoffc, xpmin, xpmax, ypmin, ypmax, dxyp, dyoffp, ysfp, gtick,
+    q, dq, dzdg, dzdn, dzdm, dqdg, dqdm, qtan1, qtan2, z_qinf, z_alfa, z_qdof0,
+    z_qdof1, z_qdof2, z_qdof3,
+    va, vb, vdel, vm, vz,
+    iq1, iq2, nsp, nqsp, kqtarg, iacqsp, nc1, nname, nprefix,
+    ncpref, napol, npol, ipact, nlref, icolp, icolr, imatyp, iretyp, nxypol,
+    npolref, ndref,
+    n, nb, nw, npan, ist, kimage, itmax, nseqex, retyp, matyp, aijpix, idev,
+    idevrp, ipslu, ncolor, icols, nover, ncm, ntk,
+    iblte, nbl, ipan, isys, nsys, itran, imxbl, ismxbl,
+    ok, limage, sharp, lgamu, lqinu, lvisc, lalfa, lwake, lpacc, lblini, lipan, lqaij,
+    ladij, lwdij, lcpxx, lqvdes, lqrefl, lqspec, lvconv, lcpref, lclock, lpfile, lpfilx,
+    lppsho, lbflap, lflap, leiw, lscini, lforef, lnorm, lgsame, lplcam, lqsym, lgsym,
+    lqgrid, lggrid, lgtick, lqslop, lgslop, lcslop, lqsppl, lgeopl, lgparm, lcpgrd,
+    lblgrd, lblsym, lplot, lsym, liqset, lclip, lvlab, lcurs, lland, lpgrid, lpcdw,
+    lplist, lplegn, lcminp, lhmomp, lexitflag, tforce,
+    fname, name, ispars, oname, prefix, pfname, pfnamx, namepol, nameref,
+    labref, vmxbl)
 end

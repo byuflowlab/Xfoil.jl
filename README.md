@@ -44,10 +44,3 @@ memory blocks.  This allows for in-depth modification to default XFOIL
 parameters and access to more output variables.  This feature was developed
 mostly for development purposes and should be used with care, as bypassing
 standard XFOIL processes for modifying variables may introduce unexpected errors.
-
-
-[![Build Status](https://travis-ci.org/taylormcd/Xfoil.jl.svg?branch=master)](https://travis-ci.org/taylormcd/Xfoil.jl)
-
-[![Coverage Status](https://coveralls.io/repos/taylormcd/Xfoil.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/taylormcd/Xfoil.jl?branch=master)
-
-[![codecov.io](http://codecov.io/github/taylormcd/Xfoil.jl/coverage.svg?branch=master)](http://codecov.io/github/taylormcd/Xfoil.jl?branch=master)
