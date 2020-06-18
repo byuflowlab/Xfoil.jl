@@ -52,12 +52,13 @@ end
     Returns cl,cd,cdp,cm,converged
 """
 function solveAlpha(angle::Real, re::Real; mach::Real=0.0,
-    iter::Integer=50)
+    iter::Integer=50, ncrit=9)
 
     xfoilglobals.adeg[1] = angle
     xfoilglobals.reinf1[1] = re
     xfoilglobals.minf1[1] = mach
     xfoilglobals.itmax[1] = iter
+    xfoilglobals.acrit[1] = ncrit
 
     ccall((:oper_, libxfoil), Nothing, ())
 
