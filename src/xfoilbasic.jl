@@ -95,3 +95,35 @@ function bldump()
     return s[1:nelem[1]], x[1:nelem[1]], y[1:nelem[1]], ue[1:nelem[1]],
         dstar[1:nelem[1]], theta[1:nelem[1]], cf[1:nelem[1]]
 end
+
+"""
+get_xsep()
+Get x-position of back-most separation point over each face. The separation
+point is defined as the point where the friction coefficient becomes cf<=0.
+Returns xsepup, xseplo
+"""
+function get_xsep(; lecrit=1e-4)
+
+    global xfoilglobals
+    s, x, y, ue, dstar, theta, cf = bldump()
+
+    # Find indices of LE and TE edge
+    xile = findfirst( x -> abs(x-xfoilglobals.xle[1])<=lecrit, x)
+    xite1 = findfirst( x -> x==xfoilglobals.xte[1], x)
+    xite2 = findnext( x -> x==xfoilglobals.xte[1], x, xite1+1)
+
+    # Get both faces going from TE to LE
+    iup = xite1:(-1)^(xite1>xile):xile
+    ilo = xite2:(-1)^(xite2>xile):xile
+    xup, yup = x[iup], y[iup]
+    xlo, ylo = x[ilo], y[ilo]
+
+    # Find first separation point from the TE to LE on each side
+    iupsep = findfirst( val -> val>=0, cf[iup])
+    ilosep = findfirst( val -> val>=0, cf[ilo])
+
+    xsepup = xup[iupsep]
+    xseplo = xlo[ilosep]
+
+    return xsepup, xseplo
+end

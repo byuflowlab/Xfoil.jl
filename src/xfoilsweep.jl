@@ -20,7 +20,8 @@ function xfoilsweep(x::AbstractArray{<:Real,1}, y::AbstractArray{<:Real,1},
     aoa::AbstractArray{<:Real,1},
     re::Real; mach::Real=0.0, iter::Integer=50,
     npan::Integer=140, percussive_maintenance::Bool=true, printdata::Bool=false,
-    zeroinit::Bool=true, clmaxstop::Bool=false, clminstop::Bool=false, ncrit=9)
+    zeroinit::Bool=true, clmaxstop::Bool=false, clminstop::Bool=false, ncrit=9,
+    xsep=nothing)
 
     if length(x) != length(y)
         error("x and y arrays must have the same length")
@@ -32,6 +33,7 @@ function xfoilsweep(x::AbstractArray{<:Real,1}, y::AbstractArray{<:Real,1},
     cd = zeros(Float64, naoa)
     cdp = zeros(Float64, naoa)
     cm = zeros(Float64, naoa)
+    _xsep = zeros(Float64, 2, naoa)
     conv = zeros(Bool, naoa)
 
     # Set up angle of attack range going up and going down from zero if specified
@@ -42,34 +44,43 @@ function xfoilsweep(x::AbstractArray{<:Real,1}, y::AbstractArray{<:Real,1},
         aoaneg = sort(aoa[findall(aoa.<0.0)], rev = true)
         pushfirst!(aoaneg,0.0)
         idxsplit = length(aoaneg)
+        xsepneg = zeros(Float64, 2, length(aoaneg))
 
         clneg, cdneg, cdpneg, cmneg, convneg = xfoilsweep(x, y, aoaneg, re,
             mach, iter, npan, percussive_maintenance, printdata, false,
-            clminstop; ncrit=ncrit)
+            clminstop; ncrit=ncrit, xsep=xsepneg)
 
         cl[1:idxsplit-1] = clneg[end:-1:2]
         cd[1:idxsplit-1] = cdneg[end:-1:2]
         cdp[1:idxsplit-1] = cdpneg[end:-1:2]
         cm[1:idxsplit-1] = cmneg[end:-1:2]
+        _xsep[:, 1:idxsplit-1] = xsepneg[:, end:-1:2]
         conv[1:idxsplit-1] = convneg[end:-1:2]
 
         # positive angles of attack
         aoapos = sort(aoa[findall(aoa.>=0.0)])
         pushfirst!(aoapos,0.0)
+        xseppos = zeros(Float64, 2, length(aoapos))
 
         clpos, cdpos, cdppos, cmpos, convpos = xfoilsweep(x, y, aoapos, re,
             mach, iter, npan, percussive_maintenance, printdata, clmaxstop,
-            false; ncrit=ncrit)
+            false; ncrit=ncrit, xsep=xseppos)
 
         cl[idxsplit:end] = clpos[2:end]
         cd[idxsplit:end] = cdpos[2:end]
         cdp[idxsplit:end] = cdppos[2:end]
         cm[idxsplit:end] = cmpos[2:end]
+        _xsep[:, idxsplit:end] = xseppos[:, 2:end]
         conv[idxsplit:end] = convpos[2:end]
+
+        if xsep != nothing
+            xsep[:] = _xsep
+        end
 
     else
         cl[:], cd[:], cdp[:], cm[:], conv[:] = xfoilsweep(x, y, aoa, re, mach, iter,
-            npan, percussive_maintenance, printdata, clminstop, clmaxstop; ncrit=ncrit)
+            npan, percussive_maintenance, printdata, clminstop, clmaxstop;
+            ncrit=ncrit, xsep=xsep)
     end
 
     return cl, cd, cdp, cm, conv
@@ -78,7 +89,8 @@ end
 function xfoilsweep(x::AbstractArray{<:Real,1}, y::AbstractArray{<:Real,1},
     aoa::AbstractArray{<:Real,1}, re::Real, mach::Real, iter::Integer,
     npan::Integer, percussive_maintenance::Bool, printdata::Bool,
-    clmaxstop::Bool, clminstop::Bool; ncrit=9)
+    clmaxstop::Bool, clminstop::Bool; ncrit=9,
+    xsep::Union{AbstractArray{<:Real,2}, Nothing}=nothing)
 
     # Set up storage arrays
     naoa = length(aoa)
@@ -111,6 +123,10 @@ function xfoilsweep(x::AbstractArray{<:Real,1}, y::AbstractArray{<:Real,1},
         if printdata == true
             @printf("%8f\t%8f\t%8f\t%8f\t%d\n", aoa[i], cl[i], cd[i], cm[i],
                 converged[i])
+        end
+
+        if xsep != nothing
+            xsep[:, i] .= get_xsep()
         end
 
         aoaconv = aoa[findall(converged)]
