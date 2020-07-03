@@ -122,6 +122,9 @@ function get_xsep(; lecrit=1e-4)
     iupsep = findfirst( val -> val>=0, cf[iup])
     ilosep = findfirst( val -> val>=0, cf[ilo])
 
+    iupsep == nothing ? iupsep = iup[end] : nothing
+    ilosep == nothing ? ilosep = ilo[end] : nothing
+
     xsepup = xup[iupsep]
     xseplo = xlo[ilosep]
 
