@@ -104,29 +104,30 @@ Returns xsepup, xseplo
 """
 function get_xsep(; lecrit=1e-4)
 
+
     global xfoilglobals
     s, x, y, ue, dstar, theta, cf = bldump()
 
     # Find indices of LE and TE edge
-    xile = findfirst( x -> abs(x-xfoilglobals.xle[1])<=lecrit, x)
-    xite1 = findfirst( x -> x==xfoilglobals.xte[1], x)
-    xite2 = findnext( x -> x==xfoilglobals.xte[1], x, xite1+1)
+    xile = findfirst(  x -> abs(x-xfoilglobals.xle[1])<=lecrit, x)
+    xite1 = findfirst( x -> abs(x-xfoilglobals.xte[1])<=lecrit, x)
+    xite2 = findnext(  x -> abs(x-xfoilglobals.xte[1])<=lecrit, x, xite1+1)
 
     # Get both faces going from TE to LE
     iup = xite1:(-1)^(xite1>xile):xile
     ilo = xite2:(-1)^(xite2>xile):xile
-    xup, yup = x[iup], y[iup]
-    xlo, ylo = x[ilo], y[ilo]
+    # xup, yup = x[iup], y[iup]
+    # xlo, ylo = x[ilo], y[ilo]
 
     # Find first separation point from the TE to LE on each side
     iupsep = findfirst( val -> val>=0, cf[iup])
     ilosep = findfirst( val -> val>=0, cf[ilo])
 
-    iupsep == nothing ? iupsep = iup[end] : nothing
-    ilosep == nothing ? ilosep = ilo[end] : nothing
+    iupsep == nothing ? iupsep = length(iup) : nothing
+    ilosep == nothing ? ilosep = length(ilo) : nothing
 
-    xsepup = xup[iupsep]
-    xseplo = xlo[ilosep]
+    xsepup = x[iup[iupsep]]
+    xseplo = x[ilo[ilosep]]
 
     return xsepup, xseplo
 end
