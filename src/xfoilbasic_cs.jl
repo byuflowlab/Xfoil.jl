@@ -14,7 +14,7 @@ function setCoordinates_cs(x::AbstractArray{<:Number,1}, y::AbstractArray{<:Numb
     xfoilglobals_cs.nb[1] = nb
     xfoilglobals_cs.xb[1:nb] = x
     xfoilglobals_cs.yb[1:nb] = y
-    ccall( (:xfoil_, libxfoil_cs), Nothing, ())
+    ccall( (:xfoil_, libxfoil_light_cs), Nothing, ())
     return nothing
 end
 
@@ -42,7 +42,7 @@ function pane_cs(;npan::Integer=140, cvpar::Number=1.0, cterat::Number=0.15,
     xfoilglobals_cs.xsref2[1] = xsref2
     xfoilglobals_cs.xpref1[1] = xpref1
     xfoilglobals_cs.xpref2[1] = xpref2
-    ccall( (:pangen_, libxfoil_cs), Nothing, ())
+    ccall( (:pangen_, libxfoil_light_cs), Nothing, ())
     return nothing
 end
 
@@ -60,7 +60,7 @@ function solveAlpha_cs(angle::Number, re::Number; mach::Number=0.0,
     xfoilglobals_cs.minf1[1] = mach
     xfoilglobals_cs.itmax[1] = iter
 
-    ccall((:oper_, libxfoil_cs), Nothing, ())
+    ccall((:oper_, libxfoil_light_cs), Nothing, ())
 
     cl = xfoilglobals_cs.cl[1]
     cd = xfoilglobals_cs.cd[1]
@@ -87,7 +87,7 @@ function bldump_cs()
     theta = zeros(ComplexF64, IZX)
     cf = zeros(ComplexF64, IZX)
 
-    ccall( (:bldump_, libxfoil_cs), Nothing,
+    ccall( (:bldump_, libxfoil_light_cs), Nothing,
         (Ref{Int32}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64},
         Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}, Ref{ComplexF64}),
         nelem, s, x, y, ue, dstar, theta, cf)

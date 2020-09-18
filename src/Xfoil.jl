@@ -1,15 +1,8 @@
 module Xfoil
-using Printf
+
+using xfoil_light_jll, Printf
 
 export setCoordinates, solveAlpha, pane, bldump
-
-# Get XFOIL libraries
-const depsfile = joinpath(dirname(@__FILE__), "..", "deps", "deps.jl")
-if isfile(depsfile)
-    include(depsfile)
-else
-    error("Xfoil.jl not properly installed. Please run Pkg.build(\"Xfoil\") then restart Julia.")
-end
 
 # Constant variables for array dimensions
 const IBX=572

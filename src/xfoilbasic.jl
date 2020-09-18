@@ -14,7 +14,7 @@ function setCoordinates(x::AbstractArray{<:Real,1},y::AbstractArray{<:Real,1})
     xfoilglobals.nb[1] = nb
     xfoilglobals.xb[1:nb] = x
     xfoilglobals.yb[1:nb] = y
-    ccall( (:xfoil_, libxfoil), Nothing, ())
+    ccall( (:xfoil_, libxfoil_light), Nothing, ())
     return nothing
 end
 
@@ -42,7 +42,7 @@ function pane(;npan::Integer=140, cvpar::Real=1.0, cterat::Real=0.15,
     xfoilglobals.xsref2[1] = xsref2
     xfoilglobals.xpref1[1] = xpref1
     xfoilglobals.xpref2[1] = xpref2
-    ccall( (:pangen_, libxfoil), Nothing, ())
+    ccall( (:pangen_, libxfoil_light), Nothing, ())
     return nothing
 end
 
@@ -60,7 +60,7 @@ function solveAlpha(angle::Real, re::Real; mach::Real=0.0,
     xfoilglobals.itmax[1] = iter
     xfoilglobals.acrit[1] = ncrit
 
-    ccall((:oper_, libxfoil), Nothing, ())
+    ccall((:oper_, libxfoil_light), Nothing, ())
 
     cl = xfoilglobals.cl[1]
     cd = xfoilglobals.cd[1]
@@ -87,7 +87,7 @@ function bldump()
     theta = zeros(Float64, IZX)
     cf = zeros(Float64, IZX)
 
-    ccall( (:bldump_, libxfoil), Nothing,
+    ccall( (:bldump_, libxfoil_light), Nothing,
         (Ref{Int32}, Ref{Float64}, Ref{Float64}, Ref{Float64}, Ref{Float64},
         Ref{Float64}, Ref{Float64}, Ref{Float64}),
         nelem, s, x, y, ue, dstar, theta, cf)
