@@ -8,7 +8,7 @@ makedocs(;
         "Examples" => "examples.md",
         "Library" => "library.md"
     ],
-    sitename = "Xfoil.jl"
+    sitename = "Xfoil.jl",
     authors = "Taylor McDonnell <taylormcd@byu.edu>"
 )
 
