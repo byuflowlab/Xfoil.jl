@@ -44,8 +44,6 @@ bldump_cs
 
 ## Private API
 
-### Math
-
 ```@docs
 Xfoil.XfoilGlobals
 Xfoil.get_globals
