@@ -26,4 +26,4 @@ pkg> add https://github.com/byuflowlab/Xfoil.jl
 
 ## Usage
 
-See the examples
+See the [examples](@ref Examples)
