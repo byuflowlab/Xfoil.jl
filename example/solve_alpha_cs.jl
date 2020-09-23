@@ -14,7 +14,7 @@ open(airfoil_file,"r") do f
       x = append!(x,Meta.parse(split(chomp(line))[1]))
       y = append!(y,Meta.parse(split(chomp(line))[2]))
   end
-  Xfoil.setCoordinates_cs(x,y)
+  Xfoil.set_coordinates_cs(x,y)
 end
 
 Xfoil.pane_cs()
@@ -31,11 +31,11 @@ println("----------------- Complex Results ----------------")
 println("Angle\t\tCl\t\tCd\t\tCm\t\tConverged")
 for i = 1:length(ang)
   Xfoil.pane_cs()
-  cl[i],cdd[i],cdp[i],cm[i],converged[i] = Xfoil.solveAlpha_cs(ang[i],100000.0+0.0im,mach=0.0+0.0im,iter=50)
+  cl[i],cdd[i],cdp[i],cm[i],converged[i] = Xfoil.solve_alpha_cs(ang[i], 1e5, mach=0.0, iter=50)
   @printf("%8f\t%8f\t%8f\t%8f\t%d\n",real(ang[i]),real(cl[i]),real(cdd[i]),real(cm[i]),converged[i])
 end
 
 println("Angle\t\tdClda\t\tdCdda\t\tdCmda\t\tConverged")
 for i = 1:length(ang)
-  @printf("%8f\t%8f\t%8f\t%8f\t%d\n",real(ang[i]),imag(cl[i])/imag(h),imag(cdd[i])/imag(h),imag(cm[i])/imag(h),converged[i])
+  @printf("%8f\t%8f\t%8f\t%8f\t%d\n",real(ang[i]),imag(cl[i])/imag(h)*180/pi,imag(cdd[i])/imag(h)*180/pi,imag(cm[i])/imag(h)*180/pi,converged[i])
 end

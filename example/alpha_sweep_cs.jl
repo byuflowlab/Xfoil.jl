@@ -15,7 +15,7 @@ end
 h = 1e-30im
 angle = collect(range(-10,stop=10,length=21)*pi/180).+h
 
-cl,cdd,cdp,cm,converged = Xfoil.xfoilsweep_cs(x, y, angle*180.0/pi,
+cl,cdd,cdp,cm,converged = Xfoil.alpha_sweep_cs(x, y, angle*180.0/pi,
     100000.0+0.0im, iter=100, printdata=true, clminstop=true, clmaxstop=true)
 
 println("----------------- Complex Results ----------------")

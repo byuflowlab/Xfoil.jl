@@ -1,7 +1,7 @@
 name = "Xfoil"
 uuid = "19641d66-a62d-11e8-2441-8f57a969a9c4"
 authors = ["Taylor McDonnell <taylor.golden.mcdonnell@gmail.com>"]
-version = "0.3.0"
+version = "0.4.0"
 
 [deps]
 xfoil_light_jll = "70cc596b-f351-5640-b155-76ddf0ff62ca"

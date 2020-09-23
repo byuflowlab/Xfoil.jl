@@ -13,5 +13,5 @@ end
 
 ang = collect(range(-15, stop=20,length=71))
 
-cl, cdd, cdp, cm, converged = Xfoil.xfoilsweep(x, y, ang, 100000.0, iter=100,
+cl, cdd, cdp, cm, converged = Xfoil.alpha_sweep(x, y, ang, 100000.0, iter=100,
     printdata=true, clminstop=false, clmaxstop=false);

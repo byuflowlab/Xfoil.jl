@@ -2,9 +2,10 @@ module Xfoil
 
 using xfoil_light_jll, Printf
 
-export setCoordinates, solveAlpha, pane, bldump
+export set_coordinates, pane, solve_alpha, bldump, alpha_sweep
+export set_coordinates_cs, pane_cs, solve_alpha_cs, bldump_cs, alpha_sweep_cs
 
-# Constant variables for array dimensions
+# Fixed array limitations from Fortran shared libraries
 const IBX=572
 const IPX=5
 const IQX=286
@@ -14,25 +15,20 @@ const IVX=229
 const NPX=8
 const IWK=36
 
-# Load methods for getting XFOIL globals
-include("xfoilglobals.jl")
-include("xfoilglobals_cs.jl")
-
-# Get globals once for all future use
-# const xfoilglobals = Ref{globalstruct}()
-# const xfoilglobals_cs = Ref{globalstruct_cs}()
 function __init__()
-    global xfoilglobals = getglobals()
-    global xfoilglobals_cs = getglobals_cs()
+    # wrap XFOIL global variables
+    global xfoilglobals = get_globals()
+    global xfoilglobals_cs = get_globals_cs()
     return nothing
 end
 
-# Load basic methods for running XFOIL
-include("xfoilbasic.jl")
-include("xfoilbasic_cs.jl")
+# wrappers for XFOIL global variables
+include("globals.jl")
 
-# Load methods for running XFOIL sweeps
-include("xfoilsweep.jl")
-include("xfoilsweep_cs.jl")
+# wrappers for XFOIL functions
+include("libxfoil.jl")
+
+# higher level functions
+include("higherlevel.jl")
 
 end #module

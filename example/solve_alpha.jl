@@ -10,7 +10,7 @@ open(airfoil_file,"r") do f
       x = append!(x,Meta.parse(split(chomp(line))[1]))
       y = append!(y,Meta.parse(split(chomp(line))[2]))
   end
-  Xfoil.setCoordinates(x,y)
+  Xfoil.set_coordinates(x,y)
 end
 
 Xfoil.pane()
@@ -32,8 +32,8 @@ convergedh = zeros(Bool,length(ang))
 println("----------------- Real Results ----------------")
 println("Angle\t\tCl\t\tCd\t\tCm\t\tConverged")
 for i = 1:length(ang)
-  cl[i],cdd[i],cdp[i],cm[i],converged[i] = Xfoil.solveAlpha(ang[i],100000.0,mach=0.0,iter=100)
-  clh,cdh,cdph,cmh,convergedh[i] = Xfoil.solveAlpha(angleh[i],100000.0,mach=0.0,iter=100)
+  cl[i],cdd[i],cdp[i],cm[i],converged[i] = Xfoil.solve_alpha(ang[i], 1e5,mach=0.0,iter=100)
+  clh,cdh,cdph,cmh,convergedh[i] = Xfoil.solve_alpha(angleh[i], 1e5,mach=0.0,iter=100)
   dClda[i] = (clh-cl[i])/h
   dCdda[i] = (cdh-cdd[i])/h
   dCdpda[i] = (cdph-cdp[i])/h

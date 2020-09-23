@@ -38,7 +38,7 @@ It also contains higher level methods for running an angle of
 attack sweep in XFOIL.  This method uses various methods to improve convergence.
 
 This module allows direct access to the Fortran global variables
-through a struct obtained by calling getglobals(). Note that the
+through a struct obtained by calling `get_globals()`. Note that the
 parameters are wrapped as Julia arrays, but still refer to the Fortran allocated
 memory blocks.  This allows for in-depth modification to default XFOIL
 parameters and access to more output variables.  This feature was developed
