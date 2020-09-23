@@ -34,3 +34,7 @@ pkg> add https://github.com/byuflowlab/Xfoil.jl
 ## Usage
 
 See the examples in the [documentation](https://flow.byu.edu/Xfoil.jl/dev).
+
+## Development
+
+Pull requests for this package or its companion package [xfoil_light](https://github.com/byuflowlab/xfoil_light) are always welcome.
