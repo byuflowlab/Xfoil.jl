@@ -23,8 +23,6 @@ This package was originally a fork of the [pyXLIGHT](https://github.com/mdolab/p
 
 This code actually wraps two versions of Mark Drela's XFOIL code, one of which may be used to compute gradients using the complex step method.  The complex step enabled version of XFOIL may be called through using functions that end with `_cs`.  Note that there is no interaction between the two versions of XFOIL wrapped by this package, so if you wish to use the complex step version of the code you must use the functions that end with `_cs`.
 
-
-
 ## Installation
 
 Enter the package manager by typing `]` and then run the following:
