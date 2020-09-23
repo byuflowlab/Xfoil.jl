@@ -14,15 +14,14 @@ This first example shows how to manually perform an angle of attack sweep.
 ```@example
 using Xfoil, Printf
 
-airfoil_file = "naca2412.dat"
-
 # read airfoil into XFOIL
-open(airfoil_file, "r") do f
+open("naca2412.dat", "r") do f
     x = Float64[]
     y = Float64[]
     for line in eachline(f)
-        x = push!(x, Meta.parse(split(chomp(line))[1]))
-        y = push!(y, Meta.parse(split(chomp(line))[2]))
+        entries = split(chomp(line))
+        push!(x, parse(Float64, entries[1]))
+        push!(y, parse(Float64, entries[2]))
     end
     Xfoil.set_coordinates(x,y)
 end
@@ -60,15 +59,14 @@ Suppose we want to find the derivative of `c_l`, `c_d`, and `c_m` with respect t
 ```@example
 using Xfoil, Printf
 
-airfoil_file = "naca2412.dat"
-
 # read airfoil into XFOIL
-open(airfoil_file, "r") do f
+open("naca2412.dat", "r") do f
     x = Float64[]
     y = Float64[]
     for line in eachline(f)
-        x = push!(x, Meta.parse(split(chomp(line))[1]))
-        y = push!(y, Meta.parse(split(chomp(line))[2]))
+        entries = split(chomp(line))
+        push!(x, parse(Float64, entries[1]))
+        push!(y, parse(Float64, entries[2]))
     end
     Xfoil.set_coordinates(x,y)
 end
@@ -114,15 +112,14 @@ A better approach might be to use the complex step method.
 ```@example
 using Xfoil, Printf
 
-airfoil_file = "naca2412.dat"
-
 # read airfoil into XFOIL
-open(airfoil_file, "r") do f
+open("naca2412.dat", "r") do f
     x = Float64[]
     y = Float64[]
     for line in eachline(f)
-        x = push!(x, Meta.parse(split(chomp(line))[1]))
-        y = push!(y, Meta.parse(split(chomp(line))[2]))
+        entries = split(chomp(line))
+        push!(x, parse(Float64, entries[1]))
+        push!(y, parse(Float64, entries[2]))
     end
     Xfoil.set_coordinates_cs(x,y)
 end
@@ -173,11 +170,12 @@ using Xfoil, Printf
 x = Float64[]
 y = Float64[]
 
-f = open(airfoil_file,"r")
+f = open("naca2412.dat", "r")
 
 for line in eachline(f)
-    x = push!(x,Meta.parse(split(chomp(line))[1]))
-    y = push!(y,Meta.parse(split(chomp(line))[2]))
+    entries = split(chomp(line))
+    push!(x, parse(Float64, entries[1]))
+    push!(y, parse(Float64, entries[2]))
 end
 
 close(f)
@@ -194,16 +192,18 @@ nothing #hide
 A version of `alpha_sweep` has also been implemented for use with the complex step version of XFOIL.
 
 ```@example
+using Xfoil, Printf
 
 # extract geometry
 x = Float64[]
 y = Float64[]
 
-f = open(airfoil_file,"r")
+f = open("naca2412.dat", "r")
 
 for line in eachline(f)
-    x = push!(x,Meta.parse(split(chomp(line))[1]))
-    y = push!(y,Meta.parse(split(chomp(line))[2]))
+    entries = split(chomp(line))
+    push!(x, parse(Float64, entries[1]))
+    push!(y, parse(Float64, entries[2]))
 end
 
 close(f)

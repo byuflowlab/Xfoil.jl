@@ -2,8 +2,8 @@ module Xfoil
 
 using xfoil_light_jll, Printf
 
-export set_coordinates, pane, solve_alpha, bldump, alpha_sweep
-export set_coordinates_cs, pane_cs, solve_alpha_cs, bldump_cs, alpha_sweep_cs
+export set_coordinates, pane, solve_alpha, get_xsep, bldump, alpha_sweep
+export set_coordinates_cs, pane_cs, solve_alpha_cs, get_xsep_cs, bldump_cs, alpha_sweep_cs
 
 # Fixed array limitations from Fortran shared libraries
 const IBX=572
