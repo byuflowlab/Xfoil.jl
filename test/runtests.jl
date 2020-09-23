@@ -2,7 +2,7 @@ using Xfoil
 using Test
 
 folder,_ = splitdir(@__FILE__)
-airfoil_file = joinpath(folder, "..", "example", "naca2412.dat")
+airfoil_file = "naca2412.dat"
 open(airfoil_file, "r") do f
     global x = Array{Float64,1}(undef, 0)
     global y = Array{Float64,1}(undef, 0)
