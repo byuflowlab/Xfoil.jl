@@ -10,11 +10,20 @@ Author: Taylor McDonnell
 
 **Xfoil.jl** is a Julia wrapper for a simplified version of Mark Drela's 2D airfoil panel code, [XFOIL](https://web.mit.edu/drela/Public/web/xfoil/).  
 
-At this point in time, the main functionality that this code supports is viscous airfoil analysis, though some convenience functions have been developed to simplify the process, especially when determining airfoil performance over a range of angles of attack.
+This package was originally a fork of the [pyXLIGHT](https://github.com/mdolab/pyXLIGHT), but has since undergone some development to introduce new features.  The version of XFOIL that this package wraps is that of the [xfoil_light](https://github.com/byuflowlab/xfoil_light) project.
 
-This code also wraps a version of Mark Drela's XFOIL code which may be used to compute gradients using the complex step method.  The complex step version of each function is denoted by appending `_cs` to the function name.  Note that there is no interaction between the two versions of XFOIL wrapped by this package, so if you wish to use the complex step version of the code you must append `_cs` to all function names.
+## Package Features
 
-This package was originally a fork of the [pyXLIGHT](https://github.com/mdolab/pyXLIGHT), but has since undergone some development to introduce new features.
+ - Can handle any airfoil XFOIL can handle
+ - Is able to redistribute panels over the surface of an airfoil using XFOIL's PANE command.
+ - Able to perform viscous airfoil analysis using XFOIL.
+ - Complex step method can be used to obtain gradients.
+
+## Obtaining Gradients using the Complex Step Method
+
+This code actually wraps two versions of Mark Drela's XFOIL code, one of which may be used to compute gradients using the complex step method.  The complex step enabled version of XFOIL may be called through using functions that end with `_cs`.  Note that there is no interaction between the two versions of XFOIL wrapped by this package, so if you wish to use the complex step version of the code you must use the functions that end with `_cs`.
+
+
 
 ## Installation
 
