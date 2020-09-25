@@ -6,3 +6,7 @@ version = "0.4.0"
 [deps]
 xfoil_light_jll = "70cc596b-f351-5640-b155-76ddf0ff62ca"
 Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+
+[compat]
+julia = "1.5"
+xfoil_light_jll = "0.1.0"
