@@ -28,7 +28,7 @@ This code actually wraps two versions of Mark Drela's XFOIL code, one of which m
 Enter the package manager by typing `]` and then run the following:
 
 ```julia
-pkg> add https://github.com/byuflowlab/Xfoil.jl
+pkg> add Xfoil
 ```
 
 ## Usage
