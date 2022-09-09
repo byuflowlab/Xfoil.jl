@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Examples · Xfoil.jl</title><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.045/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.24/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">Xfoil.jl</a></span></div><form class="docs-search" action="../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li class="is-active"><a class="tocitem" href>Examples</a><ul class="internal"><li><a class="tocitem" href="#Manual-Angle-of-Attack-Sweep"><span>Manual Angle of Attack Sweep</span></a></li><li><a class="tocitem" href="#Automatic-Angle-of-Attack-Sweep"><span>Automatic Angle of Attack Sweep</span></a></li></ul></li><li><a class="tocitem" href="../library/">Library</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Examples</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Examples</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/byuflowlab/Xfoil.jl/blob/master/docs/src/examples.md" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="Examples"><a class="docs-heading-anchor" href="#Examples">Examples</a><a id="Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Examples" title="Permalink"></a></h1><p>These examples show how to use Xfoil.jl.</p><ul><li><a href="#Examples">Examples</a></li><li class="no-marker"><ul><li><a href="#Manual-Angle-of-Attack-Sweep">Manual Angle of Attack Sweep</a></li><li><a href="#Automatic-Angle-of-Attack-Sweep">Automatic Angle of Attack Sweep</a></li></ul></li></ul><h2 id="Manual-Angle-of-Attack-Sweep"><a class="docs-heading-anchor" href="#Manual-Angle-of-Attack-Sweep">Manual Angle of Attack Sweep</a><a id="Manual-Angle-of-Attack-Sweep-1"></a><a class="docs-heading-anchor-permalink" href="#Manual-Angle-of-Attack-Sweep" title="Permalink"></a></h2><p>This first example shows how to manually perform an angle of attack sweep.</p><pre><code class="language-julia hljs">using Xfoil, Printf
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Examples · Xfoil.jl</title><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.045/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.24/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">Xfoil.jl</a></span></div><form class="docs-search" action="../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li class="is-active"><a class="tocitem" href>Examples</a><ul class="internal"><li><a class="tocitem" href="#Manual-Angle-of-Attack-Sweep"><span>Manual Angle of Attack Sweep</span></a></li><li><a class="tocitem" href="#Automatic-Angle-of-Attack-Sweep"><span>Automatic Angle of Attack Sweep</span></a></li></ul></li><li><a class="tocitem" href="../public/">Public API</a></li><li><a class="tocitem" href="../private/">Private API</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Examples</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Examples</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/byuflowlab/Xfoil.jl/blob/master/docs/src/examples.md" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="Examples"><a class="docs-heading-anchor" href="#Examples">Examples</a><a id="Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Examples" title="Permalink"></a></h1><p>These examples show how to use Xfoil.jl.</p><h2 id="Manual-Angle-of-Attack-Sweep"><a class="docs-heading-anchor" href="#Manual-Angle-of-Attack-Sweep">Manual Angle of Attack Sweep</a><a id="Manual-Angle-of-Attack-Sweep-1"></a><a class="docs-heading-anchor-permalink" href="#Manual-Angle-of-Attack-Sweep" title="Permalink"></a></h2><p>This first example shows how to manually perform an angle of attack sweep.</p><pre><code class="language-julia hljs">using Xfoil, Printf
 
 # read airfoil into XFOIL
 open(&quot;naca2412.dat&quot;, &quot;r&quot;) do f
@@ -39,7 +39,7 @@ for i = 1:n_a
 end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Angle		Cl		Cd		Cm		Converged
 -10.000000	-0.464031	0.108164	-0.021557	1
 -9.000000	-0.466796	0.093346	-0.026590	1
--8.000000	-0.521766	0.076927	-0.033820	1
+-8.000000	-0.521765	0.076927	-0.033820	1
 -7.000000	-0.635832	0.034981	-0.035654	1
 -6.000000	-0.568476	0.027869	-0.029951	1
 -5.000000	-0.484882	0.023137	-0.026257	1
@@ -91,8 +91,8 @@ c_m_a = zeros(n_a)
 converged = zeros(Bool, n_a)
 
 for i = 1:n_a
-    c_l1, c_d1, c_dp1, c_m1, converged[i] = Xfoil.solve_alpha(alpha[i], re; mach, iter=100)
-    c_l2, c_d2, c_dp2, c_m2, converged[i] = Xfoil.solve_alpha(alpha[i]+h, re; mach, iter=100)
+    c_l1, c_d1, c_dp1, c_m1, converged[i] = Xfoil.solve_alpha(alpha[i], re; mach, iter=100, reinit=true)
+    c_l2, c_d2, c_dp2, c_m2, converged[i] = Xfoil.solve_alpha(alpha[i]+h, re; mach, iter=100, reinit=true)
     c_l_a[i] = (c_l2 - c_l1)/h * 180/pi
     c_d_a[i] = (c_d2 - c_d1)/h * 180/pi
     c_m_a[i] = (c_m2 - c_m1)/h * 180/pi
@@ -103,27 +103,27 @@ println(&quot;Angle\t\tdClda\t\tdCdda\t\tdCmda\t\tConverged&quot;)
 for i = 1:n_a
   @printf(&quot;%8f\t%8f\t%8f\t%8f\t%d\n&quot;,alpha[i],c_l_a[i],c_d_a[i],c_m_a[i],converged[i])
 end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Angle		dClda		dCdda		dCmda		Converged
--10.000000	3.779719	-0.604610	0.342606	1
--9.000000	2.626080	-0.687377	0.207316	1
--8.000000	1.006273	-0.792112	0.301047	1
--7.000000	2.642149	-0.399279	0.532187	1
--6.000000	4.343322	-0.211069	0.375840	1
--5.000000	5.022881	-0.158689	0.205753	1
--4.000000	5.134982	-0.084520	0.150924	1
--3.000000	5.158002	-0.019555	0.078398	1
--2.000000	9.126479	-0.035567	-0.320871	1
--1.000000	10.271401	-0.023298	-0.912901	1
-0.000000	12.325168	-0.091335	-1.041678	1
-1.000000	8.742740	-0.089399	-0.226087	1
-2.000000	3.010501	0.095911	0.575110	1
-3.000000	6.005368	0.009855	0.220494	1
-4.000000	3.444125	0.110609	0.458157	1
-5.000000	6.530404	0.033534	0.153271	1
-6.000000	4.517164	0.061409	0.380156	1
-7.000000	4.538258	0.086789	0.398239	1
-8.000000	2.098868	0.317527	0.617265	1
-9.000000	3.166303	0.322161	0.398941	1
-10.000000	3.873508	0.340185	0.341636	1</code></pre><p>A better approach might be to use the complex step method.</p><pre><code class="language-julia hljs">using Xfoil, Printf
+-10.000000	3.837797	-0.605083	0.338485	1
+-9.000000	0.373527	-1.086439	0.187867	1
+-8.000000	-1.136039	-1.016185	0.510207	1
+-7.000000	2.646256	-0.399399	0.531808	1
+-6.000000	4.351278	-0.211527	0.374942	1
+-5.000000	5.032755	-0.158908	0.204315	1
+-4.000000	5.147575	-0.084773	0.148991	1
+-3.000000	5.174308	-0.019862	0.075817	1
+-2.000000	9.134494	-0.035741	-0.322087	1
+-1.000000	10.270442	-0.023423	-0.912660	1
+0.000000	12.326640	-0.091378	-1.041800	1
+1.000000	8.744872	-0.089445	-0.226340	1
+2.000000	3.012893	0.095850	0.574804	1
+3.000000	6.007901	0.009783	0.220177	1
+4.000000	3.446856	0.110536	0.457789	1
+5.000000	6.534070	0.033438	0.152758	1
+6.000000	4.521772	0.061313	0.379438	1
+7.000000	4.545806	0.086765	0.397066	1
+8.000000	2.108492	0.317513	0.615544	1
+9.000000	3.184645	0.322175	0.395693	1
+10.000000	3.899870	0.340231	0.337308	1</code></pre><p>A better approach might be to use the complex step method.  To use this approach, however,  we need to reinitialize the flow solution for each angle of attack by setting <code>reinit=true</code>.  This ensures that the imaginary portion of variables from previous iterations does not affect the solution for the current iteration.</p><pre><code class="language-julia hljs">using Xfoil, Printf
 
 # read airfoil into XFOIL
 open(&quot;naca2412.dat&quot;, &quot;r&quot;) do f
@@ -146,7 +146,7 @@ re = 1e5
 mach = 0.0
 
 # set step size
-h = 1e-20im
+h = 1e-10im
 
 # initialize outputs
 n_a = length(alpha)
@@ -157,7 +157,7 @@ c_m_a = zeros(n_a)
 converged = zeros(Bool, n_a)
 
 for i = 1:n_a
-    c_l, c_d, c_dp, c_m, converged[i] = Xfoil.solve_alpha_cs(alpha[i]+h, re; mach, iter=100)
+    c_l, c_d, c_dp, c_m, converged[i] = Xfoil.solve_alpha_cs(alpha[i]+h, re; mach, iter=100, reinit=true)
     c_l_a[i] = imag(c_l)/imag(h) * 180/pi
     c_d_a[i] = imag(c_d)/imag(h) * 180/pi
     c_m_a[i] = imag(c_m)/imag(h) * 180/pi
@@ -168,27 +168,27 @@ println(&quot;Angle\t\tdClda\t\tdCdda\t\tdCmda\t\tConverged&quot;)
 for i = 1:n_a
   @printf(&quot;%8f\t%8f\t%8f\t%8f\t%d\n&quot;,alpha[i],c_l_a[i],c_d_a[i],c_m_a[i],converged[i])
 end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Angle		dClda		dCdda		dCmda		Converged
--10.000000	3.836778	-0.606239	0.338542	1
--9.000000	-308.222983	-90.101663	30.291607	1
--8.000000	1.015039	-0.792379	0.301010	1
--7.000000	2.646253	-0.399401	0.531807	1
--6.000000	4.350507	-0.211193	0.374933	1
--5.000000	5.032753	-0.158907	0.204315	1
--4.000000	5.147571	-0.084773	0.148990	1
--3.000000	5.174246	-0.019851	0.075819	1
--2.000000	9.134179	-0.035749	-0.321986	1
--1.000000	10.271136	-0.023432	-0.912764	1
-0.000000	12.326638	-0.091378	-1.041800	1
-1.000000	8.744871	-0.089444	-0.226340	1
-2.000000	3.012825	0.095849	0.574821	1
-3.000000	6.007896	0.009783	0.220178	1
-4.000000	3.446835	0.110536	0.457792	1
-5.000000	6.534067	0.033438	0.152758	1
-6.000000	4.521577	0.061297	0.379486	1
-7.000000	4.544736	0.086650	0.397209	1
-8.000000	2.108494	0.317512	0.615544	1
-9.000000	3.184692	0.322179	0.395689	1
-10.000000	3.899871	0.340231	0.337307	1</code></pre><h2 id="Automatic-Angle-of-Attack-Sweep"><a class="docs-heading-anchor" href="#Automatic-Angle-of-Attack-Sweep">Automatic Angle of Attack Sweep</a><a id="Automatic-Angle-of-Attack-Sweep-1"></a><a class="docs-heading-anchor-permalink" href="#Automatic-Angle-of-Attack-Sweep" title="Permalink"></a></h2><p>For performing angle of attack sweeps, the function <code>alpha_sweep</code> may also be used.</p><pre><code class="language-julia hljs">using Xfoil, Printf
+-10.000000	3.836577	-0.606367	0.338531	1
+-9.000000	0.372519	-1.086406	0.188059	1
+-8.000000	-1.136040	-1.016185	0.510207	1
+-7.000000	2.646254	-0.399400	0.531808	1
+-6.000000	4.350526	-0.211206	0.374934	1
+-5.000000	5.032754	-0.158908	0.204315	1
+-4.000000	5.147573	-0.084773	0.148991	1
+-3.000000	5.174305	-0.019863	0.075817	1
+-2.000000	9.134471	-0.035742	-0.322079	1
+-1.000000	10.270423	-0.023423	-0.912657	1
+0.000000	12.326637	-0.091378	-1.041800	1
+1.000000	8.744870	-0.089444	-0.226340	1
+2.000000	3.012862	0.095851	0.574808	1
+3.000000	6.007894	0.009783	0.220178	1
+4.000000	3.446838	0.110536	0.457791	1
+5.000000	6.534066	0.033438	0.152759	1
+6.000000	4.521764	0.061313	0.379439	1
+7.000000	4.525523	0.084372	0.399812	1
+8.000000	2.108495	0.317512	0.615544	1
+9.000000	3.184644	0.322174	0.395693	1
+10.000000	3.899870	0.340231	0.337308	1</code></pre><h2 id="Automatic-Angle-of-Attack-Sweep"><a class="docs-heading-anchor" href="#Automatic-Angle-of-Attack-Sweep">Automatic Angle of Attack Sweep</a><a id="Automatic-Angle-of-Attack-Sweep-1"></a><a class="docs-heading-anchor-permalink" href="#Automatic-Angle-of-Attack-Sweep" title="Permalink"></a></h2><p>For performing angle of attack sweeps, the function <a href="../public/#Xfoil.alpha_sweep"><code>alpha_sweep</code></a> may also be used.</p><pre><code class="language-julia hljs">using Xfoil, Printf
 
 # extract geometry
 x = Float64[]
@@ -208,29 +208,9 @@ close(f)
 alpha = -10:1:10
 re = 1e5
 
-c_l, c_d, c_dp, c_m, converged = Xfoil.alpha_sweep(x, y, alpha, re, iter=100, zeroinit=false, printdata=true)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">
-Angle		Cl		Cd		Cm		Converged
--10.000000	-0.464031	0.108164	-0.021557	1
--9.000000	-0.466796	0.093346	-0.026590	1
--8.000000	-0.521766	0.076927	-0.033820	1
--7.000000	-0.635832	0.034981	-0.035654	1
--6.000000	-0.568476	0.027869	-0.029951	1
--5.000000	-0.484882	0.023137	-0.026257	1
--4.000000	-0.395129	0.020376	-0.023719	1
--3.000000	-0.306835	0.018702	-0.021919	1
--2.000000	-0.144444	0.017012	-0.032525	1
--1.000000	0.084503	0.017323	-0.052484	1
-0.000000	0.273953	0.016614	-0.068255	1
-1.000000	0.406827	0.015799	-0.070669	1
-2.000000	0.511046	0.015537	-0.066991	1
-3.000000	0.608250	0.015873	-0.062339	1
-4.000000	0.707389	0.016509	-0.058131	1
-5.000000	0.802921	0.017368	-0.053541	1
-6.000000	0.893771	0.018322	-0.048318	1
-7.000000	0.975327	0.019445	-0.041884	1
-8.000000	1.034578	0.022188	-0.033045	1
-9.000000	1.085745	0.027443	-0.024469	1
-10.000000	1.156664	0.033658	-0.019314	1</code></pre><p>A version of <code>alpha_sweep</code> has also been implemented for use with the complex step version of XFOIL.</p><pre><code class="language-julia hljs">using Xfoil, Printf
+c_l, c_d, c_dp, c_m, converged = Xfoil.alpha_sweep(x, y, alpha, re, iter=100, zeroinit=false, printdata=true)
+
+nothing #hide</code></pre><p>A version of <a href="../public/#Xfoil.alpha_sweep"><code>alpha_sweep</code></a> has also been implemented for use with the complex step version of XFOIL.</p><pre><code class="language-julia hljs">using Xfoil, Printf
 
 # extract geometry
 x = Float64[]
@@ -260,48 +240,6 @@ c_l, c_d, c_dp, c_m, converged = Xfoil.alpha_sweep_cs(x, y, alpha .+ h,
 println(&quot;Angle\t\tdClda\t\tdCdda\t\tdCmda\t\tConverged&quot;)
 for i = 1:length(alpha)
     @printf(&quot;%8f\t%8f\t%8f\t%8f\t%d\n&quot;, alpha[i], imag(c_l[i])/imag(h)*180/pi, imag(c_d[i])/imag(h)*180/pi, imag(c_m[i])/imag(h)*180/pi, converged[i])
-end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">
-Angle		Cl		Cd		Cm		Converged
--10.000000	-0.464031	0.108164	-0.021557	1
--9.000000	-0.466796	0.093346	-0.026590	1
--8.000000	-0.521766	0.076927	-0.033820	1
--7.000000	-0.635832	0.034981	-0.035654	1
--6.000000	-0.568476	0.027869	-0.029951	1
--5.000000	-0.484882	0.023137	-0.026257	1
--4.000000	-0.395129	0.020376	-0.023719	1
--3.000000	-0.306835	0.018702	-0.021919	1
--2.000000	-0.144444	0.017012	-0.032525	1
--1.000000	0.084503	0.017323	-0.052484	1
-0.000000	0.273953	0.016614	-0.068255	1
-1.000000	0.406827	0.015799	-0.070669	1
-2.000000	0.511046	0.015537	-0.066991	1
-3.000000	0.608250	0.015873	-0.062339	1
-4.000000	0.707389	0.016509	-0.058131	1
-5.000000	0.802921	0.017368	-0.053541	1
-6.000000	0.893771	0.018322	-0.048318	1
-7.000000	0.975327	0.019445	-0.041884	1
-8.000000	1.034578	0.022188	-0.033045	1
-9.000000	1.085745	0.027443	-0.024469	1
-10.000000	1.156664	0.033658	-0.019314	1
-Angle		dClda		dCdda		dCmda		Converged
--10.000000	3.836778	-0.606239	0.338542	1
--9.000000	-308.222983	-90.101663	30.291607	1
--8.000000	1.015039	-0.792379	0.301010	1
--7.000000	2.646253	-0.399401	0.531807	1
--6.000000	4.350507	-0.211193	0.374933	1
--5.000000	5.032753	-0.158907	0.204315	1
--4.000000	5.147571	-0.084773	0.148990	1
--3.000000	5.174246	-0.019851	0.075819	1
--2.000000	9.134179	-0.035749	-0.321986	1
--1.000000	10.271136	-0.023432	-0.912764	1
-0.000000	12.326638	-0.091378	-1.041800	1
-1.000000	8.744871	-0.089444	-0.226340	1
-2.000000	3.012825	0.095849	0.574821	1
-3.000000	6.007896	0.009783	0.220178	1
-4.000000	3.446835	0.110536	0.457792	1
-5.000000	6.534067	0.033438	0.152758	1
-6.000000	4.521577	0.061297	0.379486	1
-7.000000	4.544736	0.086650	0.397209	1
-8.000000	2.108494	0.317512	0.615544	1
-9.000000	3.184692	0.322179	0.395689	1
-10.000000	3.899871	0.340231	0.337307	1</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><a class="docs-footer-nextpage" href="../library/">Library »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.23 on <span class="colophon-date" title="Wednesday 31 August 2022 18:43">Wednesday 31 August 2022</span>. Using Julia version 1.6.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+end
+
+nothing #hide</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><a class="docs-footer-nextpage" href="../public/">Public API »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.23 on <span class="colophon-date" title="Friday 9 September 2022 17:22">Friday 9 September 2022</span>. Using Julia version 1.6.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
