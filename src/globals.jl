@@ -408,6 +408,211 @@ struct XfoilGlobals{T}
     labref::String
     #cc03
     vmxbl::String
+    #var1
+    x1::Array{T,1}
+    u1::Array{T,1}
+    t1::Array{T,1}
+    d1::Array{T,1}
+    s1::Array{T,1}
+    ampl1::Array{T,1}
+    u1_uei::Array{T,1}
+    u1_ms::Array{T,1}
+    dw1::Array{T,1}
+    h1::Array{T,1}
+    h1_t1::Array{T,1}
+    h1_d1::Array{T,1}
+    m1::Array{T,1}
+    m1_u1::Array{T,1}
+    m1_ms::Array{T,1}
+    r1::Array{T,1}
+    r1_u1::Array{T,1}
+    r1_ms::Array{T,1}
+    v1::Array{T,1}
+    v1_u1::Array{T,1}
+    v1_ms::Array{T,1}
+    v1_re::Array{T,1}
+    hk1::Array{T,1}
+    hk1_u1::Array{T,1}
+    hk1_t1::Array{T,1}
+    hk1_d1::Array{T,1}
+    hk1_ms::Array{T,1}
+    hs1::Array{T,1}
+    hs1_u1::Array{T,1}
+    hs1_t1::Array{T,1}
+    hs1_d1::Array{T,1}
+    hs1_ms::Array{T,1}
+    hs1_re::Array{T,1}
+    hc1::Array{T,1}
+    hc1_u1::Array{T,1}
+    hc1_t1::Array{T,1}
+    hc1_d1::Array{T,1}
+    hc1_ms::Array{T,1}
+    rt1::Array{T,1}
+    rt1_u1::Array{T,1}
+    rt1_t1::Array{T,1}
+    rt1_ms::Array{T,1}
+    rt1_re::Array{T,1}
+    cf1::Array{T,1}
+    cf1_u1::Array{T,1}
+    cf1_t1::Array{T,1}
+    cf1_d1::Array{T,1}
+    cf1_ms::Array{T,1}
+    cf1_re::Array{T,1}
+    di1::Array{T,1}
+    di1_u1::Array{T,1}
+    di1_t1::Array{T,1}
+    di1_d1::Array{T,1}
+    di1_s1::Array{T,1}
+    di1_ms::Array{T,1}
+    di1_re::Array{T,1}
+    us1::Array{T,1}
+    us1_u1::Array{T,1}
+    us1_t1::Array{T,1}
+    us1_d1::Array{T,1}
+    us1_ms::Array{T,1}
+    us1_re::Array{T,1}
+    cq1::Array{T,1}
+    cq1_u1::Array{T,1}
+    cq1_t1::Array{T,1}
+    cq1_d1::Array{T,1}
+    cq1_ms::Array{T,1}
+    cq1_re::Array{T,1}
+    de1::Array{T,1}
+    de1_u1::Array{T,1}
+    de1_t1::Array{T,1}
+    de1_d1::Array{T,1}
+    de1_ms::Array{T,1}
+    # var2
+    x2::Array{T,1}
+    u2::Array{T,1} 
+    t2::Array{T,1} 
+    d2::Array{T,1} 
+    s2::Array{T,1} 
+    ampl2::Array{T,1} 
+    u2_uei::Array{T,1} 
+    u2_ms::Array{T,1} 
+    dw2::Array{T,1} 
+    h2::Array{T,1} 
+    h2_t2::Array{T,1} 
+    h2_d2::Array{T,1} 
+    m2::Array{T,1} 
+    m2_u2::Array{T,1} 
+    m2_ms::Array{T,1} 
+    r2::Array{T,1} 
+    r2_u2::Array{T,1} 
+    r2_ms::Array{T,1} 
+    v2::Array{T,1} 
+    v2_u2::Array{T,1} 
+    v2_ms::Array{T,1} 
+    v2_re::Array{T,1} 
+    hk2::Array{T,1} 
+    hk2_u2::Array{T,1} 
+    hk2_t2::Array{T,1} 
+    hk2_d2::Array{T,1} 
+    hk2_ms::Array{T,1} 
+    hs2::Array{T,1} 
+    hs2_u2::Array{T,1} 
+    hs2_t2::Array{T,1} 
+    hs2_d2::Array{T,1} 
+    hs2_ms::Array{T,1} 
+    hs2_re::Array{T,1} 
+    hc2::Array{T,1} 
+    hc2_u2::Array{T,1} 
+    hc2_t2::Array{T,1} 
+    hc2_d2::Array{T,1} 
+    hc2_ms::Array{T,1} 
+    rt2::Array{T,1} 
+    rt2_u2::Array{T,1} 
+    rt2_t2::Array{T,1} 
+    rt2_ms::Array{T,1} 
+    rt2_re::Array{T,1} 
+    cf2::Array{T,1} 
+    cf2_u2::Array{T,1} 
+    cf2_t2::Array{T,1} 
+    cf2_d2::Array{T,1} 
+    cf2_ms::Array{T,1} 
+    cf2_re::Array{T,1} 
+    di2::Array{T,1} 
+    di2_u2::Array{T,1} 
+    di2_t2::Array{T,1} 
+    di2_d2::Array{T,1} 
+    di2_s2::Array{T,1} 
+    di2_ms::Array{T,1} 
+    di2_re::Array{T,1} 
+    us2::Array{T,1} 
+    us2_u2::Array{T,1} 
+    us2_t2::Array{T,1} 
+    us2_d2::Array{T,1} 
+    us2_ms::Array{T,1} 
+    us2_re::Array{T,1} 
+    cq2::Array{T,1} 
+    cq2_u2::Array{T,1} 
+    cq2_t2::Array{T,1} 
+    cq2_d2::Array{T,1} 
+    cq2_ms::Array{T,1} 
+    cq2_re::Array{T,1} 
+    de2::Array{T,1} 
+    de2_u2::Array{T,1} 
+    de2_t2::Array{T,1} 
+    de2_d2::Array{T,1} 
+    de2_ms::Array{T,1} 
+    # vara
+    cfm::Array{T,1} 
+    cfm_ms::Array{T,1} 
+    cfm_re::Array{T,1} 
+    cfm_u1::Array{T,1} 
+    cfm_t1::Array{T,1} 
+    cfm_d1::Array{T,1} 
+    cfm_u2::Array{T,1} 
+    cfm_t2::Array{T,1} 
+    cfm_d2::Array{T,1} 
+    xt::Array{T,1} 
+    xt_a1::Array{T,1} 
+    xt_ms::Array{T,1} 
+    xt_re::Array{T,1} 
+    xt_xf::Array{T,1} 
+    xt_x1::Array{T,1} 
+    xt_t1::Array{T,1} 
+    xt_d1::Array{T,1} 
+    xt_u1::Array{T,1} 
+    xt_x2::Array{T,1} 
+    xt_t2::Array{T,1} 
+    xt_d2::Array{T,1} 
+    xt_u2::Array{T,1}
+    # sav
+    c1sav::Array{T,1}
+    c2sav::Array{T,1}
+    # var
+    dwte::Array{T,1}
+    qinfbl::Array{T,1}
+    tkbl::Array{T,1} 
+    tkbl_ms::Array{T,1}
+    rstbl::Array{T,1} 
+    rstbl_ms::Array{T,1}
+    hstinv::Array{T,1} 
+    hstinv_ms::Array{T,1}
+    reybl::Array{T,1} 
+    reybl_ms::Array{T,1} 
+    reybl_re::Array{T,1}
+    gambl::Array{T,1} 
+    gm1bl::Array{T,1} 
+    hvrat::Array{T,1}
+    bule::Array{T,1} 
+    xiforc::Array{T,1} 
+    amcrit::Array{T,1}
+    simi::Array{Int32,1}
+    tran::Array{Int32,1}
+    turb::Array{Int32,1}
+    wake::Array{Int32,1}
+    trforc::Array{Int32,1}
+    trfree::Array{Int32,1}
+    # sys
+    vs1::Array{T,2}
+    vs2::Array{T,2}
+    vsrez::Array{T,1}
+    vsr::Array{T,1}
+    vsm::Array{T,1}
+    vsx::Array{T,1}
 end
 
 """
@@ -864,54 +1069,314 @@ for (T, name, library) in
             cc03 = cglobal((:cc03_, $(library)),UInt8)
             vmxbl = unsafe_string(cc03,1)
 
+            #var1
+            var1 = cglobal((:var1_, $(library)),$T)
+            x1 = unsafe_wrap(Array,var1,1)
+            u1 = unsafe_wrap(Array,var1+sizeof($T),1)
+            t1 = unsafe_wrap(Array,var1+sizeof($T)*2,1)
+            d1 = unsafe_wrap(Array,var1+sizeof($T)*3,1)
+            s1 = unsafe_wrap(Array,var1+sizeof($T)*4,1)
+            ampl1 = unsafe_wrap(Array,var1+sizeof($T)*5,1)
+            u1_uei = unsafe_wrap(Array,var1+sizeof($T)*6,1)
+            u1_ms = unsafe_wrap(Array,var1+sizeof($T)*7,1)
+            dw1 = unsafe_wrap(Array,var1+sizeof($T)*8,1)
+            h1 = unsafe_wrap(Array,var1+sizeof($T)*9,1)
+            h1_t1 = unsafe_wrap(Array,var1+sizeof($T)*10,1)
+            h1_d1 = unsafe_wrap(Array,var1+sizeof($T)*11,1)
+            m1 = unsafe_wrap(Array,var1+sizeof($T)*12,1)
+            m1_u1 = unsafe_wrap(Array,var1+sizeof($T)*13,1)
+            m1_ms = unsafe_wrap(Array,var1+sizeof($T)*14,1)
+            r1 = unsafe_wrap(Array,var1+sizeof($T)*15,1)
+            r1_u1 = unsafe_wrap(Array,var1+sizeof($T)*16,1)
+            r1_ms = unsafe_wrap(Array,var1+sizeof($T)*17,1)
+            v1 = unsafe_wrap(Array,var1+sizeof($T)*18,1)
+            v1_u1 = unsafe_wrap(Array,var1+sizeof($T)*19,1)
+            v1_ms = unsafe_wrap(Array,var1+sizeof($T)*20,1)
+            v1_re = unsafe_wrap(Array,var1+sizeof($T)*21,1)
+            hk1 = unsafe_wrap(Array,var1+sizeof($T)*22,1)
+            hk1_u1 = unsafe_wrap(Array,var1+sizeof($T)*23,1)
+            hk1_t1 = unsafe_wrap(Array,var1+sizeof($T)*24,1)
+            hk1_d1 = unsafe_wrap(Array,var1+sizeof($T)*25,1)
+            hk1_ms = unsafe_wrap(Array,var1+sizeof($T)*26,1)
+            hs1 = unsafe_wrap(Array,var1+sizeof($T)*27,1)
+            hs1_u1 = unsafe_wrap(Array,var1+sizeof($T)*28,1)
+            hs1_t1 = unsafe_wrap(Array,var1+sizeof($T)*29,1)
+            hs1_d1 = unsafe_wrap(Array,var1+sizeof($T)*30,1)
+            hs1_ms = unsafe_wrap(Array,var1+sizeof($T)*31,1)
+            hs1_re = unsafe_wrap(Array,var1+sizeof($T)*32,1)
+            hc1 = unsafe_wrap(Array,var1+sizeof($T)*33,1)
+            hc1_u1 = unsafe_wrap(Array,var1+sizeof($T)*34,1)
+            hc1_t1 = unsafe_wrap(Array,var1+sizeof($T)*35,1)
+            hc1_d1 = unsafe_wrap(Array,var1+sizeof($T)*36,1)
+            hc1_ms = unsafe_wrap(Array,var1+sizeof($T)*37,1)
+            rt1 = unsafe_wrap(Array,var1+sizeof($T)*38,1)
+            rt1_u1 = unsafe_wrap(Array,var1+sizeof($T)*39,1)
+            rt1_t1 = unsafe_wrap(Array,var1+sizeof($T)*40,1)
+            rt1_ms = unsafe_wrap(Array,var1+sizeof($T)*41,1)
+            rt1_re = unsafe_wrap(Array,var1+sizeof($T)*42,1)
+            cf1 = unsafe_wrap(Array,var1+sizeof($T)*43,1)
+            cf1_u1 = unsafe_wrap(Array,var1+sizeof($T)*44,1)
+            cf1_t1 = unsafe_wrap(Array,var1+sizeof($T)*45,1)
+            cf1_d1 = unsafe_wrap(Array,var1+sizeof($T)*46,1)
+            cf1_ms = unsafe_wrap(Array,var1+sizeof($T)*47,1)
+            cf1_re = unsafe_wrap(Array,var1+sizeof($T)*48,1)
+            di1 = unsafe_wrap(Array,var1+sizeof($T)*49,1)
+            di1_u1 = unsafe_wrap(Array,var1+sizeof($T)*50,1)
+            di1_t1 = unsafe_wrap(Array,var1+sizeof($T)*51,1)
+            di1_d1 = unsafe_wrap(Array,var1+sizeof($T)*52,1)
+            di1_s1 = unsafe_wrap(Array,var1+sizeof($T)*53,1)
+            di1_ms = unsafe_wrap(Array,var1+sizeof($T)*54,1)
+            di1_re = unsafe_wrap(Array,var1+sizeof($T)*55,1)
+            us1 = unsafe_wrap(Array,var1+sizeof($T)*56,1)
+            us1_u1 = unsafe_wrap(Array,var1+sizeof($T)*57,1)
+            us1_t1 = unsafe_wrap(Array,var1+sizeof($T)*58,1)
+            us1_d1 = unsafe_wrap(Array,var1+sizeof($T)*59,1)
+            us1_ms = unsafe_wrap(Array,var1+sizeof($T)*60,1)
+            us1_re = unsafe_wrap(Array,var1+sizeof($T)*61,1)
+            cq1 = unsafe_wrap(Array,var1+sizeof($T)*62,1)
+            cq1_u1 = unsafe_wrap(Array,var1+sizeof($T)*63,1)
+            cq1_t1 = unsafe_wrap(Array,var1+sizeof($T)*64,1)
+            cq1_d1 = unsafe_wrap(Array,var1+sizeof($T)*65,1)
+            cq1_ms = unsafe_wrap(Array,var1+sizeof($T)*66,1)
+            cq1_re = unsafe_wrap(Array,var1+sizeof($T)*67,1)
+            de1 = unsafe_wrap(Array,var1+sizeof($T)*68,1)
+            de1_u1 = unsafe_wrap(Array,var1+sizeof($T)*69,1)
+            de1_t1 = unsafe_wrap(Array,var1+sizeof($T)*70,1)
+            de1_d1 = unsafe_wrap(Array,var1+sizeof($T)*71,1)
+            de1_ms = unsafe_wrap(Array,var1+sizeof($T)*72,1)
+            #var2
+            var2 = cglobal((:var2_, $(library)),$T)
+            x2 = unsafe_wrap(Array,var2,1)
+            u2 = unsafe_wrap(Array,var2+sizeof($T),1)
+            t2 = unsafe_wrap(Array,var2+sizeof($T)*2,1)
+            d2 = unsafe_wrap(Array,var2+sizeof($T)*3,1)
+            s2 = unsafe_wrap(Array,var2+sizeof($T)*4,1)
+            ampl2 = unsafe_wrap(Array,var2+sizeof($T)*5,1)
+            u2_uei = unsafe_wrap(Array,var2+sizeof($T)*6,1)
+            u2_ms = unsafe_wrap(Array,var2+sizeof($T)*7,1)
+            dw2 = unsafe_wrap(Array,var2+sizeof($T)*8,1)
+            h2 = unsafe_wrap(Array,var2+sizeof($T)*9,1)
+            h2_t2 = unsafe_wrap(Array,var2+sizeof($T)*10,1)
+            h2_d2 = unsafe_wrap(Array,var2+sizeof($T)*11,1)
+            m2 = unsafe_wrap(Array,var2+sizeof($T)*12,1)
+            m2_u2 = unsafe_wrap(Array,var2+sizeof($T)*13,1)
+            m2_ms = unsafe_wrap(Array,var2+sizeof($T)*14,1)
+            r2 = unsafe_wrap(Array,var2+sizeof($T)*15,1)
+            r2_u2 = unsafe_wrap(Array,var2+sizeof($T)*16,1)
+            r2_ms = unsafe_wrap(Array,var2+sizeof($T)*17,1)
+            v2 = unsafe_wrap(Array,var2+sizeof($T)*18,1)
+            v2_u2 = unsafe_wrap(Array,var2+sizeof($T)*19,1)
+            v2_ms = unsafe_wrap(Array,var2+sizeof($T)*20,1)
+            v2_re = unsafe_wrap(Array,var2+sizeof($T)*21,1)
+            hk2 = unsafe_wrap(Array,var2+sizeof($T)*22,1)
+            hk2_u2 = unsafe_wrap(Array,var2+sizeof($T)*23,1)
+            hk2_t2 = unsafe_wrap(Array,var2+sizeof($T)*24,1)
+            hk2_d2 = unsafe_wrap(Array,var2+sizeof($T)*25,1)
+            hk2_ms = unsafe_wrap(Array,var2+sizeof($T)*26,1)
+            hs2 = unsafe_wrap(Array,var2+sizeof($T)*27,1)
+            hs2_u2 = unsafe_wrap(Array,var2+sizeof($T)*28,1)
+            hs2_t2 = unsafe_wrap(Array,var2+sizeof($T)*29,1)
+            hs2_d2 = unsafe_wrap(Array,var2+sizeof($T)*30,1)
+            hs2_ms = unsafe_wrap(Array,var2+sizeof($T)*31,1)
+            hs2_re = unsafe_wrap(Array,var2+sizeof($T)*32,1)
+            hc2 = unsafe_wrap(Array,var2+sizeof($T)*33,1)
+            hc2_u2 = unsafe_wrap(Array,var2+sizeof($T)*34,1)
+            hc2_t2 = unsafe_wrap(Array,var2+sizeof($T)*35,1)
+            hc2_d2 = unsafe_wrap(Array,var2+sizeof($T)*36,1)
+            hc2_ms = unsafe_wrap(Array,var2+sizeof($T)*37,1)
+            rt2 = unsafe_wrap(Array,var2+sizeof($T)*38,1)
+            rt2_u2 = unsafe_wrap(Array,var2+sizeof($T)*39,1)
+            rt2_t2 = unsafe_wrap(Array,var2+sizeof($T)*40,1)
+            rt2_ms = unsafe_wrap(Array,var2+sizeof($T)*41,1)
+            rt2_re = unsafe_wrap(Array,var2+sizeof($T)*42,1)
+            cf2 = unsafe_wrap(Array,var2+sizeof($T)*43,1)
+            cf2_u2 = unsafe_wrap(Array,var2+sizeof($T)*44,1)
+            cf2_t2 = unsafe_wrap(Array,var2+sizeof($T)*45,1)
+            cf2_d2 = unsafe_wrap(Array,var2+sizeof($T)*46,1)
+            cf2_ms = unsafe_wrap(Array,var2+sizeof($T)*47,1)
+            cf2_re = unsafe_wrap(Array,var2+sizeof($T)*48,1)
+            di2 = unsafe_wrap(Array,var2+sizeof($T)*49,1)
+            di2_u2 = unsafe_wrap(Array,var2+sizeof($T)*50,1)
+            di2_t2 = unsafe_wrap(Array,var2+sizeof($T)*51,1)
+            di2_d2 = unsafe_wrap(Array,var2+sizeof($T)*52,1)
+            di2_s2 = unsafe_wrap(Array,var2+sizeof($T)*53,1)
+            di2_ms = unsafe_wrap(Array,var2+sizeof($T)*54,1)
+            di2_re = unsafe_wrap(Array,var2+sizeof($T)*55,1)
+            us2 = unsafe_wrap(Array,var2+sizeof($T)*56,1)
+            us2_u2 = unsafe_wrap(Array,var2+sizeof($T)*57,1)
+            us2_t2 = unsafe_wrap(Array,var2+sizeof($T)*58,1)
+            us2_d2 = unsafe_wrap(Array,var2+sizeof($T)*59,1)
+            us2_ms = unsafe_wrap(Array,var2+sizeof($T)*60,1)
+            us2_re = unsafe_wrap(Array,var2+sizeof($T)*61,1)
+            cq2 = unsafe_wrap(Array,var2+sizeof($T)*62,1)
+            cq2_u2 = unsafe_wrap(Array,var2+sizeof($T)*63,1)
+            cq2_t2 = unsafe_wrap(Array,var2+sizeof($T)*64,1)
+            cq2_d2 = unsafe_wrap(Array,var2+sizeof($T)*65,1)
+            cq2_ms = unsafe_wrap(Array,var2+sizeof($T)*66,1)
+            cq2_re = unsafe_wrap(Array,var2+sizeof($T)*67,1)
+            de2 = unsafe_wrap(Array,var2+sizeof($T)*68,1)
+            de2_u2 = unsafe_wrap(Array,var2+sizeof($T)*69,1)
+            de2_t2 = unsafe_wrap(Array,var2+sizeof($T)*70,1)
+            de2_d2 = unsafe_wrap(Array,var2+sizeof($T)*71,1)
+            de2_ms = unsafe_wrap(Array,var2+sizeof($T)*72,1)
+            # vara
+            vara = cglobal((:vara_, $(library)),$T)
+            cfm = unsafe_wrap(Array,vara,1)
+            cfm_ms = unsafe_wrap(Array,vara+sizeof($T),1)
+            cfm_re = unsafe_wrap(Array,vara+sizeof($T)*2,1)
+            cfm_u1 = unsafe_wrap(Array,vara+sizeof($T)*3,1)
+            cfm_t1 = unsafe_wrap(Array,vara+sizeof($T)*4,1)
+            cfm_d1 = unsafe_wrap(Array,vara+sizeof($T)*5,1)
+            cfm_u2 = unsafe_wrap(Array,vara+sizeof($T)*6,1)
+            cfm_t2 = unsafe_wrap(Array,vara+sizeof($T)*7,1)
+            cfm_d2 = unsafe_wrap(Array,vara+sizeof($T)*8,1)
+            xt = unsafe_wrap(Array,vara+sizeof($T)*9,1)
+            xt_a1 = unsafe_wrap(Array,vara+sizeof($T)*10,1)
+            xt_ms = unsafe_wrap(Array,vara+sizeof($T)*11,1)
+            xt_re = unsafe_wrap(Array,vara+sizeof($T)*12,1)
+            xt_xf = unsafe_wrap(Array,vara+sizeof($T)*13,1)
+            xt_x1 = unsafe_wrap(Array,vara+sizeof($T)*14,1)
+            xt_t1 = unsafe_wrap(Array,vara+sizeof($T)*15,1)
+            xt_d1 = unsafe_wrap(Array,vara+sizeof($T)*16,1)
+            xt_u1 = unsafe_wrap(Array,vara+sizeof($T)*17,1)
+            xt_x2 = unsafe_wrap(Array,vara+sizeof($T)*18,1)
+            xt_t2 = unsafe_wrap(Array,vara+sizeof($T)*19,1)
+            xt_d2 = unsafe_wrap(Array,vara+sizeof($T)*20,1)
+            xt_u2 = unsafe_wrap(Array,vara+sizeof($T)*21,1)
+            # sav
+            sav = cglobal((:sav_, $(library)),$T)
+            c1sav = unsafe_wrap(Array,sav,NCOM)
+            c2sav = unsafe_wrap(Array,sav+sizeof($T)*NCOM,NCOM)
+            # var
+            var = cglobal((:var_, $(library)),$T)
+            dwte = unsafe_wrap(Array,var,1)
+            qinfbl = unsafe_wrap(Array,var+sizeof($T),1)
+            tkbl = unsafe_wrap(Array,var+sizeof($T)*2,1)
+            tkbl_ms = unsafe_wrap(Array,var+sizeof($T)*3,1)
+            rstbl = unsafe_wrap(Array,var+sizeof($T)*4,1)
+            rstbl_ms = unsafe_wrap(Array,var+sizeof($T)*5,1)
+            hstinv = unsafe_wrap(Array,var+sizeof($T)*6,1)
+            hstinv_ms = unsafe_wrap(Array,var+sizeof($T)*7,1)
+            reybl = unsafe_wrap(Array,var+sizeof($T)*8,1)
+            reybl_ms = unsafe_wrap(Array,var+sizeof($T)*9,1)
+            reybl_re = unsafe_wrap(Array,var+sizeof($T)*10,1)
+            gambl = unsafe_wrap(Array,var+sizeof($T)*11,1)
+            gm1bl = unsafe_wrap(Array,var+sizeof($T)*12,1)
+            hvrat = unsafe_wrap(Array,var+sizeof($T)*13,1)
+            bule = unsafe_wrap(Array,var+sizeof($T)*14,1)
+            xiforc = unsafe_wrap(Array,var+sizeof($T)*15,1)
+            amcrit = unsafe_wrap(Array,var+sizeof($T)*16,1)
+            var = convert(Ptr{Int32}, var) # switch to booleans
+            simi = unsafe_wrap(Array,var+sizeof($T)*17,1)
+            tran = unsafe_wrap(Array,var+sizeof($T)*17+sizeof(Int32),1)
+            turb = unsafe_wrap(Array,var+sizeof($T)*17+sizeof(Int32)*2,1)
+            wake = unsafe_wrap(Array,var+sizeof($T)*17+sizeof(Int32)*3,1)
+            trforc = unsafe_wrap(Array,var+sizeof($T)*17+sizeof(Int32)*4,1)
+            trfree = unsafe_wrap(Array,var+sizeof($T)*17+sizeof(Int32)*5,1)
+            # sys
+            sys = cglobal((:sys_, $(library)),$T)
+            vs1 = unsafe_wrap(Array,sys,(4,5))
+            vs2 = unsafe_wrap(Array,sys+sizeof($T)*20,(4,5))
+            vsrez = unsafe_wrap(Array,sys+sizeof($T)*40,4)
+            vsr = unsafe_wrap(Array,sys+sizeof($T)*44,4)
+            vsm = unsafe_wrap(Array,sys+sizeof($T)*48,4)
+            vsx = unsafe_wrap(Array,sys+sizeof($T)*52,4)
+
             return XfoilGlobals{$T}(
-            version,
-            aij, dij,
-            qinv, qvis, cpi, cpv, qinvu, qinv_a,
-            x, y, xp, yp, s, sle, xle, yle, xte, yte, chord, yimage, wgap, waklen,
-            gam, gamu, gam_a, sig, nx, ny, apanel, sst, sst_go, sst_gp, gamte, gamte_a,
-            sigte, sigte_a, dste, ante, aste,
-            ssple, sspec, xspoc, yspoc, qgamm, qspec, qspecp, algam, clgam, cmgam, alqsp,
-            clqsp, cmqsp, qf0, qf1, qf2, qf3, qdof0, qdof1, qdof2, qdof3, clspec, ffilt,
-            adeg, alfa, awake, mvisc, avisc, xcmref, ycmref, cl, cm, cd, cdp, cdf,
-            cl_alf, cl_msq, psio, circ, cosa, sina, qinf, gamma, gamm1, minf1, minf,
-            minf_cl, tklam, tkl_msq, cpstar, qstar, cpmn, cpmni, cpmnv, xcpmni, xcpmnv,
-            xpref, cpref, verspol, cpolxy, machp1, reynp1, acritp, xstripp,
-            pi, hopi, qopi, dtor,
-            cvpar, cterat, ctrrat, xsref1, xsref2, xpref1, xpref2,
-            size, scrnfr, plotar, pfac, qfac, vfac, xwind, ywind, xpage, ypage, xmarg,
-            ymarg, ch, chg, chq, xofair, yofair, facair, xofa, yofa, faca, uprwt, cpmin,
-            cpmax, cpdel, cpolplf, xcdwid, xalwid, xocwid,
-            xb, yb, xbp, ybp, sb, snew, xbf, ybf, xof, yof, hmom, hfx, hfy, xbmin,
-            xbmax, ybmin, ybmax, sble, chordb, areab, radble, angbte, ei11ba, ei22ba,
-            apx1ba, apx2ba, ei11bt, ei22bt, apx1bt, apx2bt, thickb, cambrb, xcm, ycm,
-            scm, xcmp, ycmp, xtk, ytk, stk, xtkp, ytkp,
-            xssi, uedg, uinv, mass, thet, dstr, ctau, delt, uslp, guxq, guxd, tau, dis,
-            ctq, vti, reinf1, reinf, reinf_cl, acrit, xstrip, xoctr, yoctr, xssitr,
-            uinv_a,
-            rmsbl, rmxbl, rlx, vaccel,
-            xsf, ysf, xoff, yoff, xgmin, xgmax, ygmin, ygmax, dxyg, xcmin, xcmax, ycmin,
-            ycmax, dxyc, dyoffc, xpmin, xpmax, ypmin, ypmax, dxyp, dyoffp, ysfp, gtick,
-            q, dq, dzdg, dzdn, dzdm, dqdg, dqdm, qtan1, qtan2, z_qinf, z_alfa, z_qdof0,
-            z_qdof1, z_qdof2, z_qdof3,
-            va, vb, vdel, vm, vz,
-            iq1, iq2, nsp, nqsp, kqtarg, iacqsp, nc1, nname, nprefix,
-            ncpref, napol, npol, ipact, nlref, icolp, icolr, imatyp, iretyp, nxypol,
-            npolref, ndref,
-            n, nb, nw, npan, ist, kimage, itmax, nseqex, retyp, matyp, aijpix, idev,
-            idevrp, ipslu, ncolor, icols, nover, ncm, ntk,
-            iblte, nbl, ipan, isys, nsys, itran,
-            imxbl, ismxbl,
-            ok, limage, sharp, lgamu, lqinu, lvisc, lalfa, lwake, lpacc, lblini, lipan, lqaij,
-            ladij, lwdij, lcpxx, lqvdes, lqrefl, lqspec, lvconv, lcpref, lclock, lpfile, lpfilx,
-            lppsho, lbflap, lflap, leiw, lscini, lforef, lnorm, lgsame, lplcam, lqsym, lgsym,
-            lqgrid, lggrid, lgtick, lqslop, lgslop, lcslop, lqsppl, lgeopl, lgparm, lcpgrd,
-            lblgrd, lblsym, lplot, lsym, liqset, lclip, lvlab, lcurs, lland, lpgrid, lpcdw,
-            lplist, lplegn, lcminp, lhmomp, lexitflag,
-            tforce,
-            fname, name, ispars, oname, prefix, pfname, pfnamx, namepol, nameref,
-            labref,
-            vmxbl)
+                version,
+                aij, dij,
+                qinv, qvis, cpi, cpv, qinvu, qinv_a,
+                x, y, xp, yp, s, sle, xle, yle, xte, yte, chord, yimage, wgap, waklen,
+                gam, gamu, gam_a, sig, nx, ny, apanel, sst, sst_go, sst_gp, gamte, gamte_a,
+                sigte, sigte_a, dste, ante, aste,
+                ssple, sspec, xspoc, yspoc, qgamm, qspec, qspecp, algam, clgam, cmgam, alqsp,
+                clqsp, cmqsp, qf0, qf1, qf2, qf3, qdof0, qdof1, qdof2, qdof3, clspec, ffilt,
+                adeg, alfa, awake, mvisc, avisc, xcmref, ycmref, cl, cm, cd, cdp, cdf,
+                cl_alf, cl_msq, psio, circ, cosa, sina, qinf, gamma, gamm1, minf1, minf,
+                minf_cl, tklam, tkl_msq, cpstar, qstar, cpmn, cpmni, cpmnv, xcpmni, xcpmnv,
+                xpref, cpref, verspol, cpolxy, machp1, reynp1, acritp, xstripp,
+                pi, hopi, qopi, dtor,
+                cvpar, cterat, ctrrat, xsref1, xsref2, xpref1, xpref2,
+                size, scrnfr, plotar, pfac, qfac, vfac, xwind, ywind, xpage, ypage, xmarg,
+                ymarg, ch, chg, chq, xofair, yofair, facair, xofa, yofa, faca, uprwt, cpmin,
+                cpmax, cpdel, cpolplf, xcdwid, xalwid, xocwid,
+                xb, yb, xbp, ybp, sb, snew, xbf, ybf, xof, yof, hmom, hfx, hfy, xbmin,
+                xbmax, ybmin, ybmax, sble, chordb, areab, radble, angbte, ei11ba, ei22ba,
+                apx1ba, apx2ba, ei11bt, ei22bt, apx1bt, apx2bt, thickb, cambrb, xcm, ycm,
+                scm, xcmp, ycmp, xtk, ytk, stk, xtkp, ytkp,
+                xssi, uedg, uinv, mass, thet, dstr, ctau, delt, uslp, guxq, guxd, tau, dis,
+                ctq, vti, reinf1, reinf, reinf_cl, acrit, xstrip, xoctr, yoctr, xssitr,
+                uinv_a,
+                rmsbl, rmxbl, rlx, vaccel,
+                xsf, ysf, xoff, yoff, xgmin, xgmax, ygmin, ygmax, dxyg, xcmin, xcmax, ycmin,
+                ycmax, dxyc, dyoffc, xpmin, xpmax, ypmin, ypmax, dxyp, dyoffp, ysfp, gtick,
+                q, dq, dzdg, dzdn, dzdm, dqdg, dqdm, qtan1, qtan2, z_qinf, z_alfa, z_qdof0,
+                z_qdof1, z_qdof2, z_qdof3,
+                va, vb, vdel, vm, vz,
+                iq1, iq2, nsp, nqsp, kqtarg, iacqsp, nc1, nname, nprefix,
+                ncpref, napol, npol, ipact, nlref, icolp, icolr, imatyp, iretyp, nxypol,
+                npolref, ndref,
+                n, nb, nw, npan, ist, kimage, itmax, nseqex, retyp, matyp, aijpix, idev,
+                idevrp, ipslu, ncolor, icols, nover, ncm, ntk,
+                iblte, nbl, ipan, isys, nsys, itran,
+                imxbl, ismxbl,
+                ok, limage, sharp, lgamu, lqinu, lvisc, lalfa, lwake, lpacc, lblini, lipan, lqaij,
+                ladij, lwdij, lcpxx, lqvdes, lqrefl, lqspec, lvconv, lcpref, lclock, lpfile, lpfilx,
+                lppsho, lbflap, lflap, leiw, lscini, lforef, lnorm, lgsame, lplcam, lqsym, lgsym,
+                lqgrid, lggrid, lgtick, lqslop, lgslop, lcslop, lqsppl, lgeopl, lgparm, lcpgrd,
+                lblgrd, lblsym, lplot, lsym, liqset, lclip, lvlab, lcurs, lland, lpgrid, lpcdw,
+                lplist, lplegn, lcminp, lhmomp, lexitflag,
+                tforce,
+                fname, name, ispars, oname, prefix, pfname, pfnamx, namepol, nameref,
+                labref,
+                vmxbl,
+                x1, u1, t1, d1, s1, ampl1, u1_uei, u1_ms, dw1, 
+                h1, h1_t1, h1_d1, 
+                m1, m1_u1, m1_ms, 
+                r1, r1_u1, r1_ms, 
+                v1, v1_u1, v1_ms, v1_re, 
+                hk1, hk1_u1, hk1_t1, hk1_d1, hk1_ms, 
+                hs1, hs1_u1, hs1_t1, hs1_d1, hs1_ms, hs1_re, 
+                hc1, hc1_u1, hc1_t1, hc1_d1, hc1_ms, 
+                rt1, rt1_u1, rt1_t1, rt1_ms, rt1_re, 
+                cf1, cf1_u1, cf1_t1, cf1_d1, cf1_ms, cf1_re, 
+                di1, di1_u1, di1_t1, di1_d1, di1_s1, di1_ms, di1_re, 
+                us1, us1_u1, us1_t1, us1_d1, us1_ms, us1_re, 
+                cq1, cq1_u1, cq1_t1, cq1_d1, cq1_ms, cq1_re, 
+                de1, de1_u1, de1_t1, de1_d1, de1_ms,
+                x2, u2, t2, d2, s2, ampl2, u2_uei, u2_ms, dw2, 
+                h2, h2_t2, h2_d2, 
+                m2, m2_u2, m2_ms, 
+                r2, r2_u2, r2_ms, 
+                v2, v2_u2, v2_ms, v2_re, 
+                hk2, hk2_u2, hk2_t2, hk2_d2, hk2_ms, 
+                hs2, hs2_u2, hs2_t2, hs2_d2, hs2_ms, hs2_re, 
+                hc2, hc2_u2, hc2_t2, hc2_d2, hc2_ms, 
+                rt2, rt2_u2, rt2_t2, rt2_ms, rt2_re, 
+                cf2, cf2_u2, cf2_t2, cf2_d2, cf2_ms, cf2_re, 
+                di2, di2_u2, di2_t2, di2_d2, di2_s2, di2_ms, di2_re, 
+                us2, us2_u2, us2_t2, us2_d2, us2_ms, us2_re, 
+                cq2, cq2_u2, cq2_t2, cq2_d2, cq2_ms, cq2_re, 
+                de2, de2_u2, de2_t2, de2_d2, de2_ms, 
+                cfm, cfm_ms, cfm_re, 
+                cfm_u1, cfm_t1, cfm_d1, 
+                cfm_u2, cfm_t2, cfm_d2, 
+                xt, xt_a1, xt_ms, xt_re, xt_xf, 
+                xt_x1, xt_t1, xt_d1, xt_u1, 
+                xt_x2, xt_t2, xt_d2, xt_u2,
+                c1sav, c2sav,
+                dwte, 
+                qinfbl, 
+                tkbl, tkbl_ms, 
+                rstbl, rstbl_ms, 
+                hstinv, hstinv_ms, 
+                reybl, reybl_ms, reybl_re, 
+                gambl, gm1bl, hvrat, 
+                bule, xiforc, amcrit, 
+                simi, tran, turb, wake, 
+                trforc, trfree,
+                vs1, vs2, vsrez, vsr, vsm, vsx
+                )
         end
 
     end

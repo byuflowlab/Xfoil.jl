@@ -14,6 +14,7 @@ const IZX=322
 const IVX=229
 const NPX=8
 const IWK=36
+const NCOM=73
 
 function __init__()
     # wrap XFOIL global variables
