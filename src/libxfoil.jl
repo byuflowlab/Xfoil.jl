@@ -170,31 +170,6 @@ for (T, name, globals, library) in
                 # re-initialize (if specified)
                 $(globals).lipan[1] = false
                 $(globals).lblini[1] = false
-            else
-                # remove complex component of the initial guess
-                $(globals).sst[1] = real($(globals).sst[1])
-                $(globals).sst_go[1] = real($(globals).sst_go[1])
-                $(globals).sst_gp[1] = real($(globals).sst_gp[1])
-
-
-                $(globals).xssi .= real.($(globals).xssi)
-                $(globals).thet .= real.($(globals).thet)
-                $(globals).dstr .= real.($(globals).dstr)
-                $(globals).uinv .= real.($(globals).uinv)
-                $(globals).uedg .= real.($(globals).uedg)
-                $(globals).mass .= real.($(globals).mass)
-                $(globals).tau .= real.($(globals).tau)
-                $(globals).dis .= real.($(globals).dis)
-                $(globals).ctq .= real.($(globals).ctq)
-                $(globals).delt .= real.($(globals).delt)
-                $(globals).ctau .= real.($(globals).ctau)
-
-                $(globals).vti .= real.($(globals).vti)
-                $(globals).wgap .= real.($(globals).wgap)
-                $(globals).qvis .= real.($(globals).qvis)
-                $(globals).gam .= real.($(globals).gam)
-                $(globals).gam_a .= real.($(globals).gam_a)
-                $(globals).qinv_a .= real.($(globals).qinv_a)
             end
             
             # set inputs

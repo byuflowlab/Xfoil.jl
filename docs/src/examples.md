@@ -142,7 +142,7 @@ c_m_a = zeros(n_a)
 converged = zeros(Bool, n_a)
 
 for i = 1:n_a
-    c_l, c_d, c_dp, c_m, converged[i] = Xfoil.solve_alpha_cs(alpha[i]+h, re; mach, iter=100, reinit=true)
+    c_l, c_d, c_dp, c_m, converged[i] = Xfoil.solve_alpha_cs(alpha[i]+h, re; mach, iter=100, reinit=false)
     c_l_a[i] = imag(c_l)/imag(h) * 180/pi
     c_d_a[i] = imag(c_d)/imag(h) * 180/pi
     c_m_a[i] = imag(c_m)/imag(h) * 180/pi
@@ -182,7 +182,7 @@ close(f)
 alpha = -10:1:10
 re = 1e5
 
-c_l, c_d, c_dp, c_m, converged = Xfoil.alpha_sweep(x, y, alpha, re, iter=100, zeroinit=false, printdata=true)
+c_l, c_d, c_dp, c_m, converged = Xfoil.alpha_sweep(x, y, alpha, re, iter=100, zeroinit=false, printdata=true, reinit=true)
 
 nothing #hide
 ```
@@ -215,7 +215,7 @@ mach = 0.0
 h = 1e-20im
 
 c_l, c_d, c_dp, c_m, converged = Xfoil.alpha_sweep_cs(x, y, alpha .+ h,
-    re, mach=mach, iter=100, zeroinit=false, printdata=true)
+    re, mach=mach, iter=100, zeroinit=false, printdata=true, reinit=true)
 
 println("Angle\t\tdClda\t\tdCdda\t\tdCmda\t\tConverged")
 for i = 1:length(alpha)

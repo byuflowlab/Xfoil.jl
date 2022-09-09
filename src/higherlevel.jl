@@ -199,7 +199,7 @@ for (T, name, set_coordinates, pane, solve_alpha, do_percussive_maintenance) in
 
         function $(name)(x, y, alpha, re; mach=0.0, iter=50, npan=140,
             percussive_maintenance=true, printdata=false, zeroinit=true,
-            clmaxstop=false, clminstop=false, ncrit=9)
+            clmaxstop=false, clminstop=false, ncrit=9, reinit=false)
 
             @assert length(x) == length(y) "x and y arrays must have the same length"
 
@@ -218,7 +218,7 @@ for (T, name, set_coordinates, pane, solve_alpha, do_percussive_maintenance) in
                 # perform angle of attack sweep for negative angles of attack
                 clneg, cdneg, cdpneg, cmneg, convneg = $(name)(x,
                     y, aoaneg, re, mach, iter, npan, percussive_maintenance, printdata,
-                    false, clminstop, ncrit)
+                    false, clminstop, ncrit, reinit)
 
                 # separate out positive angles of attack
                 aoapos = sort(alpha[findall(real.(alpha) .>= 0.0)], by=real)
@@ -229,7 +229,7 @@ for (T, name, set_coordinates, pane, solve_alpha, do_percussive_maintenance) in
                 # perform angle of attack sweep for positive angles of attack
                 clpos, cdpos, cdppos, cmpos, convpos = $(name)(x,
                     y, aoapos, re, mach, iter, npan, percussive_maintenance, printdata,
-                    clmaxstop, false, ncrit)
+                    clmaxstop, false, ncrit, reinit)
 
                 # combine results from negative and positive runs (excluding zero angle of attack runs)
                 cl = vcat(clneg[end:-1:2], clpos[2:end])
@@ -240,7 +240,7 @@ for (T, name, set_coordinates, pane, solve_alpha, do_percussive_maintenance) in
             else
                 cl, cd, cdp, cm, conv = $(name)(x, y, alpha, re,
                     mach, iter, npan, percussive_maintenance, printdata, clminstop,
-                    clmaxstop, ncrit)
+                    clmaxstop, ncrit, reinit)
             end
 
             return cl, cd, cdp, cm, conv
@@ -251,7 +251,7 @@ for (T, name, set_coordinates, pane, solve_alpha, do_percussive_maintenance) in
     @eval begin
 
         function $(name)(x, y, alpha, re, mach, iter, npan, percussive_maintenance,
-            printdata, clmaxstop, clminstop, ncrit)
+            printdata, clmaxstop, clminstop, ncrit, reinit)
 
             # Set up storage arrays
             naoa = length(alpha)
@@ -277,9 +277,6 @@ for (T, name, set_coordinates, pane, solve_alpha, do_percussive_maintenance) in
                     $(set_coordinates)(x, y)
                     $(pane)(npan = npan)
                 end
-
-                # reinitialize if necessary
-                reinit = i == 1 || converged[i-1] ? false : true 
 
                 # run XFOIL
                 cl[i], cd[i], cdp[i], cm[i], converged[i] = $(solve_alpha)(alpha[i], re, mach=mach, iter=iter, ncrit=ncrit, reinit=reinit)
