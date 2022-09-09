@@ -161,7 +161,7 @@ nothing #hide
 
 For performing angle of attack sweeps, the function [`alpha_sweep`](@ref) may also be used.
 
-```julia
+```@example
 using Xfoil, Printf
 
 # extract geometry
@@ -189,7 +189,7 @@ nothing #hide
 
 A version of [`alpha_sweep`](@ref) has also been implemented for use with the complex step version of XFOIL.
 
-```julia
+```@example
 using Xfoil, Printf
 
 # extract geometry
