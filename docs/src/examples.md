@@ -142,7 +142,7 @@ c_m_a = zeros(n_a)
 converged = zeros(Bool, n_a)
 
 for i = 1:n_a
-    c_l, c_d, c_dp, c_m, converged[i] = Xfoil.solve_alpha_cs(alpha[i]+h, re; mach, iter=100, reinit=false)
+    c_l, c_d, c_dp, c_m, converged[i] = Xfoil.solve_alpha_cs(alpha[i]+h, re; mach, iter=100, reinit=true)
     c_l_a[i] = imag(c_l)/imag(h) * 180/pi
     c_d_a[i] = imag(c_d)/imag(h) * 180/pi
     c_m_a[i] = imag(c_m)/imag(h) * 180/pi
