@@ -188,7 +188,7 @@ end</code></pre><pre class="documenter-example-output"><code class="nohighlight 
 7.000000	4.525523	0.084372	0.399812	1
 8.000000	2.108495	0.317512	0.615544	1
 9.000000	3.184644	0.322174	0.395693	1
-10.000000	3.899870	0.340231	0.337308	1</code></pre><h2 id="Automatic-Angle-of-Attack-Sweep"><a class="docs-heading-anchor" href="#Automatic-Angle-of-Attack-Sweep">Automatic Angle of Attack Sweep</a><a id="Automatic-Angle-of-Attack-Sweep-1"></a><a class="docs-heading-anchor-permalink" href="#Automatic-Angle-of-Attack-Sweep" title="Permalink"></a></h2><p>For performing angle of attack sweeps, the function <a href="../public/#Xfoil.alpha_sweep"><code>alpha_sweep</code></a> may also be used.</p><pre><code class="language-julia hljs">using Xfoil, Printf
+10.000000	3.899870	0.340231	0.337308	1</code></pre><h2 id="Automatic-Angle-of-Attack-Sweep"><a class="docs-heading-anchor" href="#Automatic-Angle-of-Attack-Sweep">Automatic Angle of Attack Sweep</a><a id="Automatic-Angle-of-Attack-Sweep-1"></a><a class="docs-heading-anchor-permalink" href="#Automatic-Angle-of-Attack-Sweep" title="Permalink"></a></h2><p>For performing angle of attack sweeps, the function <a href="../public/#Xfoil.alpha_sweep-Tuple{Any, Any, Any}"><code>alpha_sweep</code></a> may also be used.</p><pre><code class="language-julia hljs">using Xfoil, Printf
 
 # extract geometry
 x = Float64[]
@@ -210,7 +210,7 @@ re = 1e5
 
 c_l, c_d, c_dp, c_m, converged = Xfoil.alpha_sweep(x, y, alpha, re, iter=100, zeroinit=false, printdata=true, reinit=true)
 
-nothing #hide</code></pre><p>A version of <a href="../public/#Xfoil.alpha_sweep"><code>alpha_sweep</code></a> has also been implemented for use with the complex step version of XFOIL.</p><pre><code class="language-julia hljs">using Xfoil, Printf
+nothing #hide</code></pre><p>A version of <a href="../public/#Xfoil.alpha_sweep-Tuple{Any, Any, Any}"><code>alpha_sweep</code></a> has also been implemented for use with the complex step version of XFOIL.</p><pre><code class="language-julia hljs">using Xfoil, Printf
 
 # extract geometry
 x = Float64[]
@@ -242,4 +242,4 @@ for i = 1:length(alpha)
     @printf(&quot;%8f\t%8f\t%8f\t%8f\t%d\n&quot;, alpha[i], imag(c_l[i])/imag(h)*180/pi, imag(c_d[i])/imag(h)*180/pi, imag(c_m[i])/imag(h)*180/pi, converged[i])
 end
 
-nothing #hide</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><a class="docs-footer-nextpage" href="../public/">Public API »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.23 on <span class="colophon-date" title="Friday 9 September 2022 20:20">Friday 9 September 2022</span>. Using Julia version 1.6.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+nothing #hide</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><a class="docs-footer-nextpage" href="../public/">Public API »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.23 on <span class="colophon-date" title="Friday 9 September 2022 20:24">Friday 9 September 2022</span>. Using Julia version 1.6.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
