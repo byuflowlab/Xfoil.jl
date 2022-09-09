@@ -92,7 +92,7 @@ Perform angle of attack sweep using XFOIL.  Return cl, cd, cdp, cm, converged.
  - `clmaxstop=false`: Stop if lift coefficient decreases twice consecutively going up?
  - `clminstop=false`: Stop if lift coefficient increases twice consecutively going down?
 """
-alpha_sweep
+alpha_sweep(x, y, alpha, re; kwargs...)
 
 """
     alpha_sweep_cs(x, y, alpha, re; kwargs...)
