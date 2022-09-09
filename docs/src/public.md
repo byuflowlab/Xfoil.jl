@@ -23,10 +23,16 @@ solve_alpha(alpha; kwargs...)
 solve_alpha(alpha, re; kwargs...)
 ```
 
-### Angle of Attack Sweep
+### Inviscid Angle of Attack Sweep
 
 ```@docs
-alpha_sweep
+alpha_sweep(x, y, alpha; kwargs...)
+```
+
+### Viscous Angle of Attack Sweep
+
+```@docs
+alpha_sweep(x, y, alpha, re; kwargs...)
 ```
 
 ### Separation Point
