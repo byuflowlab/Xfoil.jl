@@ -157,8 +157,6 @@ end
 nothing #hide
 ```
 
-
-
 ## Automatic Angle of Attack Sweep
 
 For performing angle of attack sweeps, the function [`alpha_sweep`](@ref) may also be used.
