@@ -5,7 +5,8 @@ makedocs(;
     pages = [
         "Home" => "index.md",
         "Examples" => "examples.md",
-        "Library" => "library.md"
+        "Public API" => "public.md",
+        "Private API" => "private.md"
     ],
     sitename = "Xfoil.jl",
     authors = "Taylor McDonnell <taylormcd@byu.edu>"

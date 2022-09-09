@@ -93,9 +93,52 @@ for (T, name, globals, library) in
 end
 
 """
+    solve_alpha(alpha; mach=0.0)
+
+Compute the inviscid flow solution at the specified angle of attack. Return cl and cm.
+
+# Arguments:
+ - `alpha`: Angle of attack (degrees)
+ - `mach`: Mach number
+"""
+solve_alpha(alpha; kwargs...)
+
+"""
+    solve_alpha_cs(alpha; mach=0.0)
+
+[`solve_alpha`](@ref) for the complex step enabled version of XFOIL.
+"""
+solve_alpha_cs(alpha; kwargs...)
+
+# definition of solve_alpha (inviscid)
+for (T, name, globals, library) in
+    ((:Float64, :solve_alpha, :xfoilglobals, :libxfoil_light),
+    (:ComplexF64, :solve_alpha_cs, :xfoilglobals_cs, :libxfoil_light_cs))
+
+    @eval begin
+
+        function $(name)(alpha; mach=0.0)
+
+            $(globals).lvisc[1] = false
+            $(globals).adeg[1] = alpha
+            $(globals).minf1[1] = mach
+
+            ccall((:oper_, $(library)), Nothing, ())
+
+            cl = $(globals).cl[1]
+            cm = $(globals).cm[1]
+
+            return cl[1], cm[1]
+        end
+
+    end
+
+end
+
+"""
     solve_alpha(alpha, re; mach=0.0, iter=50, ncrit=9)
 
-Compute the flow solution at the specified angle of attack. Returns cl, cd, cdp,
+Compute the viscous flow solution at the specified angle of attack. Return cl, cd, cdp,
 cm, and a convergence flag indicating whether the solution converged.
 
 # Arguments:
@@ -105,32 +148,67 @@ cm, and a convergence flag indicating whether the solution converged.
  - `iter`: Number of iterations
  - `ncrit`: turbulence level
 """
-solve_alpha
+solve_alpha(alpha, re; kwargs...)
 
 """
     solve_alpha_cs(alpha, re; mach=0.0, iter=50, ncrit=9)
 
-`solve_alpha` for the complex step enabled version of XFOIL.
+[`solve_alpha`](@ref) for the complex step enabled version of XFOIL.
 """
-solve_alpha_cs
+solve_alpha_cs(alpha, re; kwargs...)
 
-# definition of solve_alpha
+# definition of solve_alpha (viscous)
 for (T, name, globals, library) in
     ((:Float64, :solve_alpha, :xfoilglobals, :libxfoil_light),
     (:ComplexF64, :solve_alpha_cs, :xfoilglobals_cs, :libxfoil_light_cs))
 
     @eval begin
 
-        function $(name)(alpha, re; mach=0.0, iter=50, ncrit=9)
+        function $(name)(alpha, re; mach=0.0, iter=50, ncrit=9, reinit=false)
 
+            if reinit
+                # re-initialize (if specified)
+                $(globals).lipan[1] = false
+                $(globals).lblini[1] = false
+            else
+                # remove complex component of the initial guess
+                $(globals).sst[1] = real($(globals).sst[1])
+                $(globals).sst_go[1] = real($(globals).sst_go[1])
+                $(globals).sst_gp[1] = real($(globals).sst_gp[1])
+
+
+                $(globals).xssi .= real.($(globals).xssi)
+                $(globals).thet .= real.($(globals).thet)
+                $(globals).dstr .= real.($(globals).dstr)
+                $(globals).uinv .= real.($(globals).uinv)
+                $(globals).uedg .= real.($(globals).uedg)
+                $(globals).mass .= real.($(globals).mass)
+                $(globals).tau .= real.($(globals).tau)
+                $(globals).dis .= real.($(globals).dis)
+                $(globals).ctq .= real.($(globals).ctq)
+                $(globals).delt .= real.($(globals).delt)
+                $(globals).ctau .= real.($(globals).ctau)
+
+                $(globals).vti .= real.($(globals).vti)
+                $(globals).wgap .= real.($(globals).wgap)
+                $(globals).qvis .= real.($(globals).qvis)
+                $(globals).gam .= real.($(globals).gam)
+                $(globals).gam_a .= real.($(globals).gam_a)
+                $(globals).qinv_a .= real.($(globals).qinv_a)
+            end
+            
+            # set inputs
+            $(globals).lvisc[1] = true
             $(globals).adeg[1] = alpha
             $(globals).reinf1[1] = re
             $(globals).minf1[1] = mach
             $(globals).itmax[1] = iter
             $(globals).acrit[1] = ncrit
 
+            # perform analysis
             ccall((:oper_, $(library)), Nothing, ())
 
+            # extract outputs
             cl = $(globals).cl[1]
             cd = $(globals).cd[1]
             cdp = $(globals).cdp[1]
@@ -183,6 +261,44 @@ for (T, name, globals, library) in
 
             return s[1:nelem[1]], x[1:nelem[1]], y[1:nelem[1]], ue[1:nelem[1]],
                 dstar[1:nelem[1]], theta[1:nelem[1]], cf[1:nelem[1]]
+        end
+
+    end
+
+end
+
+"""
+    cpdump()
+
+Return `x` and `cp`
+"""
+cpdump
+
+"""
+    cpdump_cs()
+
+`cpdump` for the complex step enabled version of XFOIL.
+"""
+cpdump_cs
+
+# definition of cpdump
+for (T, name, globals, library) in
+    ((:Float64, :cpdump, :xfoilglobals, :libxfoil_light),
+    (:ComplexF64, :cpdump_cs, :xfoilglobals_cs, :libxfoil_light_cs))
+
+    @eval begin
+
+        function $(name)()
+
+            nelem = zeros(Int32, 1)
+            x = zeros($T, IZX)
+            cp = zeros($T, IZX)
+
+            ccall( (:cpdump_, $(library)), Nothing,
+                (Ref{Int32}, Ref{$T}, Ref{$T}),
+                nelem, x, cp)
+
+            return x[1:nelem[1]], cp[1:nelem[1]]
         end
 
     end

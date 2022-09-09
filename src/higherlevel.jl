@@ -55,23 +55,42 @@ for (T, name, globals, bldump) in
 end
 
 """
+    alpha_sweep(x, y, alpha; kwargs...)
+
+Perform an inviscid analysis for a series of angles of attacks using XFOIL.  Return cl and 
+cm.
+
+# Arguments
+ - `x`: Airfoil x-coordinate starting from trailing edge looping counter-clockwise
+ - `y`: Airfoil y-coordinate starting from trailing edge looping counter-clockwise
+ - `alpha`: Angle of attacks (in degrees)
+ - `ma`: Mach number
+ - `npan=140`: Number of panels
+ - `printdata=false`: Print data obtained from XFOIL during the solution?
+ - `zeroinit=true`: Start angle of attack sweeps from zero?  If `true`, results will be 
+        sorted by ascending angle of attack.
+"""
+alpha_sweep(x, y, alpha; kwargs...)
+
+"""
     alpha_sweep(x, y, alpha, re; kwargs...)
 
 Perform angle of attack sweep using XFOIL.  Return cl, cd, cdp, cm, converged.
 
 # Arguments
-- `x`: Airfoil coordinates start from trailing edge looping counterclockwise
-- `y`:
-- `alpha`: Array of angle of attacks in degrees
-- `re`: Reynolds number
-- `ma`: Mach number
-- `iter=50`: Maximum number of iterations for each XFOIL run
-- `npan=140`: Number of panels
-- `percussive_maintenance=true`: Flag to call `do_percussive_maintenance` upon convergence failure
-- `printdata=false`: Flag to indicate whether to print data obtained from XFOIL during the solution
-- `zeroinit=true`: Flag to indicate whether to start angle of attack sweeps from zero angle of attack
-- `clmaxstop=false`: Stop if lift coefficient decreases twice consecutively going up
-- `clminstop=false`: Stop if lift coefficient increases twice consecutively going down
+ - `x`: Airfoil x-coordinate starting from trailing edge looping counter-clockwise
+ - `y`: Airfoil y-coordinate starting from trailing edge looping counter-clockwise
+ - `alpha`: Angle of attacks (in degrees)
+ - `re`: Reynolds number
+ - `ma`: Mach number
+ - `iter=50`: Maximum iterations for viscous analyses
+ - `npan=140`: Number of panels
+ - `percussive_maintenance=true`: Call [`do_percussive_maintenance`](@ref) upon convergence failure? 
+ - `printdata=false`: Print data obtained from XFOIL during the solution?
+ - `zeroinit=true`: Start angle of attack sweeps from zero?  If `true`, results will be 
+        sorted by ascending angle of attack.
+ - `clmaxstop=false`: Stop if lift coefficient decreases twice consecutively going up?
+ - `clminstop=false`: Stop if lift coefficient increases twice consecutively going down?
 """
 alpha_sweep
 
@@ -82,7 +101,96 @@ alpha_sweep
 """
 alpha_sweep_cs
 
-# definition of alpha_sweep
+# definition of alpha_sweep (inviscid analysis)
+for (T, name, set_coordinates, pane, solve_alpha) in
+    ((:Float64, :alpha_sweep, :set_coordinates, :pane, :solve_alpha),
+    (:ComplexF64, :alpha_sweep_cs, :set_coordinates_cs, :pane_cs, :solve_alpha_cs))
+
+    @eval begin
+
+        function $(name)(x, y, alpha; mach=0.0, npan=140, printdata=false, zeroinit=true)
+
+            @assert length(x) == length(y) "x and y arrays must have the same length"
+
+            naoa = length(alpha)
+
+            if zeroinit
+                # Set up angle of attack range going up and going down from zero if specified
+                # This helps XFOIL to converge more consistently
+
+                # separate out negative angles of attack
+                aoaneg = sort(alpha[findall(real.(alpha) .< 0.0)], by=real, rev = true)
+
+                # add zero angle of attack to negative angles of attack
+                pushfirst!(aoaneg, 0.0)
+
+                # perform angle of attack sweep for negative angles of attack
+                clneg, cmneg = $(name)(x, y, aoaneg, mach, npan, printdata)
+
+                # separate out positive angles of attack
+                aoapos = sort(alpha[findall(real.(alpha) .>= 0.0)], by=real)
+
+                # add zero angle of attack to positive angles of attack
+                pushfirst!(aoapos,0.0)
+
+                # perform angle of attack sweep for positive angles of attack
+                clpos, cmpos = $(name)(x, y, aoapos, mach, npan, printdata)
+
+                # combine results from negative and positive runs (excluding zero angle of attack runs)
+                cl = vcat(clneg[end:-1:2], clpos[2:end])
+                cm = vcat(cmneg[end:-1:2], cmpos[2:end])
+            else
+                cl, cm = $(name)(x, y, alpha, mach, npan, printdata)
+            end
+
+            return cl, cm
+        end
+
+    end
+
+    @eval begin
+
+        function $(name)(x, y, alpha, mach, npan, printdata)
+
+            # Set up storage arrays
+            naoa = length(alpha)
+            cl = zeros($T, naoa)
+            cm = zeros($T, naoa)
+
+            # print header for data 
+            # TODO: add option to print to file rather than terminal
+            if printdata == true
+                println("\nAngle\t\tCl\t\tCm")
+            end
+
+            # start unconverged
+            for i in eachindex(alpha)
+
+                # set coordinates if it's the first iteration
+                if i == 1
+                    $(set_coordinates)(x, y)
+                    $(pane)(npan = npan)
+                end
+
+                # run XFOIL
+                cl[i], cm[i] = $(solve_alpha)(alpha[i]; mach=mach)
+
+                # print data from the run 
+                #TODO: add option to print to file rather than terminal
+                if printdata == true
+                    @printf("%8f\t%8f\t%8f\n", real(alpha[i]), real(cl[i]), real(cm[i]))
+                end
+
+            end
+
+            return cl, cm
+        end
+
+    end
+
+end
+
+# definition of alpha_sweep (viscous analysis)
 for (T, name, set_coordinates, pane, solve_alpha, do_percussive_maintenance) in
     ((:Float64, :alpha_sweep, :set_coordinates, :pane, :solve_alpha, :do_percussive_maintenance),
     (:ComplexF64, :alpha_sweep_cs, :set_coordinates_cs, :pane_cs, :solve_alpha_cs, :do_percussive_maintenance_cs))
@@ -164,16 +272,25 @@ for (T, name, set_coordinates, pane, solve_alpha, do_percussive_maintenance) in
                 # set coordinates if its the first iteration, also set the coordinates
                 # if convergence has failed since it resets XFOIL's initial guess
                 # TODO: reset XFOIL's initial guess without setting coordinates again
-                if i == 1 || converged[i-1] == false
+                if i == 1
+                    # TODO: remove hard-coded repaneling, add it as a default option
                     $(set_coordinates)(x, y)
                     $(pane)(npan = npan)
-                    # TODO: remove hard-coded repaneling, add it as a default option
                 end
 
+                # reinitialize if necessary
+                reinit = i == 1 || converged[i-1] ? false : true 
+
                 # run XFOIL
-                cl[i], cd[i], cdp[i], cm[i], converged[i] = $(solve_alpha)(alpha[i], re, mach=mach, iter=iter, ncrit=ncrit)
+                cl[i], cd[i], cdp[i], cm[i], converged[i] = $(solve_alpha)(alpha[i], re, mach=mach, iter=iter, ncrit=ncrit, reinit=reinit)
 
                 # check convergence, do percussive maintenance if desired and necessary
+                if !converged[i]
+                    # try reinitializing
+                    cl[i], cd[i], cdp[i], cm[i], converged[i] = $(solve_alpha)(alpha[i], re, mach=mach, iter=iter, ncrit=ncrit, reinit=true)
+                end
+
+                # if that doesn't work try percussive maintenance
                 if !converged[i] && percussive_maintenance
                     cl[i], cd[i], cdp[i], cm[i], converged[i] = $(do_percussive_maintenance)(x, y, alpha[i], re, mach, iter, npan, ncrit)
                 end

@@ -2,11 +2,6 @@
 
 These examples show how to use Xfoil.jl.
 
-```@contents
-Pages = ["examples.md"]
-Depth = 3
-```
-
 ## Manual Angle of Attack Sweep
 
 This first example shows how to manually perform an angle of attack sweep.
@@ -91,8 +86,8 @@ c_m_a = zeros(n_a)
 converged = zeros(Bool, n_a)
 
 for i = 1:n_a
-    c_l1, c_d1, c_dp1, c_m1, converged[i] = Xfoil.solve_alpha(alpha[i], re; mach, iter=100)
-    c_l2, c_d2, c_dp2, c_m2, converged[i] = Xfoil.solve_alpha(alpha[i]+h, re; mach, iter=100)
+    c_l1, c_d1, c_dp1, c_m1, converged[i] = Xfoil.solve_alpha(alpha[i], re; mach, iter=100, reinit=true)
+    c_l2, c_d2, c_dp2, c_m2, converged[i] = Xfoil.solve_alpha(alpha[i]+h, re; mach, iter=100, reinit=true)
     c_l_a[i] = (c_l2 - c_l1)/h * 180/pi
     c_d_a[i] = (c_d2 - c_d1)/h * 180/pi
     c_m_a[i] = (c_m2 - c_m1)/h * 180/pi
@@ -107,7 +102,10 @@ end
 nothing #hide
 ```
 
-A better approach might be to use the complex step method.
+A better approach might be to use the complex step method.  To use this approach, however, 
+we need to reinitialize the flow solution for each angle of attack by setting `reinit=true`. 
+This ensures that the imaginary portion of variables from previous iterations does not affect
+the solution for the current iteration.
 
 ```@example
 using Xfoil, Printf
@@ -133,7 +131,7 @@ re = 1e5
 mach = 0.0
 
 # set step size
-h = 1e-20im
+h = 1e-10im
 
 # initialize outputs
 n_a = length(alpha)
@@ -144,7 +142,7 @@ c_m_a = zeros(n_a)
 converged = zeros(Bool, n_a)
 
 for i = 1:n_a
-    c_l, c_d, c_dp, c_m, converged[i] = Xfoil.solve_alpha_cs(alpha[i]+h, re; mach, iter=100)
+    c_l, c_d, c_dp, c_m, converged[i] = Xfoil.solve_alpha_cs(alpha[i]+h, re; mach, iter=100, reinit=true)
     c_l_a[i] = imag(c_l)/imag(h) * 180/pi
     c_d_a[i] = imag(c_d)/imag(h) * 180/pi
     c_m_a[i] = imag(c_m)/imag(h) * 180/pi
@@ -159,11 +157,13 @@ end
 nothing #hide
 ```
 
+
+
 ## Automatic Angle of Attack Sweep
 
-For performing angle of attack sweeps, the function `alpha_sweep` may also be used.
+For performing angle of attack sweeps, the function [`alpha_sweep`](@ref) may also be used.
 
-```@example
+```julia
 using Xfoil, Printf
 
 # extract geometry
@@ -189,9 +189,9 @@ c_l, c_d, c_dp, c_m, converged = Xfoil.alpha_sweep(x, y, alpha, re, iter=100, ze
 nothing #hide
 ```
 
-A version of `alpha_sweep` has also been implemented for use with the complex step version of XFOIL.
+A version of [`alpha_sweep`](@ref) has also been implemented for use with the complex step version of XFOIL.
 
-```@example
+```julia
 using Xfoil, Printf
 
 # extract geometry
