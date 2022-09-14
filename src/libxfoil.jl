@@ -136,7 +136,7 @@ for (T, name, globals, library) in
 end
 
 """
-    solve_alpha(alpha, re; mach=0.0, iter=50, ncrit=9)
+    solve_alpha(alpha, re; mach=0.0, iter=50, ncrit=9, reinit=false, xtrip=(1.0,1.0))
 
 Compute the viscous flow solution at the specified angle of attack. Return cl, cd, cdp,
 cm, and a convergence flag indicating whether the solution converged.
@@ -147,11 +147,13 @@ cm, and a convergence flag indicating whether the solution converged.
  - `mach`: Mach number
  - `iter`: Number of iterations
  - `ncrit`: turbulence level
+ - `reinit`: reinitialize the solution? (rather than use the previous solution)
+ - `xtrip`: forced transition x/c locations on top/bottom sides
 """
 solve_alpha(alpha, re; kwargs...)
 
 """
-    solve_alpha_cs(alpha, re; mach=0.0, iter=50, ncrit=9)
+    solve_alpha_cs(alpha, re; mach=0.0, iter=50, ncrit=9, xtrip=(1.0,1.0))
 
 [`solve_alpha`](@ref) for the complex step enabled version of XFOIL.
 """
@@ -164,7 +166,7 @@ for (T, name, globals, library) in
 
     @eval begin
 
-        function $(name)(alpha, re; mach=0.0, iter=50, ncrit=9, reinit=false)
+        function $(name)(alpha, re; mach=0.0, iter=50, ncrit=9, reinit=false, xtrip=(1.0,1.0))
 
             if reinit
                 # re-initialize (if specified)
@@ -173,12 +175,15 @@ for (T, name, globals, library) in
             end
             
             # set inputs
+            $(globals).lvconv[1] = false
             $(globals).lvisc[1] = true
             $(globals).adeg[1] = alpha
             $(globals).reinf1[1] = re
             $(globals).minf1[1] = mach
             $(globals).itmax[1] = iter
             $(globals).acrit[1] = ncrit
+            $(globals).xstrip[1] = xtrip[1]
+            $(globals).xstrip[2] = xtrip[2]
 
             # perform analysis
             ccall((:oper_, $(library)), Nothing, ())

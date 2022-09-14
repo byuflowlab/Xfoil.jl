@@ -83,9 +83,11 @@ Perform angle of attack sweep using XFOIL.  Return cl, cd, cdp, cm, converged.
  - `alpha`: Angle of attacks (in degrees)
  - `re`: Reynolds number
  - `ma`: Mach number
+ - `xtrip=(1.0,1.0)`: forced transition x/c locations on top/bottom sides
+ - `reinit=false`: reinitialize the solution? (rather than use the previous solution)
  - `iter=50`: Maximum iterations for viscous analyses
  - `npan=140`: Number of panels
- - `percussive_maintenance=true`: Call [`do_percussive_maintenance`](@ref) upon convergence failure? 
+ - `percussive_maintenance=false`: Call [`do_percussive_maintenance`](@ref) upon convergence failure? 
  - `printdata=false`: Print data obtained from XFOIL during the solution?
  - `zeroinit=true`: Start angle of attack sweeps from zero?  If `true`, results will be 
         sorted by ascending angle of attack.
@@ -198,8 +200,9 @@ for (T, name, set_coordinates, pane, solve_alpha, do_percussive_maintenance) in
     @eval begin
 
         function $(name)(x, y, alpha, re; mach=0.0, iter=50, npan=140,
-            percussive_maintenance=true, printdata=false, zeroinit=true,
-            clmaxstop=false, clminstop=false, ncrit=9, reinit=false)
+            percussive_maintenance=false, printdata=false, zeroinit=true,
+            clmaxstop=false, clminstop=false, ncrit=9, reinit=false, 
+            xtrip=(1.0,1.0))
 
             @assert length(x) == length(y) "x and y arrays must have the same length"
 
@@ -218,7 +221,7 @@ for (T, name, set_coordinates, pane, solve_alpha, do_percussive_maintenance) in
                 # perform angle of attack sweep for negative angles of attack
                 clneg, cdneg, cdpneg, cmneg, convneg = $(name)(x,
                     y, aoaneg, re, mach, iter, npan, percussive_maintenance, printdata,
-                    false, clminstop, ncrit, reinit)
+                    false, clminstop, ncrit, reinit, xtrip)
 
                 # separate out positive angles of attack
                 aoapos = sort(alpha[findall(real.(alpha) .>= 0.0)], by=real)
@@ -229,7 +232,7 @@ for (T, name, set_coordinates, pane, solve_alpha, do_percussive_maintenance) in
                 # perform angle of attack sweep for positive angles of attack
                 clpos, cdpos, cdppos, cmpos, convpos = $(name)(x,
                     y, aoapos, re, mach, iter, npan, percussive_maintenance, printdata,
-                    clmaxstop, false, ncrit, reinit)
+                    clmaxstop, false, ncrit, reinit, xtrip)
 
                 # combine results from negative and positive runs (excluding zero angle of attack runs)
                 cl = vcat(clneg[end:-1:2], clpos[2:end])
@@ -240,7 +243,7 @@ for (T, name, set_coordinates, pane, solve_alpha, do_percussive_maintenance) in
             else
                 cl, cd, cdp, cm, conv = $(name)(x, y, alpha, re,
                     mach, iter, npan, percussive_maintenance, printdata, clminstop,
-                    clmaxstop, ncrit, reinit)
+                    clmaxstop, ncrit, reinit, xtrip)
             end
 
             return cl, cd, cdp, cm, conv
@@ -251,7 +254,7 @@ for (T, name, set_coordinates, pane, solve_alpha, do_percussive_maintenance) in
     @eval begin
 
         function $(name)(x, y, alpha, re, mach, iter, npan, percussive_maintenance,
-            printdata, clmaxstop, clminstop, ncrit, reinit)
+            printdata, clmaxstop, clminstop, ncrit, reinit, xtrip)
 
             # Set up storage arrays
             naoa = length(alpha)
@@ -279,17 +282,11 @@ for (T, name, set_coordinates, pane, solve_alpha, do_percussive_maintenance) in
                 end
 
                 # run XFOIL
-                cl[i], cd[i], cdp[i], cm[i], converged[i] = $(solve_alpha)(alpha[i], re, mach=mach, iter=iter, ncrit=ncrit, reinit=reinit)
+                cl[i], cd[i], cdp[i], cm[i], converged[i] = $(solve_alpha)(alpha[i], re, mach=mach, iter=iter, ncrit=ncrit, reinit=reinit, xtrip=xtrip)
 
-                # check convergence, do percussive maintenance if desired and necessary
-                if !converged[i]
-                    # try reinitializing
-                    cl[i], cd[i], cdp[i], cm[i], converged[i] = $(solve_alpha)(alpha[i], re, mach=mach, iter=iter, ncrit=ncrit, reinit=true)
-                end
-
-                # if that doesn't work try percussive maintenance
+                # try percussive maintenance
                 if !converged[i] && percussive_maintenance
-                    cl[i], cd[i], cdp[i], cm[i], converged[i] = $(do_percussive_maintenance)(x, y, alpha[i], re, mach, iter, npan, ncrit)
+                    cl[i], cd[i], cdp[i], cm[i], converged[i] = $(do_percussive_maintenance)(x, y, alpha[i], re, mach, iter, npan, ncrit, xtrip)
                 end
 
                 # print data from the run #TODO: add option to print to file rather than terminal
@@ -346,13 +343,13 @@ for (T, name, set_coordinates, pane, solve_alpha) in
 
     @eval begin
 
-        function $(name)(x, y, alpha, re, mach, iter, npan, ncrit)
+        function $(name)(x, y, alpha, re, mach, iter, npan, ncrit, xtrip)
 
             # set new parameters to original parameters
             remod = re
             alphamod = alpha
 
-            f = (alphamod, remod) -> $(solve_alpha)(alphamod, remod, mach=mach, iter=iter, ncrit=ncrit)
+            f = (alphamod, remod) -> $(solve_alpha)(alphamod, remod, mach=mach, iter=iter, ncrit=ncrit, xtrip=xtrip)
 
             # TODO: add number of iterations of percussive maintenance as an input parameter
             # perhaps by adding a PercussiveMaintenance type with customizable parameters
