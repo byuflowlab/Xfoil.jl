@@ -85,7 +85,11 @@ for (T, name, globals, library) in
 
             ccall( (:pangen_, $(library)), Nothing, ())
 
-            return nothing
+            n = $(globals).n[1]
+            x = $(globals).x[1:n]
+            y = $(globals).y[1:n]
+
+            return x, y
         end
 
     end

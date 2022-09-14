@@ -36,7 +36,7 @@ pkg> add Xfoil
 
 ## Usage
 
-See the [examples](@ref Examples)
+See the [guide](@ref guide)
 
 ## Development
 

@@ -1,4 +1,4 @@
-# Private API
+# [Private API](@id private)
 
 ```@docs
 Xfoil.XfoilGlobals

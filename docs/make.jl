@@ -4,7 +4,7 @@ makedocs(;
     modules = [Xfoil],
     pages = [
         "Home" => "index.md",
-        "Examples" => "examples.md",
+        "Example Usage" => "guide.md",
         "Public API" => "public.md",
         "Private API" => "private.md"
     ],

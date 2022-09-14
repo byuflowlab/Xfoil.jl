@@ -1,6 +1,6 @@
-# Public API
+# [Public API](@id public)
 
-### Setting Airfoil Coordinates
+### Loading Airfoil Geometry
 
 ```@docs
 set_coordinates
