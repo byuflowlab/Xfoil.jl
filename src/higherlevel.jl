@@ -87,7 +87,8 @@ Perform angle of attack sweep using XFOIL.  Return cl, cd, cdp, cm, converged.
  - `reinit=false`: reinitialize the solution? (rather than use the previous solution)
  - `iter=50`: Maximum iterations for viscous analyses
  - `npan=140`: Number of panels
- - `percussive_maintenance=false`: Call [`do_percussive_maintenance`](@ref) upon convergence failure? 
+ - `percussive_maintenance=!reinit`: Call [`do_percussive_maintenance`](@ref) upon 
+    convergence failure? 
  - `printdata=false`: Print data obtained from XFOIL during the solution?
  - `zeroinit=true`: Start angle of attack sweeps from zero?  If `true`, results will be 
         sorted by ascending angle of attack.
@@ -199,9 +200,9 @@ for (T, name, set_coordinates, pane, solve_alpha, do_percussive_maintenance) in
 
     @eval begin
 
-        function $(name)(x, y, alpha, re; mach=0.0, iter=50, npan=140,
-            percussive_maintenance=false, printdata=false, zeroinit=true,
-            clmaxstop=false, clminstop=false, ncrit=9, reinit=false, 
+        function $(name)(x, y, alpha, re; mach=0.0, iter=50, npan=140, reinit=false, 
+            percussive_maintenance=!reinit, printdata=false, zeroinit=true,
+            clmaxstop=false, clminstop=false, ncrit=9, 
             xtrip=(1.0,1.0))
 
             @assert length(x) == length(y) "x and y arrays must have the same length"
