@@ -66,7 +66,7 @@ be specified.
 
 ```@example guide
 # set operating conditions
-alpha = -10:1:15 # range of angle of attacks, in degrees
+alpha = -9:0.1:14 # range of angle of attacks, in degrees
 re = 1e5 # Reynolds number
 nothing #hide
 ```
@@ -141,7 +141,7 @@ end
 Xfoil.pane()
 
 # set operating conditions
-alpha = -10:1:15
+alpha = -9:1:14
 re = 1e5
 mach = 0.0
 
@@ -198,12 +198,12 @@ end
 Xfoil.pane_cs()
 
 # set operating conditions
-alpha = -10:1:15
+alpha = -9:1:14
 re = 1e5
 mach = 0.0
 
 # set step size
-h = 1e-20im
+h = 1e-12im
 
 # initialize outputs
 n_a = length(alpha)
@@ -229,6 +229,10 @@ end
 nothing #hide
 ```
 
+Note that since XFOIL was not originally designed for sensitivity analysis, there is a 
+distinct possibility that sensitivities may be non-physical.  We therefore always recommend 
+checking that computed sensitivities are realistic.
+
 ### Automated Angle of Attack Sweep
 
 For performing angle of attack sweeps, the function [`alpha_sweep`](@ref) may also be used.
@@ -251,7 +255,7 @@ end
 close(f)
 
 # set operating conditions
-alpha = -10:1:15
+alpha = -9:1:14
 re = 1e5
 
 c_l, c_d, c_dp, c_m, converged = Xfoil.alpha_sweep(x, y, alpha, re, iter=100, zeroinit=false, printdata=true, reinit=true)
@@ -279,7 +283,7 @@ end
 close(f)
 
 # set operating conditions
-alpha = -10:1:15
+alpha = -9:1:14
 re = 1e5
 mach = 0.0
 
