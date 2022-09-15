@@ -66,7 +66,7 @@ be specified.
 
 ```@example guide
 # set operating conditions
-alpha = -9:0.1:14 # range of angle of attacks, in degrees
+alpha = -9:1:14 # range of angle of attacks, in degrees
 re = 1e5 # Reynolds number
 nothing #hide
 ```
@@ -231,7 +231,10 @@ nothing #hide
 
 Note that since XFOIL was not originally designed for sensitivity analysis, there is a 
 distinct possibility that sensitivities may be non-physical.  We therefore always recommend 
-checking that computed sensitivities are realistic.
+checking that computed sensitivities are realistic.  Sometimes adjusting the number of
+panels or the step size will fix the computed sensitivies, but if all else fails a coarse 
+step size (e.g. 1.0 degree) may be used with central finite differencing to artificially 
+smooth the computed sensitivities.
 
 ### Automated Angle of Attack Sweep
 
