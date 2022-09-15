@@ -282,8 +282,11 @@ for (T, name, set_coordinates, pane, solve_alpha, do_percussive_maintenance) in
                     $(pane)(npan = npan)
                 end
 
+                # reinitialize if previous solution didn't converge
+                _reinit = reinit || (i !=1 && !converged[i-1])
+
                 # run XFOIL
-                cl[i], cd[i], cdp[i], cm[i], converged[i] = $(solve_alpha)(alpha[i], re, mach=mach, iter=iter, ncrit=ncrit, reinit=reinit, xtrip=xtrip)
+                cl[i], cd[i], cdp[i], cm[i], converged[i] = $(solve_alpha)(alpha[i], re, mach=mach, iter=iter, ncrit=ncrit, reinit=_reinit, xtrip=xtrip)
 
                 # try percussive maintenance
                 if !converged[i] && percussive_maintenance
