@@ -8,6 +8,7 @@ Before any analysis can be performed, we need to load our airfoil geometry into 
 
 ```@example guide
 using Xfoil, Plots, Printf
+using Suppressor #hide
 pyplot()
 
 # read airfoil coordinates from a file
@@ -26,7 +27,9 @@ end
 Xfoil.set_coordinates(x,y)
 
 # plot the airfoil geometry
+@suppress begin #hide
 scatter(x, y, label="", framestyle=:none, aspect_ratio=1.0, show=true)
+end #hide
 
 savefig("guide-airfoil.svg") #hide
 
@@ -44,7 +47,9 @@ It is often a good idea to refine airfoil discretizations prior to performing an
 xr, yr = Xfoil.pane()
 
 # plot the refined airfoil geometry
+@suppress begin #hide
 scatter(xr, yr, label="", framestyle=:none, aspect_ratio=1.0, show=true)
+end #hide
 
 savefig("guide-mesh.svg") #hide
 
@@ -68,8 +73,8 @@ nothing #hide
 
 ### Airfoil Analysis
 
-The [`solve_alpha`](@ref) function may now be used to perform an analysis to obtain the airfoil coefficients ``c_l``, ``c_d``, ``c_{d,p}``, and ``c_m``.  Note that ``c_{d,p}`` is profile drag.  
-Skin friction drag may be obtained by subtracting the profile drag coefficient from the total drag coefficient i.e., ``c_{d,f} = c_d - c_{d,p}``.
+The [`solve_alpha`](@ref) function may now be used to perform an analysis to obtain the airfoil coefficients ``c_l``, ``c_d``, ``c_{d_p}``, and ``c_m``.  Note that ``c_{d_p}`` is profile drag.  
+Skin friction drag may be obtained by subtracting the profile drag coefficient from the total drag coefficient i.e., ``c_{d_f} = c_d - c_{d_p}``.
 
 ```@example guide
 
@@ -93,6 +98,7 @@ for i = 1:n_a
 end
 
 # plot results
+@suppress begin #hide
 plot(alpha, c_l, label="", xlabel="Angle of Attack (degrees)", ylabel="Lift Coefficient", show=true)
 savefig("guide-alpha-cl.svg") #hide
 plot(alpha, c_d, label="", xlabel="Angle of Attack (degrees)", ylabel="Drag Coefficient", 
@@ -101,6 +107,7 @@ savefig("guide-alpha-cd.svg") #hide
 plot(alpha, c_m, label="", xlabel="Angle of Attack (degrees)", ylabel="Moment Coefficient", 
     overwrite_figure=false, show=true)
 savefig("guide-alpha-cm.svg") #hide
+end #hide
 
 nothing #hide
 ```
