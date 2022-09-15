@@ -6,6 +6,11 @@ This guide demonstrate how to use the basic capabilities of this package.  Furth
 
 Before any analysis can be performed, we need to load our airfoil geometry into XFOIL.  This can be accomplished using the [`set_coordinates`](@ref) function.
 
+```@setup guide
+using Plots
+pyplot()
+```
+
 ```@example guide
 using Xfoil, Plots, Printf
 using Suppressor #hide
