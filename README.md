@@ -35,7 +35,7 @@ pkg> add Xfoil
 
 ## Usage
 
-See the [guide](https://flow.byu.edu/Xfoil.jl/dev/guide).
+See the [guide](https://flow.byu.edu/Xfoil.jl/stable/guide).
 
 ## Development
 
