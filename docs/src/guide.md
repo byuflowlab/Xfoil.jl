@@ -78,7 +78,7 @@ nothing #hide
 
 ### Airfoil Analysis
 
-The [`solve_alpha`](@ref) function may now be used to perform an analysis to obtain the airfoil coefficients ``c_l``, ``c_d``, ``c_{d_p}``, and ``c_m``.  Note that ``c_{d_p}`` is profile drag.  
+The [`solve_alpha`](@ref) function may be used to perform an analysis to obtain the airfoil coefficients ``c_l``, ``c_d``, ``c_{d_p}``, and ``c_m``.  Note that ``c_{d_p}`` is profile drag.  
 Skin friction drag may be obtained by subtracting the profile drag coefficient from the total drag coefficient i.e., ``c_{d_f} = c_d - c_{d_p}``.
 
 ```@example guide
@@ -121,7 +121,7 @@ nothing #hide
 ![](guide-alpha-cd.svg)
 ![](guide-alpha-cm.svg)
 
-Note that the order in which viscous analyses are performed matters since XFOIL uses boundary layer parameters corresponding to the last previously converged solution as an initial guess when solving for the current boundary layer parameters.  This behavior can be disabled by passing the keyword argument pair `reinit=true` to [`solve_alpha`](@ref) 
+Note that the order in which viscous analyses are performed matters since XFOIL uses boundary layer parameters corresponding to the last previously converged solution as an initial guess when solving for the current boundary layer parameters.  This behavior can be disabled by passing the keyword argument pair `reinit=true` to [`solve_alpha`](@ref).
 
 ### Sensitivity Analysis
 
@@ -270,6 +270,9 @@ c_l, c_d, c_dp, c_m, converged = Xfoil.alpha_sweep(x, y, alpha, re, iter=100, ze
 
 nothing #hide
 ```
+
+!!! tip "Writing to a file"
+    Specifying the `filename` keyword argument with a string will create a file with that name and populate it with your ouputs rather than writing to the terminal. Remember to include the file extension.
 
 A version of [`alpha_sweep`](@ref) has also been implemented for use with the complex step version of XFOIL.
 

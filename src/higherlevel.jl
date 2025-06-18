@@ -64,11 +64,20 @@ cm.
  - `alpha`: Angle of attacks (in degrees)
  - `ma`: Mach number
  - `npan=140`: Number of panels
- - `printdata=false`: Print data obtained from XFOIL during the solution?
- - `zeroinit=true`: Start angle of attack sweeps from zero?  If `true`, results will be 
+ - `printdata=false`: Print data obtained from XFOIL during the solution. Prints to the 
+        terminal if `filename=nothing`; otherwise, prints to `filename`.
+ - `filename=nothing`: If specified, creates and populates file with outputs (if `printdata=true`).
+ - `zeroinit=true`: Start angle of attack sweeps from zero.  If `true`, results will be 
         sorted by ascending angle of attack.
 """
 alpha_sweep(x, y, alpha; kwargs...)
+
+"""
+    alpha_sweep_cs(x, y, alpha; kwargs...)
+
+`alpha_sweep` for the complex step enabled version of XFOIL (inviscid).
+"""
+alpha_sweep_cs(x, y, alpha; kwargs...)
 
 """
     alpha_sweep(x, y, alpha, re; kwargs...)
@@ -82,25 +91,27 @@ Perform angle of attack sweep using XFOIL.  Return cl, cd, cdp, cm, converged.
  - `re`: Reynolds number
  - `ma`: Mach number
  - `xtrip=(1.0,1.0)`: forced transition x/c locations on top/bottom sides
- - `reinit=false`: reinitialize the solution? (rather than use the previous solution)
+ - `reinit=false`: reinitialize the solution (rather than use the previous solution)
  - `iter=50`: Maximum iterations for viscous analyses
  - `npan=140`: Number of panels
  - `percussive_maintenance=!reinit`: Call [`do_percussive_maintenance`](@ref) upon 
-    convergence failure? 
- - `printdata=false`: Print data obtained from XFOIL during the solution?
- - `zeroinit=true`: Start angle of attack sweeps from zero?  If `true`, results will be 
+    convergence failure
+ - `printdata=false`: Print data obtained from XFOIL during the solution. Prints to the 
+        terminal if `filename=nothing`; otherwise, prints to `filename`.
+ - `filename=nothing`: If specified, creates and populates file with outputs (if `printdata=true`).
+ - `zeroinit=true`: Start angle of attack sweeps from zero.  If `true`, results will be 
         sorted by ascending angle of attack.
- - `clmaxstop=false`: Stop if lift coefficient decreases twice consecutively going up?
- - `clminstop=false`: Stop if lift coefficient increases twice consecutively going down?
+ - `clmaxstop=false`: Stop if lift coefficient decreases twice consecutively going up
+ - `clminstop=false`: Stop if lift coefficient increases twice consecutively going down
 """
 alpha_sweep(x, y, alpha, re; kwargs...)
 
 """
     alpha_sweep_cs(x, y, alpha, re; kwargs...)
 
-`alpha_sweep` for the complex step enabled version of XFOIL.
+`alpha_sweep` for the complex step enabled version of XFOIL (viscous).
 """
-alpha_sweep_cs
+alpha_sweep_cs(x, y, alpha, re; kwargs...)
 
 # definition of alpha_sweep (inviscid analysis)
 for (T, name, set_coordinates, pane, solve_alpha) in
