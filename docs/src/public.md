@@ -72,13 +72,13 @@ pane_cs
 ### Inviscid Airfoil Analysis
 
 ```@docs
-solve_alpha_cs :: Tuple{Any}
+solve_alpha_cs(alpha; kwargs...)
 ```
 
 ### Viscous Airfoil Analysis
 
 ```@docs
-solve_alpha_cs :: Tuple{Any, Any}
+solve_alpha_cs(alpha, re; kwargs...)
 ```
 
 ### Inviscid Angle of Attack Sweep
