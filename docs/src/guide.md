@@ -272,7 +272,12 @@ nothing #hide
 ```
 
 !!! tip "Writing to a file"
-    Specifying the `filename` keyword argument with a string will create a file with that name and populate it with your ouputs rather than writing to the terminal. Remember to include the file extension.
+    Specifying the `filename` keyword argument with a string will create a file with that name and populate it with your ouputs rather than writing to the terminal. Remember to include the file extension. The `printdata` argument must still be `true` for this to work.
+
+    ```julia
+        c_l, c_d, c_dp, c_m, converged = Xfoil.alpha_sweep(x, y, alpha, re, iter=100, zeroinit=false, printdata=true, reinit=true, filename="filepath_to_new_file.txt")
+    nothing
+    ```
 
 A version of [`alpha_sweep`](@ref) has also been implemented for use with the complex step version of XFOIL.
 
