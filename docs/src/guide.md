@@ -279,7 +279,7 @@ nothing #hide
     nothing
     ```
 
-A version of [`alpha_sweep`](@ref) has also been implemented for use with the complex step version of XFOIL.
+A version of [`alpha_sweep`](@ref) has also been implemented for use with the complex step version of XFOIL:
 
 ```@example
 using Xfoil, Printf
