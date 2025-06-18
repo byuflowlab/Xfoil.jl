@@ -49,9 +49,7 @@ for (T, name, globals, bldump) in
 
             return xsepup, xseplo
         end
-
     end
-
 end
 
 """
@@ -66,11 +64,20 @@ cm.
  - `alpha`: Angle of attacks (in degrees)
  - `ma`: Mach number
  - `npan=140`: Number of panels
- - `printdata=false`: Print data obtained from XFOIL during the solution?
- - `zeroinit=true`: Start angle of attack sweeps from zero?  If `true`, results will be 
+ - `printdata=false`: Print data obtained from XFOIL during the solution. Prints to the 
+        terminal if `filename=nothing`; otherwise, prints to `filename`.
+ - `filename=nothing`: If specified, creates and populates file with outputs (if `printdata=true`).
+ - `zeroinit=true`: Start angle of attack sweeps from zero.  If `true`, results will be 
         sorted by ascending angle of attack.
 """
 alpha_sweep(x, y, alpha; kwargs...)
+
+"""
+    alpha_sweep_cs(x, y, alpha; kwargs...)
+
+`alpha_sweep` for the complex step enabled version of XFOIL (inviscid).
+"""
+alpha_sweep_cs(x, y, alpha; kwargs...)
 
 """
     alpha_sweep(x, y, alpha, re; kwargs...)
@@ -84,25 +91,27 @@ Perform angle of attack sweep using XFOIL.  Return cl, cd, cdp, cm, converged.
  - `re`: Reynolds number
  - `ma`: Mach number
  - `xtrip=(1.0,1.0)`: forced transition x/c locations on top/bottom sides
- - `reinit=false`: reinitialize the solution? (rather than use the previous solution)
+ - `reinit=false`: reinitialize the solution (rather than use the previous solution)
  - `iter=50`: Maximum iterations for viscous analyses
  - `npan=140`: Number of panels
  - `percussive_maintenance=!reinit`: Call [`do_percussive_maintenance`](@ref) upon 
-    convergence failure? 
- - `printdata=false`: Print data obtained from XFOIL during the solution?
- - `zeroinit=true`: Start angle of attack sweeps from zero?  If `true`, results will be 
+    convergence failure
+ - `printdata=false`: Print data obtained from XFOIL during the solution. Prints to the 
+        terminal if `filename=nothing`; otherwise, prints to `filename`.
+ - `filename=nothing`: If specified, creates and populates file with outputs (if `printdata=true`).
+ - `zeroinit=true`: Start angle of attack sweeps from zero.  If `true`, results will be 
         sorted by ascending angle of attack.
- - `clmaxstop=false`: Stop if lift coefficient decreases twice consecutively going up?
- - `clminstop=false`: Stop if lift coefficient increases twice consecutively going down?
+ - `clmaxstop=false`: Stop if lift coefficient decreases twice consecutively going up
+ - `clminstop=false`: Stop if lift coefficient increases twice consecutively going down
 """
 alpha_sweep(x, y, alpha, re; kwargs...)
 
 """
     alpha_sweep_cs(x, y, alpha, re; kwargs...)
 
-`alpha_sweep` for the complex step enabled version of XFOIL.
+`alpha_sweep` for the complex step enabled version of XFOIL (viscous).
 """
-alpha_sweep_cs
+alpha_sweep_cs(x, y, alpha, re; kwargs...)
 
 # definition of alpha_sweep (inviscid analysis)
 for (T, name, set_coordinates, pane, solve_alpha) in
@@ -111,49 +120,56 @@ for (T, name, set_coordinates, pane, solve_alpha) in
 
     @eval begin
 
-        function $(name)(x, y, alpha; mach=0.0, npan=140, printdata=false, zeroinit=true)
+        function $(name)(x, y, alpha; mach=0.0, npan=140, printdata=false, zeroinit=true, filename=nothing)
 
             @assert length(x) == length(y) "x and y arrays must have the same length"
 
             naoa = length(alpha)
 
-            if zeroinit
-                # Set up angle of attack range going up and going down from zero if specified
-                # This helps XFOIL to converge more consistently
+            io = filename === nothing ? stdout : open(filename, "w")
+            local cl, cm
+            try
+                if zeroinit
+                    # Set up angle of attack range going up and going down from zero if specified
+                    # This helps XFOIL to converge more consistently
 
-                # separate out negative angles of attack
-                aoaneg = sort(alpha[findall(real.(alpha) .< 0.0)], by=real, rev = true)
+                    # separate out negative angles of attack
+                    aoaneg = sort(alpha[findall(real.(alpha) .< 0.0)], by=real, rev = true)
 
-                # add zero angle of attack to negative angles of attack
-                pushfirst!(aoaneg, 0.0)
+                    # add zero angle of attack to negative angles of attack
+                    pushfirst!(aoaneg, 0.0)
 
-                # perform angle of attack sweep for negative angles of attack
-                clneg, cmneg = $(name)(x, y, aoaneg, mach, npan, printdata)
+                    # perform angle of attack sweep for negative angles of attack
+                    clneg, cmneg = $(name)(x, y, aoaneg, mach, npan, printdata; io)
 
-                # separate out positive angles of attack
-                aoapos = sort(alpha[findall(real.(alpha) .>= 0.0)], by=real)
+                    # separate out positive angles of attack
+                    aoapos = sort(alpha[findall(real.(alpha) .>= 0.0)], by=real)
 
-                # add zero angle of attack to positive angles of attack
-                pushfirst!(aoapos,0.0)
+                    # add zero angle of attack to positive angles of attack
+                    pushfirst!(aoapos,0.0)
 
-                # perform angle of attack sweep for positive angles of attack
-                clpos, cmpos = $(name)(x, y, aoapos, mach, npan, printdata)
+                    # perform angle of attack sweep for positive angles of attack
+                    clpos, cmpos = $(name)(x, y, aoapos, mach, npan, printdata; io)
 
-                # combine results from negative and positive runs (excluding zero angle of attack runs)
-                cl = vcat(clneg[end:-1:2], clpos[2:end])
-                cm = vcat(cmneg[end:-1:2], cmpos[2:end])
-            else
-                cl, cm = $(name)(x, y, alpha, mach, npan, printdata)
+                    # combine results from negative and positive runs (excluding zero angle of attack runs)
+                    cl = vcat(clneg[end:-1:2], clpos[2:end])
+                    cm = vcat(cmneg[end:-1:2], cmpos[2:end])
+                else
+                    cl, cm = $(name)(x, y, alpha, mach, npan, printdata; io)
+                end
+            finally
+                if filename !== nothing
+                    close(io)
+                end
             end
 
             return cl, cm
         end
-
     end
 
     @eval begin
 
-        function $(name)(x, y, alpha, mach, npan, printdata)
+        function $(name)(x, y, alpha, mach, npan, printdata; io=stdout)
 
             # Set up storage arrays
             naoa = length(alpha)
@@ -163,7 +179,7 @@ for (T, name, set_coordinates, pane, solve_alpha) in
             # print header for data 
             # TODO: add option to print to file rather than terminal
             if printdata == true
-                println("\nAngle\t\tCl\t\tCm")
+                println(io, "\nAngle\t\tCl\t\tCm")
             end
 
             # start unconverged
@@ -179,18 +195,14 @@ for (T, name, set_coordinates, pane, solve_alpha) in
                 cl[i], cm[i] = $(solve_alpha)(alpha[i]; mach=mach)
 
                 # print data from the run 
-                #TODO: add option to print to file rather than terminal
                 if printdata == true
-                    @printf("%8f\t%8f\t%8f\n", real(alpha[i]), real(cl[i]), real(cm[i]))
+                    @printf(io, "%8f\t%8f\t%8f\n", real(alpha[i]), real(cl[i]), real(cm[i]))
                 end
-
             end
 
             return cl, cm
         end
-
     end
-
 end
 
 # definition of alpha_sweep (viscous analysis)
@@ -203,59 +215,66 @@ for (T, name, set_coordinates, pane, solve_alpha, do_percussive_maintenance) in
         function $(name)(x, y, alpha, re; mach=0.0, iter=50, npan=140, reinit=false, 
             percussive_maintenance=!reinit, printdata=false, zeroinit=true,
             clmaxstop=false, clminstop=false, ncrit=9, 
-            xtrip=(1.0,1.0))
+            xtrip=(1.0,1.0), filename=nothing)
 
             @assert length(x) == length(y) "x and y arrays must have the same length"
 
             naoa = length(alpha)
+            
+            io = filename === nothing ? stdout : open(filename, "w")
+            local cl, cd, cdp, cm, conv
+            try
+                if zeroinit
+                    # Set up angle of attack range going up and going down from zero if specified
+                    # This helps XFOIL to converge more consistently
 
-            if zeroinit
-                # Set up angle of attack range going up and going down from zero if specified
-                # This helps XFOIL to converge more consistently
+                    # separate out negative angles of attack
+                    aoaneg = sort(alpha[findall(real.(alpha) .< 0.0)], by=real, rev = true)
 
-                # separate out negative angles of attack
-                aoaneg = sort(alpha[findall(real.(alpha) .< 0.0)], by=real, rev = true)
+                    # add zero angle of attack to negative angles of attack
+                    pushfirst!(aoaneg, 0.0)
 
-                # add zero angle of attack to negative angles of attack
-                pushfirst!(aoaneg, 0.0)
+                    # perform angle of attack sweep for negative angles of attack
+                    clneg, cdneg, cdpneg, cmneg, convneg = $(name)(x,
+                        y, aoaneg, re, mach, iter, npan, percussive_maintenance, printdata,
+                        false, clminstop, ncrit, reinit, xtrip; io)
 
-                # perform angle of attack sweep for negative angles of attack
-                clneg, cdneg, cdpneg, cmneg, convneg = $(name)(x,
-                    y, aoaneg, re, mach, iter, npan, percussive_maintenance, printdata,
-                    false, clminstop, ncrit, reinit, xtrip)
+                    # separate out positive angles of attack
+                    aoapos = sort(alpha[findall(real.(alpha) .>= 0.0)], by=real)
 
-                # separate out positive angles of attack
-                aoapos = sort(alpha[findall(real.(alpha) .>= 0.0)], by=real)
+                    # add zero angle of attack to positive angles of attack
+                    pushfirst!(aoapos,0.0)
 
-                # add zero angle of attack to positive angles of attack
-                pushfirst!(aoapos,0.0)
+                    # perform angle of attack sweep for positive angles of attack
+                    clpos, cdpos, cdppos, cmpos, convpos = $(name)(x,
+                        y, aoapos, re, mach, iter, npan, percussive_maintenance, printdata,
+                        clmaxstop, false, ncrit, reinit, xtrip; io)
 
-                # perform angle of attack sweep for positive angles of attack
-                clpos, cdpos, cdppos, cmpos, convpos = $(name)(x,
-                    y, aoapos, re, mach, iter, npan, percussive_maintenance, printdata,
-                    clmaxstop, false, ncrit, reinit, xtrip)
-
-                # combine results from negative and positive runs (excluding zero angle of attack runs)
-                cl = vcat(clneg[end:-1:2], clpos[2:end])
-                cd = vcat(cdneg[end:-1:2], cdpos[2:end])
-                cdp = vcat(cdpneg[end:-1:2], cdppos[2:end])
-                cm = vcat(cmneg[end:-1:2], cmpos[2:end])
-                conv = vcat(convneg[end:-1:2], convpos[2:end])
-            else
-                cl, cd, cdp, cm, conv = $(name)(x, y, alpha, re,
-                    mach, iter, npan, percussive_maintenance, printdata, clminstop,
-                    clmaxstop, ncrit, reinit, xtrip)
+                    # combine results from negative and positive runs (excluding zero angle of attack runs)
+                    cl = vcat(clneg[end:-1:2], clpos[2:end])
+                    cd = vcat(cdneg[end:-1:2], cdpos[2:end])
+                    cdp = vcat(cdpneg[end:-1:2], cdppos[2:end])
+                    cm = vcat(cmneg[end:-1:2], cmpos[2:end])
+                    conv = vcat(convneg[end:-1:2], convpos[2:end])
+                else
+                    cl, cd, cdp, cm, conv = $(name)(x, y, alpha, re,
+                        mach, iter, npan, percussive_maintenance, printdata, clminstop,
+                        clmaxstop, ncrit, reinit, xtrip; io)
+                end
+            finally
+                if filename !== nothing
+                    close(io)
+                end
             end
 
             return cl, cd, cdp, cm, conv
         end
-
     end
 
     @eval begin
 
         function $(name)(x, y, alpha, re, mach, iter, npan, percussive_maintenance,
-            printdata, clmaxstop, clminstop, ncrit, reinit, xtrip)
+            printdata, clmaxstop, clminstop, ncrit, reinit, xtrip; io=stdout)
 
             # Set up storage arrays
             naoa = length(alpha)
@@ -265,9 +284,9 @@ for (T, name, set_coordinates, pane, solve_alpha, do_percussive_maintenance) in
             cm = zeros($T, naoa)
             converged = zeros(Bool, naoa)
 
-            # print header for data #TODO: add option to print to file rather than terminal
+            # print header for data
             if printdata == true
-                println("\nAngle\t\tCl\t\tCd\t\tCm\t\tConverged")
+                println(io, "\nAngle\t\tCl\t\tCd\t\tCm\t\tConverged")
             end
 
             # start unconverged
@@ -293,9 +312,9 @@ for (T, name, set_coordinates, pane, solve_alpha, do_percussive_maintenance) in
                     cl[i], cd[i], cdp[i], cm[i], converged[i] = $(do_percussive_maintenance)(x, y, alpha[i], re, mach, iter, npan, ncrit, xtrip)
                 end
 
-                # print data from the run #TODO: add option to print to file rather than terminal
+                # print data from the run
                 if printdata == true
-                    @printf("%8f\t%8f\t%8f\t%8f\t%d\n", real(alpha[i]), real(cl[i]), real(cd[i]), real(cm[i]), converged[i])
+                    @printf(io, "%8f\t%8f\t%8f\t%8f\t%d\n", real(alpha[i]), real(cl[i]), real(cd[i]), real(cm[i]), converged[i])
                 end
 
                 aoaconv = alpha[findall(converged)]
@@ -320,9 +339,7 @@ for (T, name, set_coordinates, pane, solve_alpha, do_percussive_maintenance) in
 
             return cl, cd, cdp, cm, converged
         end
-
     end
-
 end
 
 """
@@ -396,7 +413,5 @@ for (T, name, set_coordinates, pane, solve_alpha) in
 
             return cl, cd, cdp, cm, converged
         end
-
     end
-
 end

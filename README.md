@@ -1,7 +1,6 @@
 # Xfoil.jl
 
 [![](https://img.shields.io/badge/docs-stable-blue.svg)](https://flow.byu.edu/Xfoil.jl/stable)
-[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://flow.byu.edu/Xfoil.jl/dev)
 ![](https://github.com/byuflowlab/Xfoil.jl/workflows/Run%20tests/badge.svg)
 
 *Julia wrapper for the 2D airfoil panel code XFOIL*
