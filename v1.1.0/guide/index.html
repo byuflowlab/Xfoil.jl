@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Example Usage · Xfoil.jl</title><meta name="title" content="Example Usage · Xfoil.jl"/><meta property="og:title" content="Example Usage · Xfoil.jl"/><meta property="twitter:title" content="Example Usage · Xfoil.jl"/><meta name="description" content="Documentation for Xfoil.jl."/><meta property="og:description" content="Documentation for Xfoil.jl."/><meta property="twitter:description" content="Documentation for Xfoil.jl."/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">Xfoil.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li class="is-active"><a class="tocitem" href>Example Usage</a></li><li><a class="tocitem" href="../public/">Public API</a></li><li><a class="tocitem" href="../private/">Private API</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Example Usage</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Example Usage</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/byuflowlab/Xfoil.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/byuflowlab/Xfoil.jl/blob/master/docs/src/guide.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="guide"><a class="docs-heading-anchor" href="#guide">Example Usage</a><a id="guide-1"></a><a class="docs-heading-anchor-permalink" href="#guide" title="Permalink"></a></h1><p>This guide demonstrate how to use the basic capabilities of this package.  Further information about using this package may be found in the <a href="../public/#public">Public API</a>.</p><h3 id="Loading-Airfoil-Geometry"><a class="docs-heading-anchor" href="#Loading-Airfoil-Geometry">Loading Airfoil Geometry</a><a id="Loading-Airfoil-Geometry-1"></a><a class="docs-heading-anchor-permalink" href="#Loading-Airfoil-Geometry" title="Permalink"></a></h3><p>Before any analysis can be performed, we need to load our airfoil geometry into XFOIL.  This can be accomplished using the <a href="../public/#Xfoil.set_coordinates"><code>set_coordinates</code></a> function.</p><pre><code class="language-julia hljs">using Xfoil, Plots, Printf
+pyplot()
+
+# read airfoil coordinates from a file
+x, y = open(&quot;naca2412.dat&quot;, &quot;r&quot;) do f
+    x = Float64[]
+    y = Float64[]
+    for line in eachline(f)
+        entries = split(chomp(line))
+        push!(x, parse(Float64, entries[1]))
+        push!(y, parse(Float64, entries[2]))
+    end
+    x, y
+end
+
+# load airfoil coordinates into XFOIL
+Xfoil.set_coordinates(x,y)
+
+# plot the airfoil geometry
+scatter(x, y, label=&quot;&quot;, framestyle=:none, aspect_ratio=1.0, show=true)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">sys:1: UserWarning: No data for colormapping provided via &#39;c&#39;. Parameters &#39;vmin&#39;, &#39;vmax&#39; will be ignored</code></pre><p><img src="../guide-airfoil.svg" alt/></p><h3 id="Refining-the-Airfoil-Geometry"><a class="docs-heading-anchor" href="#Refining-the-Airfoil-Geometry">Refining the Airfoil Geometry</a><a id="Refining-the-Airfoil-Geometry-1"></a><a class="docs-heading-anchor-permalink" href="#Refining-the-Airfoil-Geometry" title="Permalink"></a></h3><p>It is often a good idea to refine airfoil discretizations prior to performing analyses using XFOIL.  This may be accomplished using the <a href="../public/#Xfoil.pane"><code>pane</code></a> function.</p><pre><code class="language-julia hljs"># repanel using XFOIL&#39;s `PANE` command
+xr, yr = Xfoil.pane()
+
+# plot the refined airfoil geometry
+scatter(xr, yr, label=&quot;&quot;, framestyle=:none, aspect_ratio=1.0, show=true)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">sys:1: UserWarning: No data for colormapping provided via &#39;c&#39;. Parameters &#39;vmin&#39;, &#39;vmax&#39; will be ignored</code></pre><p><img src="../guide-mesh.svg" alt/></p><h3 id="Defining-Operating-Conditions"><a class="docs-heading-anchor" href="#Defining-Operating-Conditions">Defining Operating Conditions</a><a id="Defining-Operating-Conditions-1"></a><a class="docs-heading-anchor-permalink" href="#Defining-Operating-Conditions" title="Permalink"></a></h3><p>We now need to define some operating conditions for our analysis.  For inviscid analyses,  only the angle of attack is required.  For viscous analyses, the Reynolds number must also be specified.</p><pre><code class="language-julia hljs"># set operating conditions
+alpha = -9:1:14 # range of angle of attacks, in degrees
+re = 1e5 # Reynolds number</code></pre><h3 id="Airfoil-Analysis"><a class="docs-heading-anchor" href="#Airfoil-Analysis">Airfoil Analysis</a><a id="Airfoil-Analysis-1"></a><a class="docs-heading-anchor-permalink" href="#Airfoil-Analysis" title="Permalink"></a></h3><p>The <a href="../public/#Xfoil.solve_alpha-Tuple{Any}"><code>solve_alpha</code></a> function may be used to perform an analysis to obtain the airfoil coefficients <span>$c_l$</span>, <span>$c_d$</span>, <span>$c_{d_p}$</span>, and <span>$c_m$</span>.  Note that <span>$c_{d_p}$</span> is profile drag.   Skin friction drag may be obtained by subtracting the profile drag coefficient from the total drag coefficient i.e., <span>$c_{d_f} = c_d - c_{d_p}$</span>.</p><pre><code class="language-julia hljs"># initialize outputs
+n_a = length(alpha)
+c_l = zeros(n_a)
+c_d = zeros(n_a)
+c_dp = zeros(n_a)
+c_m = zeros(n_a)
+converged = zeros(Bool, n_a)
+
+# determine airfoil coefficients across a range of angle of attacks
+for i = 1:n_a
+    c_l[i], c_d[i], c_dp[i], c_m[i], converged[i] = Xfoil.solve_alpha(alpha[i], re; iter=100, reinit=true)
+end
+
+# print results
+println(&quot;Angle\t\tCl\t\tCd\t\tCm\t\tConverged&quot;)
+for i = 1:n_a
+    @printf(&quot;%8f\t%8f\t%8f\t%8f\t%d\n&quot;,alpha[i],c_l[i],c_d[i],c_m[i],converged[i])
+end
+
+# plot results
+plot(alpha, c_l, label=&quot;&quot;, xlabel=&quot;Angle of Attack (degrees)&quot;, ylabel=&quot;Lift Coefficient&quot;, show=true)
+plot(alpha, c_d, label=&quot;&quot;, xlabel=&quot;Angle of Attack (degrees)&quot;, ylabel=&quot;Drag Coefficient&quot;,
+    overwrite_figure=false, show=true)
+plot(alpha, c_m, label=&quot;&quot;, xlabel=&quot;Angle of Attack (degrees)&quot;, ylabel=&quot;Moment Coefficient&quot;,
+    overwrite_figure=false, show=true)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Angle		Cl		Cd		Cm		Converged
+-9.000000	-0.650846	0.064745	-0.049415	1
+-8.000000	-0.662429	0.046357	-0.043245	1
+-7.000000	-0.635637	0.034118	-0.035047	1
+-6.000000	-0.565933	0.026936	-0.029727	1
+-5.000000	-0.479794	0.022554	-0.025883	1
+-4.000000	-0.390118	0.019767	-0.023503	1
+-3.000000	-0.301726	0.018318	-0.021741	1
+-2.000000	-0.150388	0.017026	-0.030251	1
+-1.000000	0.071766	0.017390	-0.049186	1
+0.000000	0.263166	0.016828	-0.065553	1
+1.000000	0.404422	0.015968	-0.069629	1
+2.000000	0.512138	0.015591	-0.066432	1
+3.000000	0.611810	0.015749	-0.061841	1
+4.000000	0.708466	0.016397	-0.057255	1
+5.000000	0.804453	0.017169	-0.052536	1
+6.000000	0.893460	0.018133	-0.046931	1
+7.000000	0.969537	0.019458	-0.039801	1
+8.000000	1.020497	0.023512	-0.030233	1
+9.000000	1.087529	0.029120	-0.023964	1
+10.000000	1.173720	0.035266	-0.020845	1
+11.000000	1.242721	0.043276	-0.016251	1
+12.000000	1.256900	0.054220	-0.007123	1
+13.000000	1.197794	0.066990	0.003651	1
+14.000000	0.849596	0.148350	-0.038913	1</code></pre><p><img src="../guide-alpha-cl.svg" alt/> <img src="../guide-alpha-cd.svg" alt/> <img src="../guide-alpha-cm.svg" alt/></p><p>Note that the order in which viscous analyses are performed matters since XFOIL uses boundary layer parameters corresponding to the last previously converged solution as an initial guess when solving for the current boundary layer parameters.  This behavior can be disabled by passing the keyword argument pair <code>reinit=true</code> to <a href="../public/#Xfoil.solve_alpha-Tuple{Any}"><code>solve_alpha</code></a>.</p><h3 id="Sensitivity-Analysis"><a class="docs-heading-anchor" href="#Sensitivity-Analysis">Sensitivity Analysis</a><a id="Sensitivity-Analysis-1"></a><a class="docs-heading-anchor-permalink" href="#Sensitivity-Analysis" title="Permalink"></a></h3><p>Suppose we want to find the derivative of <span>$c_l$</span>, <span>$c_d$</span>, and <span>$c_m$</span> with respect to the angle of attack. One approach to calculate these derivatives would be to use the finite difference method.</p><pre><code class="language-julia hljs">using Xfoil, Printf
+
+# read airfoil into XFOIL
+open(&quot;naca2412.dat&quot;, &quot;r&quot;) do f
+    x = Float64[]
+    y = Float64[]
+    for line in eachline(f)
+        entries = split(chomp(line))
+        push!(x, parse(Float64, entries[1]))
+        push!(y, parse(Float64, entries[2]))
+    end
+    Xfoil.set_coordinates(x,y)
+end
+
+# repanel using XFOIL&#39;s `PANE` command
+Xfoil.pane()
+
+# set operating conditions
+alpha = -9:1:14
+re = 1e5
+mach = 0.0
+
+# set step size
+h = 1e-6
+
+# initialize outputs
+n_a = length(alpha)
+c_l_a = zeros(n_a)
+c_d_a = zeros(n_a)
+c_dp_a = zeros(n_a)
+c_m_a = zeros(n_a)
+converged = zeros(Bool, n_a)
+
+for i = 1:n_a
+    c_l1, c_d1, c_dp1, c_m1, converged[i] = Xfoil.solve_alpha(alpha[i], re; mach, iter=100, reinit=true)
+    c_l2, c_d2, c_dp2, c_m2, converged[i] = Xfoil.solve_alpha(alpha[i]+h, re; mach, iter=100, reinit=true)
+    c_l_a[i] = (c_l2 - c_l1)/h * 180/pi
+    c_d_a[i] = (c_d2 - c_d1)/h * 180/pi
+    c_m_a[i] = (c_m2 - c_m1)/h * 180/pi
+end
+
+# print results
+println(&quot;Angle\t\tdClda\t\tdCdda\t\tdCmda\t\tConverged&quot;)
+for i = 1:n_a
+  @printf(&quot;%8f\t%8f\t%8f\t%8f\t%d\n&quot;,alpha[i],c_l_a[i],c_d_a[i],c_m_a[i],converged[i])
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Angle		dClda		dCdda		dCmda		Converged
+-9.000000	4.367996	-1.420669	0.050753	1
+-8.000000	-0.595924	-0.987825	0.492841	1
+-7.000000	3.092874	-0.537248	0.414648	1
+-6.000000	4.582598	-0.250074	0.264979	1
+-5.000000	5.114411	-0.079249	0.248431	1
+-4.000000	5.137603	-0.072158	0.141209	1
+-3.000000	5.279715	-0.026029	0.058558	1
+-2.000000	8.234178	-0.042702	-0.136227	1
+-1.000000	10.039116	-0.015135	-0.885506	1
+0.000000	12.644213	-0.082045	-1.124300	1
+1.000000	9.212672	-0.093061	-0.324636	1
+2.000000	3.641180	0.067090	0.521406	1
+3.000000	6.896781	-0.016704	0.126283	1
+4.000000	5.982546	0.027492	0.212131	1
+5.000000	6.180839	0.018997	0.228296	1
+6.000000	5.383315	0.055856	0.295899	1
+7.000000	3.761212	0.103208	0.470834	1
+8.000000	2.940949	0.295101	0.506869	1
+9.000000	4.686079	0.293471	0.276193	1
+10.000000	5.637746	0.418566	0.028200	1
+11.000000	3.889931	0.448186	0.215136	1
+12.000000	-1.889113	0.640222	0.760203	1
+13.000000	-5.154249	0.958681	0.299039	1
+14.000000	1.558558	1.051195	-0.058800	1</code></pre><p>A better approach might be to use the complex step method.  To use this approach, however, we must use the complex-step enabled version of XFOIL provided by this package.  </p><p>The complex-step version of each function is denoted by appending <code>_cs</code> to each function name.  Note that there is no interaction between the two versions of XFOIL wrapped by this package, so if you wish to use the complex step version of the code you must append <code>_cs</code> to all function names.</p><p>For the complex step method to work, we also need to ensure that the imaginary portion of variables from previous iterations does not affect the solution for the current iteration.  This may be achieved by setting <code>reinit=true</code> when calling <a href="../public/#Xfoil.solve_alpha-Tuple{Any}"><code>solve_alpha</code></a>.</p><pre><code class="language-julia hljs">using Xfoil, Printf
+
+# read airfoil into XFOIL
+open(&quot;naca2412.dat&quot;, &quot;r&quot;) do f
+    x = Float64[]
+    y = Float64[]
+    for line in eachline(f)
+        entries = split(chomp(line))
+        push!(x, parse(Float64, entries[1]))
+        push!(y, parse(Float64, entries[2]))
+    end
+    Xfoil.set_coordinates_cs(x,y)
+end
+
+# repanel using XFOIL&#39;s `PANE` command
+Xfoil.pane_cs()
+
+# set operating conditions
+alpha = -9:1:14
+re = 1e5
+mach = 0.0
+
+# set step size
+h = 1e-12im
+
+# initialize outputs
+n_a = length(alpha)
+c_l_a = zeros(n_a)
+c_d_a = zeros(n_a)
+c_dp_a = zeros(n_a)
+c_m_a = zeros(n_a)
+converged = zeros(Bool, n_a)
+
+for i = 1:n_a
+    c_l, c_d, c_dp, c_m, converged[i] = Xfoil.solve_alpha_cs(alpha[i]+h, re; mach, iter=100, reinit=true)
+    c_l_a[i] = imag(c_l)/imag(h) * 180/pi
+    c_d_a[i] = imag(c_d)/imag(h) * 180/pi
+    c_m_a[i] = imag(c_m)/imag(h) * 180/pi
+end
+
+# print results
+println(&quot;Angle\t\tdClda\t\tdCdda\t\tdCmda\t\tConverged&quot;)
+for i = 1:n_a
+  @printf(&quot;%8f\t%8f\t%8f\t%8f\t%d\n&quot;,alpha[i],c_l_a[i],c_d_a[i],c_m_a[i],converged[i])
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Angle		dClda		dCdda		dCmda		Converged
+-9.000000	4.368078	-1.420675	0.050750	1
+-8.000000	-0.595926	-0.987825	0.492841	1
+-7.000000	3.094020	-0.537099	0.414477	1
+-6.000000	4.583204	-0.250262	0.264980	1
+-5.000000	5.114413	-0.079250	0.248431	1
+-4.000000	5.137602	-0.072158	0.141209	1
+-3.000000	5.279711	-0.026030	0.058559	1
+-2.000000	8.234162	-0.042703	-0.136221	1
+-1.000000	10.039099	-0.015135	-0.885503	1
+0.000000	12.644207	-0.082045	-1.124300	1
+1.000000	9.212668	-0.093061	-0.324636	1
+2.000000	3.641152	0.067091	0.521409	1
+3.000000	6.896776	-0.016704	0.126284	1
+4.000000	5.982540	0.027492	0.212131	1
+5.000000	6.180833	0.018997	0.228296	1
+6.000000	5.383310	0.055856	0.295900	1
+7.000000	3.761214	0.103208	0.470834	1
+8.000000	2.940954	0.295101	0.506868	1
+9.000000	4.686077	0.293470	0.276194	1
+10.000000	5.637742	0.418565	0.028201	1
+11.000000	3.889928	0.448186	0.215137	1
+12.000000	-1.889107	0.640223	0.760202	1
+13.000000	-5.154275	0.958683	0.299040	1
+14.000000	1.555321	1.049194	-0.058519	1</code></pre><p>Note that since XFOIL was not originally designed for sensitivity analysis, there is a  distinct possibility that sensitivities may be non-physical.  We therefore always recommend  checking that computed sensitivities are realistic.  Sometimes adjusting the number of panels or the step size will fix the computed sensitivies, but if all else fails a coarse  step size (e.g. 1.0 degree) may be used with central finite differencing to artificially  smooth the computed sensitivities.</p><h3 id="Automated-Angle-of-Attack-Sweep"><a class="docs-heading-anchor" href="#Automated-Angle-of-Attack-Sweep">Automated Angle of Attack Sweep</a><a id="Automated-Angle-of-Attack-Sweep-1"></a><a class="docs-heading-anchor-permalink" href="#Automated-Angle-of-Attack-Sweep" title="Permalink"></a></h3><p>For performing angle of attack sweeps, the function <a href="../public/#Xfoil.alpha_sweep-Tuple{Any, Any, Any}"><code>alpha_sweep</code></a> may also be used.</p><pre><code class="language-julia hljs">using Xfoil, Printf
+
+# extract geometry
+x = Float64[]
+y = Float64[]
+
+f = open(&quot;naca2412.dat&quot;, &quot;r&quot;)
+
+for line in eachline(f)
+    entries = split(chomp(line))
+    push!(x, parse(Float64, entries[1]))
+    push!(y, parse(Float64, entries[2]))
+end
+
+close(f)
+
+# set operating conditions
+alpha = -9:1:14
+re = 1e5
+
+c_l, c_d, c_dp, c_m, converged = Xfoil.alpha_sweep(x, y, alpha, re, iter=100, zeroinit=false, printdata=true, reinit=true)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">
+Angle		Cl		Cd		Cm		Converged
+-9.000000	-0.650846	0.064745	-0.049415	1
+-8.000000	-0.662429	0.046357	-0.043245	1
+-7.000000	-0.635637	0.034118	-0.035047	1
+-6.000000	-0.565933	0.026936	-0.029727	1
+-5.000000	-0.479794	0.022554	-0.025883	1
+-4.000000	-0.390118	0.019767	-0.023503	1
+-3.000000	-0.301726	0.018318	-0.021741	1
+-2.000000	-0.150388	0.017026	-0.030251	1
+-1.000000	0.071766	0.017390	-0.049186	1
+0.000000	0.263166	0.016828	-0.065553	1
+1.000000	0.404422	0.015968	-0.069629	1
+2.000000	0.512138	0.015591	-0.066432	1
+3.000000	0.611810	0.015749	-0.061841	1
+4.000000	0.708466	0.016397	-0.057255	1
+5.000000	0.804453	0.017169	-0.052536	1
+6.000000	0.893460	0.018133	-0.046931	1
+7.000000	0.969537	0.019458	-0.039801	1
+8.000000	1.020497	0.023512	-0.030233	1
+9.000000	1.087529	0.029120	-0.023964	1
+10.000000	1.173720	0.035266	-0.020845	1
+11.000000	1.242721	0.043276	-0.016251	1
+12.000000	1.256900	0.054220	-0.007123	1
+13.000000	1.197794	0.066990	0.003651	1
+14.000000	0.849596	0.148350	-0.038913	1</code></pre><div class="admonition is-success" id="Writing-to-a-file-6edd74510cfe498f"><header class="admonition-header">Writing to a file<a class="admonition-anchor" href="#Writing-to-a-file-6edd74510cfe498f" title="Permalink"></a></header><div class="admonition-body"><p>Specifying the <code>filename</code> keyword argument with a string will create a file with that name and populate it with your ouputs rather than writing to the terminal. Remember to include the file extension. The <code>printdata</code> argument must still be <code>true</code> for this to work.</p><pre><code class="language-julia hljs">    c_l, c_d, c_dp, c_m, converged = Xfoil.alpha_sweep(x, y, alpha, re, iter=100, zeroinit=false, printdata=true, reinit=true, filename=&quot;filepath_to_new_file.txt&quot;)
+nothing</code></pre></div></div><p>A version of <a href="../public/#Xfoil.alpha_sweep-Tuple{Any, Any, Any}"><code>alpha_sweep</code></a> has also been implemented for use with the complex step version of XFOIL:</p><pre><code class="language-julia hljs">using Xfoil, Printf
+
+# extract geometry
+x = Float64[]
+y = Float64[]
+
+f = open(&quot;naca2412.dat&quot;, &quot;r&quot;)
+
+for line in eachline(f)
+    entries = split(chomp(line))
+    push!(x, parse(Float64, entries[1]))
+    push!(y, parse(Float64, entries[2]))
+end
+
+close(f)
+
+# set operating conditions
+alpha = -9:1:14
+re = 1e5
+mach = 0.0
+
+# set step size
+h = 1e-20im
+
+c_l, c_d, c_dp, c_m, converged = Xfoil.alpha_sweep_cs(x, y, alpha .+ h,
+    re, mach=mach, iter=100, zeroinit=false, printdata=true, reinit=true)
+
+println(&quot;Angle\t\tdClda\t\tdCdda\t\tdCmda\t\tConverged&quot;)
+for i = 1:length(alpha)
+    @printf(&quot;%8f\t%8f\t%8f\t%8f\t%d\n&quot;, alpha[i], imag(c_l[i])/imag(h)*180/pi, imag(c_d[i])/imag(h)*180/pi, imag(c_m[i])/imag(h)*180/pi, converged[i])
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">
+Angle		Cl		Cd		Cm		Converged
+-9.000000	-0.650846	0.064745	-0.049415	1
+-8.000000	-0.662429	0.046357	-0.043245	1
+-7.000000	-0.635637	0.034118	-0.035047	1
+-6.000000	-0.565933	0.026936	-0.029727	1
+-5.000000	-0.479794	0.022554	-0.025883	1
+-4.000000	-0.390118	0.019767	-0.023503	1
+-3.000000	-0.301726	0.018318	-0.021741	1
+-2.000000	-0.150388	0.017026	-0.030251	1
+-1.000000	0.071766	0.017390	-0.049186	1
+0.000000	0.263166	0.016828	-0.065553	1
+1.000000	0.404422	0.015968	-0.069629	1
+2.000000	0.512138	0.015591	-0.066432	1
+3.000000	0.611810	0.015749	-0.061841	1
+4.000000	0.708466	0.016397	-0.057255	1
+5.000000	0.804453	0.017169	-0.052536	1
+6.000000	0.893460	0.018133	-0.046931	1
+7.000000	0.969537	0.019458	-0.039801	1
+8.000000	1.020497	0.023512	-0.030233	1
+9.000000	1.087529	0.029120	-0.023964	1
+10.000000	1.173720	0.035266	-0.020845	1
+11.000000	1.242721	0.043276	-0.016251	1
+12.000000	1.256900	0.054220	-0.007123	1
+13.000000	1.197794	0.066990	0.003651	1
+14.000000	0.849596	0.148350	-0.038913	1
+Angle		dClda		dCdda		dCmda		Converged
+-9.000000	4.368078	-1.420675	0.050750	1
+-8.000000	-0.595926	-0.987825	0.492841	1
+-7.000000	3.094020	-0.537099	0.414477	1
+-6.000000	4.583204	-0.250262	0.264980	1
+-5.000000	5.114413	-0.079250	0.248431	1
+-4.000000	5.137602	-0.072158	0.141209	1
+-3.000000	5.279711	-0.026030	0.058559	1
+-2.000000	8.234162	-0.042703	-0.136221	1
+-1.000000	10.039099	-0.015135	-0.885503	1
+0.000000	12.644207	-0.082045	-1.124300	1
+1.000000	9.212668	-0.093061	-0.324636	1
+2.000000	3.641152	0.067091	0.521409	1
+3.000000	6.896776	-0.016704	0.126284	1
+4.000000	5.982540	0.027492	0.212131	1
+5.000000	6.180833	0.018997	0.228296	1
+6.000000	5.383310	0.055856	0.295900	1
+7.000000	3.761214	0.103208	0.470834	1
+8.000000	2.940954	0.295101	0.506868	1
+9.000000	4.686077	0.293470	0.276194	1
+10.000000	5.637742	0.418565	0.028201	1
+11.000000	3.889928	0.448186	0.215137	1
+12.000000	-1.889107	0.640223	0.760202	1
+13.000000	-5.154275	0.958683	0.299040	1
+14.000000	1.555321	1.049194	-0.058519	1</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><a class="docs-footer-nextpage" href="../public/">Public API »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.12.0 on <span class="colophon-date" title="Thursday 19 June 2025 05:53">Thursday 19 June 2025</span>. Using Julia version 1.10.9.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
