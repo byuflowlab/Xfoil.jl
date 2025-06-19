@@ -14,6 +14,6 @@ makedocs(;
 
 deploydocs(
     repo = "github.com/byuflowlab/Xfoil.jl.git",
-    devbranch="main",
+    devbranch="master",
     versions=["stable", "v#.#.#", "dev"]
 )
