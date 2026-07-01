@@ -111,6 +111,41 @@ cls, cds, cdps, cms, convs = alpha_sweep(x, y, aoas, 1e5; iter=100,
     @test isapprox(cms[21], -0.05354124424602892)
 end
 
+# threaded angle of attack sweep (inviscid)
+# each solve is independent, so results must match the serial inviscid sweep
+
+clit, cmit = alpha_sweep_threaded(x, y, aoas)
+
+@testset "alpha_sweep_threaded (inviscid)" begin
+    @test clit ≈ clis
+    @test cmit ≈ cmis
+end
+
+# threaded angle of attack sweep (viscous)
+# compare against a serial reference of independent (reinit=true) solves
+
+aoast = -10.0:2.0:10.0
+
+clref = Float64[]; cdref = Float64[]; cdpref = Float64[]; cmref = Float64[]
+convref = Bool[]
+for a in aoast
+    set_coordinates(x, y)
+    pane(npan=140)
+    clr, cdr, cdpr, cmr, cvr = solve_alpha(a, 1e5; iter=100, reinit=true)
+    push!(clref, clr); push!(cdref, cdr); push!(cdpref, cdpr)
+    push!(cmref, cmr); push!(convref, cvr)
+end
+
+clt, cdt, cdpt, cmt, convt = alpha_sweep_threaded(x, y, aoast, 1e5; iter=100)
+
+@testset "alpha_sweep_threaded (viscous)" begin
+    @test clt ≈ clref
+    @test cdt ≈ cdref
+    @test cdpt ≈ cdpref
+    @test cmt ≈ cmref
+    @test convt == convref
+end
+
 # set airfoil coordinates (complex)
 
 Xfoil.set_coordinates_cs(x, y)
