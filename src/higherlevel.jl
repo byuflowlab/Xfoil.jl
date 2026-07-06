@@ -15,7 +15,7 @@ get_xsep
 get_xsep_cs
 
 function _prepare_parallel_workers()
-    Distributed.nworkers() == 0 &&
+    Distributed.nworkers() < 1 &&
         throw(ArgumentError("parallel=true requires at least one Julia worker process; call Distributed.addprocs(...) first"))
 
     for pid in Distributed.workers()
@@ -234,7 +234,7 @@ for (T, name, set_coordinates, pane, solve_alpha, do_percussive_maintenance) in
             @assert length(x) == length(y) "x and y arrays must have the same length"
             if parallel
                 reinit || throw(ArgumentError("parallel=true requires reinit=true"))
-                !(clmaxstop || clminstop) || throw(ArgumentError("parallel=true is incompatible with clmaxstop and clminstop"))
+                !(clmaxstop || clminstop) || throw(ArgumentError("parallel=true is incompatible with clmaxstop and clminstop because workers solve angles independently"))
             end
 
             naoa = length(alpha)
