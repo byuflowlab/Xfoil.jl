@@ -1,6 +1,6 @@
 module Xfoil
 
-using xfoil_light_jll, Printf
+using Distributed, xfoil_light_jll, Printf
 
 export set_coordinates, pane, solve_alpha, get_xsep, bldump, cpdump, alpha_sweep
 export set_coordinates_cs, pane_cs, solve_alpha_cs, get_xsep_cs, bldump_cs, cpdump_cs, alpha_sweep_cs

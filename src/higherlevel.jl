@@ -14,6 +14,17 @@ get_xsep
 """
 get_xsep_cs
 
+function _prepare_parallel_workers()
+    isempty(Distributed.workers()) &&
+        throw(ArgumentError("parallel=true requires at least one worker process; call Distributed.addprocs(...) first"))
+
+    for pid in Distributed.workers()
+        Distributed.remotecall_fetch(Core.eval, pid, Main, :(using Xfoil))
+    end
+
+    return nothing
+end
+
 # definition of get_xsep
 for (T, name, globals, bldump) in
     ((:Float64, :get_xsep, :xfoilglobals, :bldump),
@@ -96,6 +107,9 @@ Perform angle of attack sweep using XFOIL.  Return cl, cd, cdp, cm, converged.
  - `npan=140`: Number of panels
  - `percussive_maintenance=!reinit`: Call [`do_percussive_maintenance`](@ref) upon 
     convergence failure
+ - `parallel=false`: solve each angle of attack independently on available Julia
+        worker processes. Requires `reinit=true` and is incompatible with
+        `clmaxstop` and `clminstop`.
  - `printdata=false`: Print data obtained from XFOIL during the solution. Prints to the 
         terminal if `filename=nothing`; otherwise, prints to `filename`.
  - `filename=nothing`: If specified, creates and populates file with outputs (if `printdata=true`).
@@ -215,9 +229,13 @@ for (T, name, set_coordinates, pane, solve_alpha, do_percussive_maintenance) in
         function $(name)(x, y, alpha, re; mach=0.0, iter=50, npan=140, reinit=false, 
             percussive_maintenance=!reinit, printdata=false, zeroinit=true,
             clmaxstop=false, clminstop=false, ncrit=9, 
-            xtrip=(1.0,1.0), filename=nothing)
+            xtrip=(1.0,1.0), filename=nothing, parallel=false)
 
             @assert length(x) == length(y) "x and y arrays must have the same length"
+            if parallel
+                reinit || throw(ArgumentError("parallel=true requires reinit=true"))
+                !(clmaxstop || clminstop) || throw(ArgumentError("parallel=true is incompatible with clmaxstop and clminstop"))
+            end
 
             naoa = length(alpha)
             
@@ -237,7 +255,7 @@ for (T, name, set_coordinates, pane, solve_alpha, do_percussive_maintenance) in
                     # perform angle of attack sweep for negative angles of attack
                     clneg, cdneg, cdpneg, cmneg, convneg = $(name)(x,
                         y, aoaneg, re, mach, iter, npan, percussive_maintenance, printdata,
-                        false, clminstop, ncrit, reinit, xtrip; io)
+                       false, clminstop, ncrit, reinit, xtrip, parallel; io)
 
                     # separate out positive angles of attack
                     aoapos = sort(alpha[findall(real.(alpha) .>= 0.0)], by=real)
@@ -248,7 +266,7 @@ for (T, name, set_coordinates, pane, solve_alpha, do_percussive_maintenance) in
                     # perform angle of attack sweep for positive angles of attack
                     clpos, cdpos, cdppos, cmpos, convpos = $(name)(x,
                         y, aoapos, re, mach, iter, npan, percussive_maintenance, printdata,
-                        clmaxstop, false, ncrit, reinit, xtrip; io)
+                       clmaxstop, false, ncrit, reinit, xtrip, parallel; io)
 
                     # combine results from negative and positive runs (excluding zero angle of attack runs)
                     cl = vcat(clneg[end:-1:2], clpos[2:end])
@@ -259,7 +277,7 @@ for (T, name, set_coordinates, pane, solve_alpha, do_percussive_maintenance) in
                 else
                     cl, cd, cdp, cm, conv = $(name)(x, y, alpha, re,
                         mach, iter, npan, percussive_maintenance, printdata, clminstop,
-                        clmaxstop, ncrit, reinit, xtrip; io)
+                        clmaxstop, ncrit, reinit, xtrip, parallel; io)
                 end
             finally
                 if filename !== nothing
@@ -274,7 +292,7 @@ for (T, name, set_coordinates, pane, solve_alpha, do_percussive_maintenance) in
     @eval begin
 
         function $(name)(x, y, alpha, re, mach, iter, npan, percussive_maintenance,
-            printdata, clmaxstop, clminstop, ncrit, reinit, xtrip; io=stdout)
+            printdata, clmaxstop, clminstop, ncrit, reinit, xtrip, parallel; io=stdout)
 
             # Set up storage arrays
             naoa = length(alpha)
@@ -287,6 +305,36 @@ for (T, name, set_coordinates, pane, solve_alpha, do_percussive_maintenance) in
             # print header for data
             if printdata == true
                 println(io, "\nAngle\t\tCl\t\tCd\t\tCm\t\tConverged")
+            end
+
+            if parallel
+                _prepare_parallel_workers()
+
+                results = Distributed.pmap(alpha) do alphai
+                    Xfoil.$(set_coordinates)(x, y)
+                    Xfoil.$(pane)(npan=npan)
+
+                    cli, cdi, cdpi, cmi, convergedi = Xfoil.$(solve_alpha)(alphai, re;
+                        mach=mach, iter=iter, ncrit=ncrit, reinit=true, xtrip=xtrip)
+
+                    if !convergedi && percussive_maintenance
+                        cli, cdi, cdpi, cmi, convergedi = Xfoil.$(do_percussive_maintenance)(
+                            x, y, alphai, re, mach, iter, npan, ncrit, xtrip)
+                    end
+
+                    return cli, cdi, cdpi, cmi, convergedi
+                end
+
+                for i in eachindex(alpha)
+                    cl[i], cd[i], cdp[i], cm[i], converged[i] = results[i]
+
+                    if printdata == true
+                        @printf(io, "%8f\t%8f\t%8f\t%8f\t%d\n",
+                            real(alpha[i]), real(cl[i]), real(cd[i]), real(cm[i]), converged[i])
+                    end
+                end
+
+                return cl, cd, cdp, cm, converged
             end
 
             # start unconverged

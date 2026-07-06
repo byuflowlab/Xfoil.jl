@@ -1,4 +1,4 @@
-using Xfoil, Test
+using Distributed, Xfoil, Test
 
 # read airfoil data
 f = open("naca2412.dat", "r")
@@ -111,6 +111,35 @@ cls, cds, cdps, cms, convs = alpha_sweep(x, y, aoas, 1e5; iter=100,
     @test isapprox(cms[21], -0.05354124424602892)
 end
 
+@testset "alpha_sweep (viscous, parallel)" begin
+    @test_throws ArgumentError alpha_sweep(x, y, aoas, 1e5; iter=100, npan=140,
+        percussive_maintenance=false, printdata=false, zeroinit=true,
+        parallel=true)
+    @test_throws ArgumentError alpha_sweep(x, y, aoas, 1e5; iter=100, npan=140,
+        percussive_maintenance=false, printdata=false, zeroinit=true,
+        reinit=true, parallel=true, clmaxstop=true)
+
+    cls_serial, cds_serial, cdps_serial, cms_serial, convs_serial =
+        alpha_sweep(x, y, aoas, 1e5; iter=100, npan=140, percussive_maintenance=false,
+            printdata=false, zeroinit=true, reinit=true)
+
+    pids = addprocs(2)
+    try
+        cls_parallel, cds_parallel, cdps_parallel, cms_parallel, convs_parallel =
+            alpha_sweep(x, y, aoas, 1e5; iter=100, npan=140,
+                percussive_maintenance=false, printdata=false, zeroinit=true,
+                reinit=true, parallel=true)
+
+        @test cls_parallel ≈ cls_serial
+        @test cds_parallel ≈ cds_serial
+        @test cdps_parallel ≈ cdps_serial
+        @test cms_parallel ≈ cms_serial
+        @test convs_parallel == convs_serial
+    finally
+        rmprocs(pids)
+    end
+end
+
 # set airfoil coordinates (complex)
 
 Xfoil.set_coordinates_cs(x, y)
@@ -211,4 +240,26 @@ cls_cs, cds_cs, cdps_cs, cms_cs, convs_cs = alpha_sweep_cs(x, y, aoas, 1e5;
     @test isapprox(cds[21], real(cds_cs[21]))
     @test isapprox(cdps[21], real(cdps_cs[21]))
     @test isapprox(cms[21], real(cms_cs[21]))
+end
+
+@testset "alpha_sweep_cs (viscous, parallel)" begin
+    cls_cs_serial, cds_cs_serial, cdps_cs_serial, cms_cs_serial, convs_cs_serial =
+        alpha_sweep_cs(x, y, aoas, 1e5; iter=100, npan=140, percussive_maintenance=false,
+            printdata=false, zeroinit=true, reinit=true)
+
+    pids = addprocs(2)
+    try
+        cls_cs_parallel, cds_cs_parallel, cdps_cs_parallel, cms_cs_parallel, convs_cs_parallel =
+            alpha_sweep_cs(x, y, aoas, 1e5; iter=100, npan=140,
+                percussive_maintenance=false, printdata=false, zeroinit=true,
+                reinit=true, parallel=true)
+
+        @test cls_cs_parallel ≈ cls_cs_serial
+        @test cds_cs_parallel ≈ cds_cs_serial
+        @test cdps_cs_parallel ≈ cdps_cs_serial
+        @test cms_cs_parallel ≈ cms_cs_serial
+        @test convs_cs_parallel == convs_cs_serial
+    finally
+        rmprocs(pids)
+    end
 end

@@ -316,3 +316,18 @@ end
 
 nothing #hide
 ```
+
+!!! tip "Parallel viscous sweeps"
+    Viscous angle-of-attack sweeps can be distributed across Julia worker processes by passing `parallel=true`. Because each worker solves its angles independently, this mode requires `reinit=true` and does not support `clmaxstop` or `clminstop`.
+
+    ```julia
+    using Distributed
+    addprocs(4)
+
+    c_l, c_d, c_dp, c_m, converged = Xfoil.alpha_sweep(
+        x, y, alpha, re;
+        iter=100,
+        reinit=true,
+        parallel=true,
+    )
+    ```
