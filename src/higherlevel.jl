@@ -15,8 +15,8 @@ get_xsep
 get_xsep_cs
 
 function _prepare_parallel_workers()
-    isempty(Distributed.workers()) &&
-        throw(ArgumentError("parallel=true requires at least one worker process; call Distributed.addprocs(...) first"))
+    Distributed.nworkers() == 0 &&
+        throw(ArgumentError("parallel=true requires at least one Julia worker process; call Distributed.addprocs(...) first"))
 
     for pid in Distributed.workers()
         Distributed.remotecall_fetch(Core.eval, pid, Main, :(using Xfoil))
@@ -107,9 +107,9 @@ Perform angle of attack sweep using XFOIL.  Return cl, cd, cdp, cm, converged.
  - `npan=140`: Number of panels
  - `percussive_maintenance=!reinit`: Call [`do_percussive_maintenance`](@ref) upon 
     convergence failure
- - `parallel=false`: solve each angle of attack independently on available Julia
-        worker processes. Requires `reinit=true` and is incompatible with
-        `clmaxstop` and `clminstop`.
+ - `parallel=false`: when `true`, solve each angle of attack independently on
+        available Julia worker processes. Requires `reinit=true` and is
+        incompatible with `clmaxstop` and `clminstop`.
  - `printdata=false`: Print data obtained from XFOIL during the solution. Prints to the 
         terminal if `filename=nothing`; otherwise, prints to `filename`.
  - `filename=nothing`: If specified, creates and populates file with outputs (if `printdata=true`).
