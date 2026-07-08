@@ -768,7 +768,7 @@ function get_globals(handle, ::Type{T}) where {T}
     xpref1 = unsafe_wrap(Array,cr12+sizeof(T)*5,1)
     xpref2 = unsafe_wrap(Array,cr12+sizeof(T)*6,1)
 
-    cr13 = Ptr{T}(dlsym(handle, :cr12_))
+    cr13 = Ptr{T}(dlsym(handle, :cr13_))
     size = unsafe_wrap(Array,cr13+sizeof(T)*0,1)
     scrnfr = unsafe_wrap(Array,cr13+sizeof(T)*1,1)
     plotar = unsafe_wrap(Array,cr13+sizeof(T)*2,1)

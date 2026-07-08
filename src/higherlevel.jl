@@ -448,7 +448,7 @@ function run_threaded_sweep(::Type{T}, x, y, alpha, re; mach=0.0, iter=50,
     end
 
     # sort angles so each instance marches a monotonic, contiguous chunk
-    order = sortperm(collect(alpha), by=real)
+    order = sortperm(alpha, by=real)
     ranges = chunk_ranges(naoa, nworkers)
     instances = worker_instances(T, length(ranges))
 

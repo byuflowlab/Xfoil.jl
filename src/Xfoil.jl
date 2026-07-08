@@ -39,6 +39,7 @@ function __init__()
     # kept for backwards compatibility / direct access to the global state
     global xfoilglobals = default_instance[].globals
     global xfoilglobals_cs = default_instance_cs[].globals
+    atexit(close_worker_pools)
     return nothing
 end
 

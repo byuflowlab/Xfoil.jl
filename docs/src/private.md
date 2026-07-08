@@ -9,5 +9,6 @@ Xfoil.get_globals_cs
 Xfoil.do_percussive_maintenance_cs
 Xfoil.chunk_ranges
 Xfoil.worker_instances
+Xfoil.close_worker_pools
 Xfoil.run_threaded_sweep
 ```

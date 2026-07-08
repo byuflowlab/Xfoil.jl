@@ -52,6 +52,19 @@ function XfoilInstance{T}(; isolated=true) where {T}
         Libdl.dlsym(handle, :cpdump_))
 end
 
+"""
+    close(inst::XfoilInstance)
+
+Release the resources held by `inst`: close its `dlopen` handle and, for isolated
+instances, remove the temporary directory holding the private library copy. A
+shared instance (`dir == ""`) leaves the primary library loaded.
+"""
+function Base.close(inst::XfoilInstance)
+    Libdl.dlclose(inst.handle)
+    isempty(inst.dir) || rm(inst.dir; recursive=true, force=true)
+    return nothing
+end
+
 const worker_pool = Ref{Vector{XfoilInstance{Float64}}}()
 const worker_pool_cs = Ref{Vector{XfoilInstance{ComplexF64}}}()
 const worker_pool_lock = ReentrantLock()
@@ -74,4 +87,22 @@ function worker_instances(::Type{T}, n) where {T}
         end
         return pool[1:n]
     end
+end
+
+"""
+    close_worker_pools()
+
+Close every pooled isolated [`XfoilInstance`](@ref) and empty the pools, releasing
+their library handles and temporary directories. Registered to run at process exit.
+"""
+function close_worker_pools()
+    lock(worker_pool_lock) do
+        for pool_ref in (worker_pool, worker_pool_cs)
+            if isassigned(pool_ref)
+                foreach(close, pool_ref[])
+                empty!(pool_ref[])
+            end
+        end
+    end
+    return nothing
 end
