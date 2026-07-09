@@ -35,6 +35,18 @@ alpha_sweep(x, y, alpha; kwargs...)
 alpha_sweep(x, y, alpha, re; kwargs...)
 ```
 
+### Threaded Inviscid Angle of Attack Sweep
+
+```@docs
+alpha_sweep_threaded(x, y, alpha; kwargs...)
+```
+
+### Threaded Viscous Angle of Attack Sweep
+
+```@docs
+alpha_sweep_threaded(x, y, alpha, re; kwargs...)
+```
+
 ### Separation Point
 
 ```@docs
@@ -91,6 +103,18 @@ alpha_sweep_cs(x, y, alpha; kwargs...)
 
 ```@docs
 alpha_sweep_cs(x, y, alpha, re; kwargs...)
+```
+
+### Threaded Inviscid Angle of Attack Sweep
+
+```@docs
+alpha_sweep_threaded_cs(x, y, alpha; kwargs...)
+```
+
+### Threaded Viscous Angle of Attack Sweep
+
+```@docs
+alpha_sweep_threaded_cs(x, y, alpha, re; kwargs...)
 ```
 
 ### Separation Point

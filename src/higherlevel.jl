@@ -15,42 +15,37 @@ get_xsep
 get_xsep_cs
 
 # definition of get_xsep
-for (T, name, globals, bldump) in
-    ((:Float64, :get_xsep, :xfoilglobals, :bldump),
-    (:ComplexF64, :get_xsep_cs, :xfoilglobals_cs, :bldump_cs))
+function get_xsep(inst::XfoilInstance; xtol=1e-6)
 
-    @eval begin
+    s, x, y, ue, dstar, theta, cf = bldump(inst)
 
-        function $(name)(; xtol=1e-6)
+    # Find indices of LE and TE edge
+    xile = findfirst(x -> abs(x - inst.globals.xle[1]) <= xtol, x)
+    xite1 = findfirst(x -> abs(x - inst.globals.xte[1]) <= xtol, x)
+    xite2 = findnext(x -> abs(x - inst.globals.xte[1]) <= xtol, x, xite1+1)
 
-            s, x, y, ue, dstar, theta, cf = $(bldump)()
+    # Get both faces going from TE to LE
+    iup = xite1:(-1)^(xite1 > xile):xile
+    ilo = xite2:(-1)^(xite2 > xile):xile
 
-            # Find indices of LE and TE edge
-            xile = findfirst(x -> abs(x - $(globals).xle[1]) <= xtol, x)
-            xite1 = findfirst(x -> abs(x - $(globals).xte[1]) <= xtol, x)
-            xite2 = findnext(x -> abs(x - $(globals).xte[1]) <= xtol, x, xite1+1)
+    # xup, yup = x[iup], y[iup]
+    # xlo, ylo = x[ilo], y[ilo]
 
-            # Get both faces going from TE to LE
-            iup = xite1:(-1)^(xite1 > xile):xile
-            ilo = xite2:(-1)^(xite2 > xile):xile
+    # Find first separation point from the TE to LE on each side
+    iupsep = findfirst( val -> val >= 0, cf[iup])
+    ilosep = findfirst( val -> val >= 0, cf[ilo])
 
-            # xup, yup = x[iup], y[iup]
-            # xlo, ylo = x[ilo], y[ilo]
+    iupsep == nothing ? iupsep = length(iup) : nothing
+    ilosep == nothing ? ilosep = length(ilo) : nothing
 
-            # Find first separation point from the TE to LE on each side
-            iupsep = findfirst( val -> val >= 0, cf[iup])
-            ilosep = findfirst( val -> val >= 0, cf[ilo])
+    xsepup = x[iup[iupsep]]
+    xseplo = x[ilo[ilosep]]
 
-            iupsep == nothing ? iupsep = length(iup) : nothing
-            ilosep == nothing ? ilosep = length(ilo) : nothing
-
-            xsepup = x[iup[iupsep]]
-            xseplo = x[ilo[ilosep]]
-
-            return xsepup, xseplo
-        end
-    end
+    return xsepup, xseplo
 end
+
+get_xsep(; kwargs...) = get_xsep(default_instance[]; kwargs...)
+get_xsep_cs(; kwargs...) = get_xsep(default_instance_cs[]; kwargs...)
 
 """
     alpha_sweep(x, y, alpha; kwargs...)
@@ -114,233 +109,216 @@ alpha_sweep(x, y, alpha, re; kwargs...)
 alpha_sweep_cs(x, y, alpha, re; kwargs...)
 
 # definition of alpha_sweep (inviscid analysis)
-for (T, name, set_coordinates, pane, solve_alpha) in
-    ((:Float64, :alpha_sweep, :set_coordinates, :pane, :solve_alpha),
-    (:ComplexF64, :alpha_sweep_cs, :set_coordinates_cs, :pane_cs, :solve_alpha_cs))
+function alpha_sweep(inst::XfoilInstance, x, y, alpha; mach=0.0, npan=140,
+    printdata=false, zeroinit=true, filename=nothing)
 
-    @eval begin
+    @assert length(x) == length(y) "x and y arrays must have the same length"
 
-        function $(name)(x, y, alpha; mach=0.0, npan=140, printdata=false, zeroinit=true, filename=nothing)
+    io = filename === nothing ? stdout : open(filename, "w")
+    local cl, cm
+    try
+        if zeroinit
+            # Set up angle of attack range going up and going down from zero if specified
+            # This helps XFOIL to converge more consistently
 
-            @assert length(x) == length(y) "x and y arrays must have the same length"
+            # separate out negative angles of attack
+            aoaneg = sort(alpha[findall(real.(alpha) .< 0.0)], by=real, rev = true)
 
-            naoa = length(alpha)
+            # add zero angle of attack to negative angles of attack
+            pushfirst!(aoaneg, 0.0)
 
-            io = filename === nothing ? stdout : open(filename, "w")
-            local cl, cm
-            try
-                if zeroinit
-                    # Set up angle of attack range going up and going down from zero if specified
-                    # This helps XFOIL to converge more consistently
+            # perform angle of attack sweep for negative angles of attack
+            clneg, cmneg = alpha_sweep(inst, x, y, aoaneg, mach, npan, printdata; io)
 
-                    # separate out negative angles of attack
-                    aoaneg = sort(alpha[findall(real.(alpha) .< 0.0)], by=real, rev = true)
+            # separate out positive angles of attack
+            aoapos = sort(alpha[findall(real.(alpha) .>= 0.0)], by=real)
 
-                    # add zero angle of attack to negative angles of attack
-                    pushfirst!(aoaneg, 0.0)
+            # add zero angle of attack to positive angles of attack
+            pushfirst!(aoapos,0.0)
 
-                    # perform angle of attack sweep for negative angles of attack
-                    clneg, cmneg = $(name)(x, y, aoaneg, mach, npan, printdata; io)
+            # perform angle of attack sweep for positive angles of attack
+            clpos, cmpos = alpha_sweep(inst, x, y, aoapos, mach, npan, printdata; io)
 
-                    # separate out positive angles of attack
-                    aoapos = sort(alpha[findall(real.(alpha) .>= 0.0)], by=real)
-
-                    # add zero angle of attack to positive angles of attack
-                    pushfirst!(aoapos,0.0)
-
-                    # perform angle of attack sweep for positive angles of attack
-                    clpos, cmpos = $(name)(x, y, aoapos, mach, npan, printdata; io)
-
-                    # combine results from negative and positive runs (excluding zero angle of attack runs)
-                    cl = vcat(clneg[end:-1:2], clpos[2:end])
-                    cm = vcat(cmneg[end:-1:2], cmpos[2:end])
-                else
-                    cl, cm = $(name)(x, y, alpha, mach, npan, printdata; io)
-                end
-            finally
-                if filename !== nothing
-                    close(io)
-                end
-            end
-
-            return cl, cm
+            # combine results from negative and positive runs (excluding zero angle of attack runs)
+            cl = vcat(clneg[end:-1:2], clpos[2:end])
+            cm = vcat(cmneg[end:-1:2], cmpos[2:end])
+        else
+            cl, cm = alpha_sweep(inst, x, y, alpha, mach, npan, printdata; io)
+        end
+    finally
+        if filename !== nothing
+            close(io)
         end
     end
 
-    @eval begin
-
-        function $(name)(x, y, alpha, mach, npan, printdata; io=stdout)
-
-            # Set up storage arrays
-            naoa = length(alpha)
-            cl = zeros($T, naoa)
-            cm = zeros($T, naoa)
-
-            # print header for data 
-            # TODO: add option to print to file rather than terminal
-            if printdata == true
-                println(io, "\nAngle\t\tCl\t\tCm")
-            end
-
-            # start unconverged
-            for i in eachindex(alpha)
-
-                # set coordinates if it's the first iteration
-                if i == 1
-                    $(set_coordinates)(x, y)
-                    $(pane)(npan = npan)
-                end
-
-                # run XFOIL
-                cl[i], cm[i] = $(solve_alpha)(alpha[i]; mach=mach)
-
-                # print data from the run 
-                if printdata == true
-                    @printf(io, "%8f\t%8f\t%8f\n", real(alpha[i]), real(cl[i]), real(cm[i]))
-                end
-            end
-
-            return cl, cm
-        end
-    end
+    return cl, cm
 end
+
+function alpha_sweep(inst::XfoilInstance{T}, x, y, alpha, mach, npan, printdata;
+    io=stdout) where {T}
+
+    # Set up storage arrays
+    naoa = length(alpha)
+    cl = zeros(T, naoa)
+    cm = zeros(T, naoa)
+
+    # print header for data
+    # TODO: add option to print to file rather than terminal
+    if printdata == true
+        println(io, "\nAngle\t\tCl\t\tCm")
+    end
+
+    # start unconverged
+    for i in eachindex(alpha)
+
+        # set coordinates if it's the first iteration
+        if i == 1
+            set_coordinates(inst, x, y)
+            pane(inst, npan = npan)
+        end
+
+        # run XFOIL
+        cl[i], cm[i] = solve_alpha(inst, alpha[i]; mach=mach)
+
+        # print data from the run
+        if printdata == true
+            @printf(io, "%8f\t%8f\t%8f\n", real(alpha[i]), real(cl[i]), real(cm[i]))
+        end
+    end
+
+    return cl, cm
+end
+
+alpha_sweep(x, y, alpha; kwargs...) = alpha_sweep(default_instance[], x, y, alpha; kwargs...)
+alpha_sweep_cs(x, y, alpha; kwargs...) = alpha_sweep(default_instance_cs[], x, y, alpha; kwargs...)
 
 # definition of alpha_sweep (viscous analysis)
-for (T, name, set_coordinates, pane, solve_alpha, do_percussive_maintenance) in
-    ((:Float64, :alpha_sweep, :set_coordinates, :pane, :solve_alpha, :do_percussive_maintenance),
-    (:ComplexF64, :alpha_sweep_cs, :set_coordinates_cs, :pane_cs, :solve_alpha_cs, :do_percussive_maintenance_cs))
+function alpha_sweep(inst::XfoilInstance, x, y, alpha, re; mach=0.0, iter=50,
+    npan=140, reinit=false, percussive_maintenance=!reinit, printdata=false,
+    zeroinit=true, clmaxstop=false, clminstop=false, ncrit=9,
+    xtrip=(1.0,1.0), filename=nothing)
 
-    @eval begin
+    @assert length(x) == length(y) "x and y arrays must have the same length"
 
-        function $(name)(x, y, alpha, re; mach=0.0, iter=50, npan=140, reinit=false, 
-            percussive_maintenance=!reinit, printdata=false, zeroinit=true,
-            clmaxstop=false, clminstop=false, ncrit=9, 
-            xtrip=(1.0,1.0), filename=nothing)
+    io = filename === nothing ? stdout : open(filename, "w")
+    local cl, cd, cdp, cm, conv
+    try
+        if zeroinit
+            # Set up angle of attack range going up and going down from zero if specified
+            # This helps XFOIL to converge more consistently
 
-            @assert length(x) == length(y) "x and y arrays must have the same length"
+            # separate out negative angles of attack
+            aoaneg = sort(alpha[findall(real.(alpha) .< 0.0)], by=real, rev = true)
 
-            naoa = length(alpha)
-            
-            io = filename === nothing ? stdout : open(filename, "w")
-            local cl, cd, cdp, cm, conv
-            try
-                if zeroinit
-                    # Set up angle of attack range going up and going down from zero if specified
-                    # This helps XFOIL to converge more consistently
+            # add zero angle of attack to negative angles of attack
+            pushfirst!(aoaneg, 0.0)
 
-                    # separate out negative angles of attack
-                    aoaneg = sort(alpha[findall(real.(alpha) .< 0.0)], by=real, rev = true)
+            # perform angle of attack sweep for negative angles of attack
+            clneg, cdneg, cdpneg, cmneg, convneg = alpha_sweep(inst, x,
+                y, aoaneg, re, mach, iter, npan, percussive_maintenance, printdata,
+                false, clminstop, ncrit, reinit, xtrip; io)
 
-                    # add zero angle of attack to negative angles of attack
-                    pushfirst!(aoaneg, 0.0)
+            # separate out positive angles of attack
+            aoapos = sort(alpha[findall(real.(alpha) .>= 0.0)], by=real)
 
-                    # perform angle of attack sweep for negative angles of attack
-                    clneg, cdneg, cdpneg, cmneg, convneg = $(name)(x,
-                        y, aoaneg, re, mach, iter, npan, percussive_maintenance, printdata,
-                        false, clminstop, ncrit, reinit, xtrip; io)
+            # add zero angle of attack to positive angles of attack
+            pushfirst!(aoapos,0.0)
 
-                    # separate out positive angles of attack
-                    aoapos = sort(alpha[findall(real.(alpha) .>= 0.0)], by=real)
+            # perform angle of attack sweep for positive angles of attack
+            clpos, cdpos, cdppos, cmpos, convpos = alpha_sweep(inst, x,
+                y, aoapos, re, mach, iter, npan, percussive_maintenance, printdata,
+                clmaxstop, false, ncrit, reinit, xtrip; io)
 
-                    # add zero angle of attack to positive angles of attack
-                    pushfirst!(aoapos,0.0)
-
-                    # perform angle of attack sweep for positive angles of attack
-                    clpos, cdpos, cdppos, cmpos, convpos = $(name)(x,
-                        y, aoapos, re, mach, iter, npan, percussive_maintenance, printdata,
-                        clmaxstop, false, ncrit, reinit, xtrip; io)
-
-                    # combine results from negative and positive runs (excluding zero angle of attack runs)
-                    cl = vcat(clneg[end:-1:2], clpos[2:end])
-                    cd = vcat(cdneg[end:-1:2], cdpos[2:end])
-                    cdp = vcat(cdpneg[end:-1:2], cdppos[2:end])
-                    cm = vcat(cmneg[end:-1:2], cmpos[2:end])
-                    conv = vcat(convneg[end:-1:2], convpos[2:end])
-                else
-                    cl, cd, cdp, cm, conv = $(name)(x, y, alpha, re,
-                        mach, iter, npan, percussive_maintenance, printdata, clminstop,
-                        clmaxstop, ncrit, reinit, xtrip; io)
-                end
-            finally
-                if filename !== nothing
-                    close(io)
-                end
-            end
-
-            return cl, cd, cdp, cm, conv
+            # combine results from negative and positive runs (excluding zero angle of attack runs)
+            cl = vcat(clneg[end:-1:2], clpos[2:end])
+            cd = vcat(cdneg[end:-1:2], cdpos[2:end])
+            cdp = vcat(cdpneg[end:-1:2], cdppos[2:end])
+            cm = vcat(cmneg[end:-1:2], cmpos[2:end])
+            conv = vcat(convneg[end:-1:2], convpos[2:end])
+        else
+            cl, cd, cdp, cm, conv = alpha_sweep(inst, x, y, alpha, re,
+                mach, iter, npan, percussive_maintenance, printdata, clminstop,
+                clmaxstop, ncrit, reinit, xtrip; io)
+        end
+    finally
+        if filename !== nothing
+            close(io)
         end
     end
 
-    @eval begin
-
-        function $(name)(x, y, alpha, re, mach, iter, npan, percussive_maintenance,
-            printdata, clmaxstop, clminstop, ncrit, reinit, xtrip; io=stdout)
-
-            # Set up storage arrays
-            naoa = length(alpha)
-            cl = zeros($T, naoa)
-            cd = zeros($T, naoa)
-            cdp = zeros($T, naoa)
-            cm = zeros($T, naoa)
-            converged = zeros(Bool, naoa)
-
-            # print header for data
-            if printdata == true
-                println(io, "\nAngle\t\tCl\t\tCd\t\tCm\t\tConverged")
-            end
-
-            # start unconverged
-            for i in eachindex(alpha)
-
-                # set coordinates if its the first iteration, also set the coordinates
-                # if convergence has failed since it resets XFOIL's initial guess
-                # TODO: reset XFOIL's initial guess without setting coordinates again
-                if i == 1
-                    # TODO: remove hard-coded repaneling, add it as a default option
-                    $(set_coordinates)(x, y)
-                    $(pane)(npan = npan)
-                end
-
-                # reinitialize if previous solution didn't converge
-                _reinit = reinit || (i !=1 && !converged[i-1])
-
-                # run XFOIL
-                cl[i], cd[i], cdp[i], cm[i], converged[i] = $(solve_alpha)(alpha[i], re, mach=mach, iter=iter, ncrit=ncrit, reinit=_reinit, xtrip=xtrip)
-
-                # try percussive maintenance
-                if !converged[i] && percussive_maintenance
-                    cl[i], cd[i], cdp[i], cm[i], converged[i] = $(do_percussive_maintenance)(x, y, alpha[i], re, mach, iter, npan, ncrit, xtrip)
-                end
-
-                # print data from the run
-                if printdata == true
-                    @printf(io, "%8f\t%8f\t%8f\t%8f\t%d\n", real(alpha[i]), real(cl[i]), real(cd[i]), real(cm[i]), converged[i])
-                end
-
-                aoaconv = alpha[findall(converged)]
-                clconv = cl[findall(converged)]
-                if (real(alpha[i]) > 0.0) && (length(clconv) >= 4) # TODO: add minimum number of angle of attacks (currently 4) as an input option
-                    if clmaxstop #TODO: allow clmaxstop to trigger after user specified number of decreasing lift runs
-                        # break if maximum found #TODO: allow user specified function definition for what clmax is
-                        if (real(clconv[end]) < real(clconv[end-1])) && (real(clconv[end-1]) < real(clconv[end-2]))
-                            break
-                        end
-                    end
-                end
-                if (real(alpha[i]) < 0.0) && (length(clconv) >= 4) # TODO: add minimum number of angles of attacks (currently 4) as an input option
-                    if clminstop # TODO: allow clminstop to trigger after user specified number of increaseing lift runs
-                        # break if minimum found #TODO: allow user specified function definition for what clmin is
-                        if (real(clconv[end]) > real(clconv[end-1])) && (real(clconv[end-1]) > real(clconv[end-2]))
-                            break
-                        end
-                    end
-                end
-            end
-
-            return cl, cd, cdp, cm, converged
-        end
-    end
+    return cl, cd, cdp, cm, conv
 end
+
+function alpha_sweep(inst::XfoilInstance{T}, x, y, alpha, re, mach, iter, npan,
+    percussive_maintenance, printdata, clmaxstop, clminstop, ncrit, reinit, xtrip;
+    io=stdout) where {T}
+
+    # Set up storage arrays
+    naoa = length(alpha)
+    cl = zeros(T, naoa)
+    cd = zeros(T, naoa)
+    cdp = zeros(T, naoa)
+    cm = zeros(T, naoa)
+    converged = zeros(Bool, naoa)
+
+    # print header for data
+    if printdata == true
+        println(io, "\nAngle\t\tCl\t\tCd\t\tCm\t\tConverged")
+    end
+
+    # start unconverged
+    for i in eachindex(alpha)
+
+        # set coordinates if its the first iteration, also set the coordinates
+        # if convergence has failed since it resets XFOIL's initial guess
+        # TODO: reset XFOIL's initial guess without setting coordinates again
+        if i == 1
+            # TODO: remove hard-coded repaneling, add it as a default option
+            set_coordinates(inst, x, y)
+            pane(inst, npan = npan)
+        end
+
+        # reinitialize if previous solution didn't converge
+        _reinit = reinit || (i !=1 && !converged[i-1])
+
+        # run XFOIL
+        cl[i], cd[i], cdp[i], cm[i], converged[i] = solve_alpha(inst, alpha[i], re, mach=mach, iter=iter, ncrit=ncrit, reinit=_reinit, xtrip=xtrip)
+
+        # try percussive maintenance
+        if !converged[i] && percussive_maintenance
+            cl[i], cd[i], cdp[i], cm[i], converged[i] = do_percussive_maintenance(inst, x, y, alpha[i], re, mach, iter, npan, ncrit, xtrip)
+        end
+
+        # print data from the run
+        if printdata == true
+            @printf(io, "%8f\t%8f\t%8f\t%8f\t%d\n", real(alpha[i]), real(cl[i]), real(cd[i]), real(cm[i]), converged[i])
+        end
+
+        aoaconv = alpha[findall(converged)]
+        clconv = cl[findall(converged)]
+        if (real(alpha[i]) > 0.0) && (length(clconv) >= 4) # TODO: add minimum number of angle of attacks (currently 4) as an input option
+            if clmaxstop #TODO: allow clmaxstop to trigger after user specified number of decreasing lift runs
+                # break if maximum found #TODO: allow user specified function definition for what clmax is
+                if (real(clconv[end]) < real(clconv[end-1])) && (real(clconv[end-1]) < real(clconv[end-2]))
+                    break
+                end
+            end
+        end
+        if (real(alpha[i]) < 0.0) && (length(clconv) >= 4) # TODO: add minimum number of angles of attacks (currently 4) as an input option
+            if clminstop # TODO: allow clminstop to trigger after user specified number of increaseing lift runs
+                # break if minimum found #TODO: allow user specified function definition for what clmin is
+                if (real(clconv[end]) > real(clconv[end-1])) && (real(clconv[end-1]) > real(clconv[end-2]))
+                    break
+                end
+            end
+        end
+    end
+
+    return cl, cd, cdp, cm, converged
+end
+
+alpha_sweep(x, y, alpha, re; kwargs...) = alpha_sweep(default_instance[], x, y, alpha, re; kwargs...)
+alpha_sweep_cs(x, y, alpha, re; kwargs...) = alpha_sweep(default_instance_cs[], x, y, alpha, re; kwargs...)
 
 """
     do_percussive_maintenance(x, y, alpha, re, iter, npan, ncrit)
@@ -358,60 +336,275 @@ do_percussive_maintenance
 do_percussive_maintenance_cs
 
 # definition of do_percussive_maintenance
-for (T, name, set_coordinates, pane, solve_alpha) in
-    ((:Float64, :do_percussive_maintenance, :set_coordinates, :pane, :solve_alpha),
-    (:ComplexF64, :do_percussive_maintenance_cs, :set_coordinates_cs, :pane_cs, :solve_alpha_cs))
+function do_percussive_maintenance(inst::XfoilInstance, x, y, alpha, re, mach,
+    iter, npan, ncrit, xtrip)
 
-    @eval begin
+    # set new parameters to original parameters
+    remod = re
+    alphamod = alpha
 
-        function $(name)(x, y, alpha, re, mach, iter, npan, ncrit, xtrip)
+    f = (alphamod, remod) -> solve_alpha(inst, alphamod, remod, mach=mach,
+        iter=iter, ncrit=ncrit, xtrip=xtrip)
 
-            # set new parameters to original parameters
-            remod = re
-            alphamod = alpha
+    # TODO: add number of iterations of percussive maintenance as an input parameter
+    # perhaps by adding a PercussiveMaintenance type with customizable parameters
+    for j = 1:25
+        # perturb new parameters
+        remod = remod+1000
+        alphamod = 0.95*alphamod
 
-            f = (alphamod, remod) -> $(solve_alpha)(alphamod, remod, mach=mach, iter=iter, ncrit=ncrit, xtrip=xtrip)
+        # reinput coordinates in order to re-initialize the XFOIL solution
+        # TODO: allow reinitializing XFOIL without re-inputting coordinates
+        # TODO: change hard-coded pane command to an option
+        set_coordinates(inst, x, y)
+        pane(inst, npan=npan)
 
-            # TODO: add number of iterations of percussive maintenance as an input parameter
-            # perhaps by adding a PercussiveMaintenance type with customizable parameters
-            for j = 1:25
-                # perturb new parameters
-                remod = remod+1000
-                alphamod = 0.95*alphamod
+        # try modified parameters
+        cl, cd, cdp, cm, converged = f(alphamod, remod)
 
-                # reinput coordinates in order to re-initialize the XFOIL solution
-                # TODO: allow reinitializing XFOIL without re-inputting coordinates
-                # TODO: change hard-coded pane command to an option
-                $(set_coordinates)(x, y)
-                $(pane)(npan=npan)
-
-                # try modified parameters
-                cl, cd, cdp, cm, converged = f(alphamod, remod)
-
-                # exit loop if converged
-                if converged
-                    break
-                end
-            end
-
-            # Gradually bring the parameters back to those of the original problem
-            if converged
-                # get difference between actual parameters and modified parameters
-                rediff = remod - re
-                aoadiff = alphamod-alpha
-                # over ten iterations, gradually return to the original problem
-                # TODO: add number of iterations taken to return to the original problem
-                # as a customizable parameter
-                for j = 1:9
-                    remod = remod - rediff/10
-                    alphamod = alphamod - aoadiff/10
-                    cl, cd, cdp, cm, converged = f(alphamod, remod)
-                end
-                # now try solving the original problem again
-                cl, cd, cdp, cm, converged = f(alpha, re)
-            end
-
-            return cl, cd, cdp, cm, converged
+        # exit loop if converged
+        if converged
+            break
         end
     end
+
+    # Gradually bring the parameters back to those of the original problem
+    if converged
+        # get difference between actual parameters and modified parameters
+        rediff = remod - re
+        aoadiff = alphamod-alpha
+        # over ten iterations, gradually return to the original problem
+        # TODO: add number of iterations taken to return to the original problem
+        # as a customizable parameter
+        for j = 1:9
+            remod = remod - rediff/10
+            alphamod = alphamod - aoadiff/10
+            cl, cd, cdp, cm, converged = f(alphamod, remod)
+        end
+        # now try solving the original problem again
+        cl, cd, cdp, cm, converged = f(alpha, re)
+    end
+
+    return cl, cd, cdp, cm, converged
 end
+
+function do_percussive_maintenance(x, y, alpha, re, mach, iter, npan, ncrit, xtrip)
+    return do_percussive_maintenance(default_instance[], x, y, alpha, re, mach,
+        iter, npan, ncrit, xtrip)
+end
+
+function do_percussive_maintenance_cs(x, y, alpha, re, mach, iter, npan, ncrit, xtrip)
+    return do_percussive_maintenance(default_instance_cs[], x, y, alpha, re, mach,
+        iter, npan, ncrit, xtrip)
+end
+
+"""
+    chunk_ranges(n, nchunks)
+
+Split `1:n` into at most `nchunks` contiguous, nearly equal ranges.
+"""
+function chunk_ranges(n, nchunks)
+    nchunks = min(nchunks, n)
+    base = div(n, nchunks)
+    extra = mod(n, nchunks)
+    ranges = UnitRange{Int}[]
+    start = 1
+    for w in 1:nchunks
+        len = base + (w <= extra ? 1 : 0)
+        push!(ranges, start:(start + len - 1))
+        start += len
+    end
+    return ranges
+end
+
+"""
+    run_threaded_sweep(T, x, y, alpha, re; kwargs...)
+    run_threaded_sweep(T, x, y, alpha; kwargs...)
+
+Backend for [`alpha_sweep_threaded`](@ref) (viscous, with `re`) and its inviscid
+method. Angles are distributed over a pool of isolated [`XfoilInstance`](@ref)s
+of element type `T`, one per thread, and solved concurrently. Results are
+returned in the order of the input `alpha`.
+"""
+function run_threaded_sweep(::Type{T}, x, y, alpha, re; mach=0.0, iter=50,
+    npan=140, ncrit=9, xtrip=(1.0,1.0), percussive_maintenance=false,
+    warmstart=false, ninstances=Threads.nthreads()) where {T}
+
+    @assert length(x) == length(y) "x and y arrays must have the same length"
+
+    naoa = length(alpha)
+    cl = Vector{T}(undef, naoa)
+    cd = Vector{T}(undef, naoa)
+    cdp = Vector{T}(undef, naoa)
+    cm = Vector{T}(undef, naoa)
+    converged = Vector{Bool}(undef, naoa)
+    naoa == 0 && return cl, cd, cdp, cm, converged
+
+    nworkers = min(ninstances, naoa)
+    if Threads.nthreads() == 1 && nworkers > 1
+        @warn "alpha_sweep_threaded: Julia is running with a single thread, so " *
+            "the sweep runs serially. Start Julia with `julia -t auto`." maxlog=1
+        nworkers = 1
+    end
+
+    # sort angles so each instance marches a monotonic, contiguous chunk
+    order = sortperm(alpha, by=real)
+    ranges = chunk_ranges(naoa, nworkers)
+    instances = worker_instances(T, length(ranges))
+
+    function run_chunk(inst, idxs)
+        set_coordinates(inst, x, y)
+        pane(inst, npan=npan)
+        solve!(idx, reinit) = begin
+            angle = alpha[idx]
+            out = solve_alpha(inst, angle, re; mach=mach, iter=iter, ncrit=ncrit,
+                reinit=reinit, xtrip=xtrip)
+            if !out[5] && percussive_maintenance
+                out = do_percussive_maintenance(inst, x, y, angle, re, mach, iter,
+                    npan, ncrit, xtrip)
+            end
+            cl[idx], cd[idx], cdp[idx], cm[idx], converged[idx] = out
+            return nothing
+        end
+        m = length(idxs)
+        if warmstart
+            # march outward from the angle nearest zero for smooth warm starts
+            pivot = 1
+            for k in 2:m
+                if abs(real(alpha[idxs[k]])) < abs(real(alpha[idxs[pivot]]))
+                    pivot = k
+                end
+            end
+            solve!(idxs[pivot], true)
+            for k in (pivot + 1):m
+                solve!(idxs[k], false)
+            end
+            if pivot > 1
+                solve!(idxs[pivot], true)
+                for k in (pivot - 1):-1:1
+                    solve!(idxs[k], false)
+                end
+            end
+        else
+            for k in 1:m
+                solve!(idxs[k], true)
+            end
+        end
+        return nothing
+    end
+
+    Threads.@sync for (w, range) in enumerate(ranges)
+        Threads.@spawn run_chunk(instances[w], view(order, range))
+    end
+
+    return cl, cd, cdp, cm, converged
+end
+
+function run_threaded_sweep(::Type{T}, x, y, alpha; mach=0.0, npan=140,
+    ninstances=Threads.nthreads()) where {T}
+
+    @assert length(x) == length(y) "x and y arrays must have the same length"
+
+    naoa = length(alpha)
+    cl = Vector{T}(undef, naoa)
+    cm = Vector{T}(undef, naoa)
+    naoa == 0 && return cl, cm
+
+    nworkers = min(ninstances, naoa)
+    if Threads.nthreads() == 1 && nworkers > 1
+        @warn "alpha_sweep_threaded: Julia is running with a single thread, so " *
+            "the sweep runs serially. Start Julia with `julia -t auto`." maxlog=1
+        nworkers = 1
+    end
+
+    ranges = chunk_ranges(naoa, nworkers)
+    instances = worker_instances(T, length(ranges))
+
+    Threads.@sync for (w, range) in enumerate(ranges)
+        Threads.@spawn begin
+            inst = instances[w]
+            set_coordinates(inst, x, y)
+            pane(inst, npan=npan)
+            for idx in range
+                cl[idx], cm[idx] = solve_alpha(inst, alpha[idx]; mach=mach)
+            end
+        end
+    end
+
+    return cl, cm
+end
+
+"""
+    alpha_sweep_threaded(x, y, alpha; kwargs...)
+
+Multithreaded version of the inviscid [`alpha_sweep`](@ref). Return cl and cm.
+
+Angles are solved concurrently on a pool of isolated [`XfoilInstance`](@ref)s
+(one private copy of the XFOIL library per thread), so this needs Julia started
+with several threads (`julia -t auto`); with a single thread it warns once and
+runs serially. Results are returned in the order of the input `alpha`.
+
+# Arguments
+ - `x`: Airfoil x-coordinate starting from trailing edge looping counter-clockwise
+ - `y`: Airfoil y-coordinate starting from trailing edge looping counter-clockwise
+ - `alpha`: Angle of attacks (in degrees)
+ - `mach=0.0`: Mach number
+ - `npan=140`: Number of panels
+ - `ninstances=Threads.nthreads()`: Number of XFOIL instances (threads) to use
+"""
+alpha_sweep_threaded(x, y, alpha; kwargs...)
+
+"""
+    alpha_sweep_threaded_cs(x, y, alpha; kwargs...)
+
+`alpha_sweep_threaded` for the complex step enabled version of XFOIL (inviscid).
+"""
+alpha_sweep_threaded_cs(x, y, alpha; kwargs...)
+
+"""
+    alpha_sweep_threaded(x, y, alpha, re; kwargs...)
+
+Multithreaded version of the viscous [`alpha_sweep`](@ref). Return cl, cd, cdp,
+cm, converged, in the order of the input `alpha`.
+
+Angles are solved concurrently on a pool of isolated [`XfoilInstance`](@ref)s
+(one private copy of the XFOIL library per thread), so this needs Julia started
+with several threads (`julia -t auto`); with a single thread it warns once and
+runs serially. Each solve is independent (`reinit=true`) unless `warmstart=true`.
+
+# Arguments
+ - `x`: Airfoil x-coordinate starting from trailing edge looping counter-clockwise
+ - `y`: Airfoil y-coordinate starting from trailing edge looping counter-clockwise
+ - `alpha`: Angle of attacks (in degrees)
+ - `re`: Reynolds number
+ - `mach=0.0`: Mach number
+ - `iter=50`: Maximum iterations for viscous analyses
+ - `npan=140`: Number of panels
+ - `ncrit=9`: Critical amplification factor for transition
+ - `xtrip=(1.0,1.0)`: forced transition x/c locations on top/bottom sides
+ - `percussive_maintenance=false`: Call [`do_percussive_maintenance`](@ref) upon
+    convergence failure
+ - `warmstart=false`: Reuse each thread's previous solution as the initial guess
+    (marching outward from the angle nearest zero) instead of reinitializing
+    every solve. Can speed up or slow down a sweep depending on the number of
+    threads and angles.
+ - `ninstances=Threads.nthreads()`: Number of XFOIL instances (threads) to use
+"""
+alpha_sweep_threaded(x, y, alpha, re; kwargs...)
+
+"""
+    alpha_sweep_threaded_cs(x, y, alpha, re; kwargs...)
+
+`alpha_sweep_threaded` for the complex step enabled version of XFOIL (viscous).
+"""
+alpha_sweep_threaded_cs(x, y, alpha, re; kwargs...)
+
+# definition of alpha_sweep_threaded (inviscid and viscous analyses)
+alpha_sweep_threaded(x, y, alpha; kwargs...) =
+    run_threaded_sweep(Float64, x, y, alpha; kwargs...)
+alpha_sweep_threaded_cs(x, y, alpha; kwargs...) =
+    run_threaded_sweep(ComplexF64, x, y, alpha; kwargs...)
+alpha_sweep_threaded(x, y, alpha, re; kwargs...) =
+    run_threaded_sweep(Float64, x, y, alpha, re; kwargs...)
+alpha_sweep_threaded_cs(x, y, alpha, re; kwargs...) =
+    run_threaded_sweep(ComplexF64, x, y, alpha, re; kwargs...)
