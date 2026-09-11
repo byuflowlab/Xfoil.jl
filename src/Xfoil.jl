@@ -1,6 +1,7 @@
 module Xfoil
 
 using xfoil_light_jll, Printf, Libdl
+using PrecompileTools: @compile_workload
 
 export set_coordinates, pane, solve_alpha, get_xsep, bldump, cpdump, alpha_sweep
 export set_coordinates_cs, pane_cs, solve_alpha_cs, get_xsep_cs, bldump_cs, cpdump_cs, alpha_sweep_cs
@@ -41,6 +42,13 @@ function __init__()
     global xfoilglobals_cs = default_instance_cs[].globals
     atexit(close_worker_pools)
     return nothing
+end
+
+# `__init__` is not inferred while the module body is precompiled, so this is
+# what gives what it calls a place in the pkgimage.
+@compile_workload begin
+    close(XfoilInstance{Float64}(isolated=false))
+    close(XfoilInstance{ComplexF64}(isolated=false))
 end
 
 end #module
