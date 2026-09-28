@@ -4,10 +4,12 @@ authors = ["Taylor McDonnell <taylor.golden.mcdonnell@gmail.com>"]
 version = "1.2"
 
 [deps]
+PrecompileTools = "aea7be01-6a6a-4083-8856-8a6e6704d82a"
 xfoil_light_jll = "70cc596b-f351-5640-b155-76ddf0ff62ca"
 Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 Libdl = "8f399da3-3557-5675-b5ff-fb832c97cbdb"
 
 [compat]
+PrecompileTools = "1"
 julia = "1.6"
 xfoil_light_jll = "0.2.1"
